@@ -4,6 +4,7 @@ about: report an issue discovered on the lastfix dashboard
 title: 'lastfix: [VESSEL_NAME]'
 labels: bug, help wanted
 assignees: GMaynard1
+project: Priorities
 
 ---
 
