@@ -1,5 +1,5 @@
 ---
-name: Bug Report: in lastfix
+name: Bug report: in lastfix
 about: report an issue discovered on the lastfix dashboard
 title: 'lastfix: [VESSEL_NAME]'
 labels: bug, help wanted
