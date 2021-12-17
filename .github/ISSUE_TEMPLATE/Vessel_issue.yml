@@ -1,7 +1,7 @@
 name: Vessel Issue
 description: Describe an issue taking place on board a vessel
 title: "[VESSEL ISSUE] <title>"
-labels: ['bug']
+labels: ["bug"]
 assignees:
   - jamespatrickmanning
   - gmaynard1
