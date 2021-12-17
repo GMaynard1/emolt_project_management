@@ -2,6 +2,10 @@ name: Vessel Issue
 description: Describe an issue taking place on board a vessel
 title: "[VESSEL ISSUE] <title>"
 labels: [Needs Triage]
+assignees:
+  - jamespatrickmanning
+  - gmaynard1
+  - xhx509
 body:
 - type: dropdown
   id: VesselName
