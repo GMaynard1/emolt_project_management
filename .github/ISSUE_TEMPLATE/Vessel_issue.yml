@@ -4,7 +4,7 @@ title: "[VESSEL ISSUE] <title>"
 labels: [Needs Triage]
 body:
 - type: dropdown
-  id: Vessel Name
+  id: VesselName
   attributes:
     label: Vessel Name
     options:
