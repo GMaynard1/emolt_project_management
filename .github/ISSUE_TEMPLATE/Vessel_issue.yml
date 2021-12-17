@@ -10,4 +10,5 @@ body:
     options:
     - Ellen Diane
     - Virginia Marise
-      required: true
+    validations:
+     required: true
