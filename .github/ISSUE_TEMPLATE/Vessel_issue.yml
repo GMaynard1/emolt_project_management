@@ -1,0 +1,13 @@
+name: Vessel Issue
+description: Describe an issue taking place on board a vessel
+title: "[VESSEL ISSUE] <title>"
+labels: [Needs Triage]
+body:
+- type: dropdown
+  id: Vessel Name
+  attributes:
+    label: Vessel Name
+    options:
+    - Ellen Diane
+    - Virginia Marise
+      required: true
