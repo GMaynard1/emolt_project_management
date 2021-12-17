@@ -45,3 +45,22 @@ body:
     - wifi_pic.py
   validations:
     required: true
+- type: input
+  id: DateObserved
+  attributes:
+    label: Date Observed
+    placeholder: YYYY-MM-DD
+  validations:
+    required: true
+- type: textarea
+  id: symptom
+  attributes:
+    label: Symptom
+    placeholder: Please describe the symptom here
+  validations:
+    required: true
+- type: textarea
+  id: potentialFix
+  attributes:
+    label: Potential Fix
+    placeholder: If you or the captain had an idea to fix the problem, please include it here
