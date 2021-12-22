@@ -38,7 +38,7 @@ dataList=list()
 ## Loop over the .csv files in the directory
 for(i in 1:length(dir())){
   ## Read in the full file
-  temp=read.delim(dir()[i])
+  temp=read.delim(dir()[i],header=FALSE)
   ## Split off the header
   headerList[[i]]=temp[1:8,]
   ## Split off the data
