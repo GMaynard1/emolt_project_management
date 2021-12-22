@@ -1,0 +1,100 @@
+name: Lastfix Issue
+description: Describe a potential issue as identified from the [lastfix website]("https://emolt.org/lastfix.html")
+title: "[lastfix ISSUE] <title>"
+labels: ["bug"]
+assignees:
+  - jamespatrickmanning
+  - gmaynard1
+  - xhx509
+body:
+- type: dropdown
+  id: VesselName
+  attributes:
+    label: Vessel Name
+    options:
+    - Adie_Alden
+    - Adventure
+    - Alicia_Ann
+    - BantryBay
+    - Beast_of_Burden
+    - Brooke_C
+    - Charger
+    - Christi_Caroline
+    - Christy
+    - Dawn_T
+    - Debbie_Sue
+    - Devocean
+    - Donna_Marie
+    - Dorcas_Anne
+    - Dyrsten
+    - Elizabeth_Katherine
+    - Ellen_Diane
+    - Excalibur
+    - Finlander_I
+    - Finlander_II
+    - Flicka
+    - Fremantle_Doctor
+    - Happy_Trails
+    - Hound_Dog
+    - Illusion
+    - Lady_Claire
+    - Lady_Jane
+    - Lady_Rebecca
+    - Lery_Charles
+    - Lina_Rose
+    - Linda_Marie
+    - Lisa_Ann_III
+    - Mary_Elizabeth
+    - Mary_K
+    - Michelle_Jean_II
+    - Miss_Lilly
+    - Mister_G
+    - Moragh_K
+    - Mussel_Point
+    - Mystic
+    - Nathaniel_Lee
+    - Nicole_Leigh
+    - Proud_Mary
+    - Resolve
+    - Rolex
+    - Rueby
+    - Sao_Paulo
+    - Tenacious_II
+    - Terri_Ann
+    - Tina_Marie
+    - Tom_Slaughter
+    - Tribiah_Lee
+    - Virginia_Marie
+    - Virginia_Marise
+    - Wendy_Lee
+  validations:
+    required: true
+- type: dropdown
+  id: IssueType
+  attributes:
+    label: Issue Type
+    options:
+    - Fishing activity reported, but no telemetry data
+    - Fishing activity reported, but no wi-fi uploads within the last month
+    - No fishing activity reported
+    - Maximum observed depth > 15% different from NGDC bottom depth
+    - Other issue (please explain below)
+  validations:
+    required: true
+- type: input
+  id: DateObserved
+  attributes:
+    label: Date Observed
+    placeholder: YYYY-MM-DD
+  validations:
+    required: true
+- type: textarea
+  id: symptom
+  attributes:
+    label: Symptom
+    placeholder: Please describe the symptom here
+- type: textarea
+  id: potentialFix
+  attributes:
+    label: Potential Fix
+    placeholder: If you or the captain had an idea to fix the problem, please include it here
