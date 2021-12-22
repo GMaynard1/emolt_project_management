@@ -38,11 +38,11 @@ dataList=list()
 ## Loop over the .csv files in the directory
 for(i in 1:length(dir())){
   ## Read in the full file
-  temp=read.delim(dir()[i])
+  temp=read.delim(dir()[i],header=FALSE)
   ## Split off the header
-  headerList[[i]]=temp[1:8,]
+  headerList[[i]]=temp[1:9,]
   ## Split off the data
-  dataList[[i]]=temp[10:nrow(temp),]
+  dataList[[i]]=temp[11:nrow(temp),]
   ## Check the header against previous headers to make sure 
   ## they are all the same
   if(i > 1){
@@ -64,7 +64,7 @@ for(i in 1:length(dir())){
 data=unlist(dataList,recursive=FALSE)
 
 ## Attach a header and column titles to create a new object
-newdata=c(headerList[[1]],temp[9,],data)
+newdata=c(headerList[[1]],temp[10,],data)
 
 ## Print the new object out to a file
 write(
