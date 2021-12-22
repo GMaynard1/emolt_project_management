@@ -2,8 +2,6 @@ name: Enhancement / Feature Suggestion
 description: Describe a way to make eMOLT better
 title: "[Suggested Feature:] <title>"
 labels: ["enhancement"]
-assignees:
-
 body:
 - type: dropdown
   id: Category
@@ -14,6 +12,7 @@ body:
     - Data Storage
     - Deck Box Software
     - Hardware
+    - Miscellaneous
     - Vessel Troubleshooting
     - Website
   validations:
