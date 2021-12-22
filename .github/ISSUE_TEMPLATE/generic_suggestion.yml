@@ -1,0 +1,25 @@
+name: Enhancement / Feature Suggestion
+description: Describe a way to make eMOLT better
+title: "[Suggested Feature:] <title>"
+labels: ["enhancement"]
+assignees:
+
+body:
+- type: dropdown
+  id: Category
+  attributes:
+    label: Suggestion Category
+    options:
+    - Data Processing
+    - Data Storage
+    - Deck Box Software
+    - Hardware
+    - Vessel Troubleshooting
+    - Website
+  validations:
+    required: true
+- type: textarea
+  id: suggestion
+  attributes:
+    label: Suggestion Description
+    placeholder: Please describe the feature you would like to see
