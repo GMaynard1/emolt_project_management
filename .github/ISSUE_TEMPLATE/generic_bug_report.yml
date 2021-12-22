@@ -2,8 +2,6 @@ name: Bug
 description: Describe a bug outside of lastfix or vessel issues
 title: "[BUG:] <title>"
 labels: ["bug"]
-assignees:
-
 body:
 - type: dropdown
   id: VesselName
