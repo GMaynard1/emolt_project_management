@@ -4,7 +4,7 @@ CREATE TABLE `FUNDING` (
   `START_DATE` datetime NOT NULL COMMENT 'When the funding becomes available',
   `END_DATE` datetime NOT NULL COMMENT 'When the funding should be used by',
   `FUNDING_AMOUNT_USD` integer NOT NULL COMMENT 'How much funding was received (in US Dollars)',
-  `PROPOSAL_LINK` varchar(65000) COMMENT 'Google drive link to funding proposal',
+  `PROPOSAL_LINK` varchar(255) COMMENT 'Google drive link to funding proposal',
   
   PRIMARY KEY (`FUNDING_ID`)
 ) COMMENT='This table stores information that will assist in tracking how eMOLT is funded';
