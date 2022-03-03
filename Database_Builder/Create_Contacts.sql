@@ -8,7 +8,7 @@ CREATE TABLE `CONTACTS` (
   `PREFERRED_CONTACT` SET('CALL_PHONE','CALL_MOBILE','TXT_MOBILE','EMAIL') COMMENT 'Preferred method of contact',
   `STREET_1` varchar(50) COMMENT 'Street address line 1',
   `STREET_2` varchar(50) COMMENT 'Street address line 2 (if applicable)',
-  `CITY` varchar(50) 'City of addressee',
+  `CITY` varchar(50) COMMENT 'City of addressee',
   `STATE_POSTAL` varchar(2) COMMENT 'Two character abbreviation of state or province used by postal service',
   `ZIP` varchar(5) COMMENT 'Postal code',
   `ROLE` set('ACTIVE_SUPPORT','ACTIVE_INDUSTRY','ACTIVE_ADMIN','ACTIVE_INACTIVE') NOT NULL COMMENT 'A way of categorizing contacts',
