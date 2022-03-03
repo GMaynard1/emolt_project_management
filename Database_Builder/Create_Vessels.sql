@@ -10,6 +10,8 @@ CREATE TABLE `VESSELS` (
   `HULL_NUMBER` varchar(30) NOT NULL COMMENT 'The vessel number issued by the federal or state government',
   
   PRIMARY KEY ('VESSEL_ID'),
+  
+  -----NEED TO UPDATE SYNTAX ON ALL OF THESE KEYS
   KEY `fkIdx_100` (`PORT`),
   CONSTRAINT `FK_100` FOREIGN KEY `fkIdx_100` (`PORT`) REFERENCES `PORTS` (`PORT`),
   KEY `fkIdx_101` (`OWNER`),
