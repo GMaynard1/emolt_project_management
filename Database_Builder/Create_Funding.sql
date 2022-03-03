@@ -1,5 +1,5 @@
 CREATE TABLE `FUNDING` (
-  `FUNDING_ID` integer NOT NULL AUTO INCREMENT COMMENT 'A unique identifier used in this database only',
+  `FUNDING_ID` integer NOT NULL AUTO_INCREMENT COMMENT 'A unique identifier used in this database only',
   `FUNDING_AGENCY` varchar(50) NOT NULL COMMENT 'Human readable identifier of funding agency',
   `START_DATE` datetime NOT NULL COMMENT 'When the funding becomes available',
   `END_DATE` datetime NOT NULL COMMENT 'When the funding should be used by',
