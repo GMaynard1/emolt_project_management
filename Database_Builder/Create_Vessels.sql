@@ -9,17 +9,21 @@ CREATE TABLE `VESSELS` (
   `PRIMARY_FISHERY` varchar(50) NOT NULL COMMENT 'The primary fishery prosecuted by the vessel',
   `HULL_NUMBER` varchar(30) NOT NULL COMMENT 'The vessel number issued by the federal or state government',
   
-  PRIMARY KEY ('VESSEL_ID'),
+  PRIMARY KEY (`VESSEL_ID`),
   
-  -----NEED TO UPDATE SYNTAX ON ALL OF THESE KEYS
-  KEY `fkIdx_100` (`PORT`),
-  CONSTRAINT `FK_100` FOREIGN KEY `fkIdx_100` (`PORT`) REFERENCES `PORTS` (`PORT`),
-  KEY `fkIdx_101` (`OWNER`),
-  CONSTRAINT `FK_101` FOREIGN KEY `fkIdx_101` (`OWNER`) REFERENCES `CONTACTS` (`CONTACT_ID`),
-  KEY `fkIdx_102` (`OPERATOR`),
-  CONSTRAINT `FK_102` FOREIGN KEY `fkIdx_102` (`OPERATOR`) REFERENCES `CONTACTS` (`CONTACT_ID`),
-  KEY `fkIdx_103` (`PRIMARY_CONTACT`),
-  CONSTRAINT `FK_103` FOREIGN KEY `fkIdx_103` (`PRIMARY_CONTACT`) REFERENCES `CONTACTS` (`CONTACT_ID`),
-  KEY `fkIdx_104` (`PRIMARY_GEAR`),
-  CONSTRAINT `FK_104` FOREIGN KEY `fkIdx_104` (`PRIMARY_GEAR`) REFERENCES `GEAR_CODES` (`GEAR_CODE`),
+  CONSTRAINT fk_Port
+  FOREIGN KEY (`PORT`) 
+    REFERENCES PORTS(PORT),
+  CONSTRAINT fk_Owner
+  FOREIGN KEY (`OWNER`)
+    REFERENCES CONTACTS(CONTACT_ID),
+  CONSTRAINT fk_Operator
+  FOREIGN KEY (`OPERATOR`)
+    REFERENCES CONTACTS(CONTACT_ID),
+  CONSTRAINT fk_PrimaryContact
+  FOREIGN KEY (`PRIMARY_CONTACT`)
+    REFERENCES CONTACTS(CONTACT_ID),
+  CONSTRAINT fk_PrimaryGear
+  FOREIGN KEY(`PRIMARY_GEAR`),
+    REFERENCES GEAR_CODES(GEAR_CODE)
 ) COMMENT='This table stores information about vessels involved in the program, who owns and operates them, where they are based, and what fisheries they participate in.';
