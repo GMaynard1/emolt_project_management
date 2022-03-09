@@ -20,4 +20,4 @@ CREATE TABLE `EQUIPMENT_INVENTORY` (
   CONSTRAINT fk_Custodian 
     FOREIGN KEY (`CUSTODIAN`) 
       REFERENCES CONTACTS(CONTACT_ID)
-)
+) COMMENT='This table stores information regarding the current disposition of equipment owned by the eMOLT program';
