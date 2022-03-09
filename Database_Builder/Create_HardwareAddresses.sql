@@ -9,4 +9,4 @@ CREATE TABLE `HARDWARE_ADDRESSES` (
   CONSTRAINT fk_InventoryID
     FOREIGN KEY (`INVENTORY_ID`) 
       REFERENCES EQUIPMENT_INVENTORY(INVENTORY_ID)
-)
+) COMMENT='This table stores information about hardware addressess assigned to particular sensors or other items in the equipment inventory. They are recorded separately because they can change if equipment is refurbished by the manufacturer';
