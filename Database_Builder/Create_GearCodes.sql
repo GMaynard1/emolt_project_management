@@ -7,5 +7,5 @@ CREATE TABLE `GEAR_CODES`(
   `NEGEAR` varchar(3) COMMENT 'Gear coding equivalent for CFDBS an OBDBS',
   `FMCODE` varchar(1) NOT NULL 'Gear category type indicator; F=fixed, M=mobile, O=other',
   
-  PRIMARY KEY (`GEAR_CODE`)
+  PRIMARY KEY (`GEAR_CODE`),
 ) COMMENT='This table is columns 1-4, 6, 27, and 30 from FVTR.FVTR_GEAR_CODES@sole. It contains both human readable and standard codes for all gear types categorized by ACCSP and NEFSC.'; 
