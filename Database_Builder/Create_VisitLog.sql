@@ -4,7 +4,7 @@ CREATE TABLE `VESSEL_VISIT_LOG`(
   `VISIT_DATE` datetime NOT NULL COMMENT 'The date when the vessel was visited.',
   `LEAD_TECH` integer NOT NULL COMMENT 'Who was the senior technician on site during the visit? References CONTACTS.CONTACT_ID',
   `PORT` integer NOT NULL COMMENT 'Where the visit took place',
-  `VISIT_NOTES` text COMMENT 'Any additional notes about the visit'
+  `VISIT_NOTES` text COMMENT 'Any additional notes about the visit',
   
   PRIMARY KEY (`VISIT_ID`),
   
@@ -16,5 +16,5 @@ CREATE TABLE `VESSEL_VISIT_LOG`(
     REFERENCES PORTS(PORT),
   CONSTRAINT fk_LeadTech
   FOREIGN KEY (`LEAD_TECH`)
-    REFERENCES CONTACTS(CONTACT_ID),  
+    REFERENCES CONTACTS(CONTACT_ID)  
 ) COMMENT='This table records visits of technicians to ports to service eMOLT systems or install new systems.';
