@@ -2,7 +2,7 @@ CREATE TABLE `HARDWARE_ADDRESSES` (
   `HARDWARE_ID` integer NOT NULL AUTO_INCREMENT COMMENT 'A unique identifier used in this database only',
   `INVENTORY_ID` integer COMMENT 'Foreign key from EQUIPMENT_INVENTORY',
   `ADDRESS_TYPE` varchar(50) COMMENT 'Type of address (e.g., MAC, Satellite, Bluetooth)',
-  `HARDWARE_ADDRESS` varchar(100) COMMENT 'The actual address'
+  `HARDWARE_ADDRESS` varchar(100) COMMENT 'The actual address',
   
   PRIMARY KEY (`HARDWARE_ID`),
   
