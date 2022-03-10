@@ -1,5 +1,5 @@
 CREATE TABLE `GEAR_CODES`(
-  `GEAR_CODE` varchar(6) NOT NULL COMMENT 'Concatenation of ACCSP and VTR gear codes used to map gears between the two data sets'
+  `GEAR_CODE` varchar(6) NOT NULL COMMENT 'Concatenation of ACCSP and VTR gear codes used to map gears between the two data sets',
   `ACCSP_GEAR_CODE` varchar(3) NOT NULL COMMENT 'ACCSP gear code',
   `VTR_GEAR_CODE` varchar(3) COMMENT 'VTR gear code',
   `VTR_GEAR_NAME` varchar(80) COMMENT 'VTR gear code description',
