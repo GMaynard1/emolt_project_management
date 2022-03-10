@@ -3,7 +3,7 @@ CREATE TABLE `VESSEL_VISIT_LOG`(
   `VESSEL_ID` integer NOT NULL COMMENT 'References VESSELS.VESSEL_ID. Which vessel was visited.',
   `VISIT_DATE` datetime NOT NULL COMMENT 'The date when the vessel was visited.',
   `LEAD_TECH` integer NOT NULL COMMENT 'Who was the senior technician on site during the visit? References CONTACTS.CONTACT_ID',
-  `PORT` integer NOT NULL COMMENT 'Where the visit took place',
+  `PORT` varchar(6) NOT NULL COMMENT 'Where the visit took place',
   `VISIT_NOTES` text COMMENT 'Any additional notes about the visit',
   
   PRIMARY KEY (`VISIT_ID`),
