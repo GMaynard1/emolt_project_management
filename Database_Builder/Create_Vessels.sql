@@ -24,6 +24,6 @@ CREATE TABLE `VESSELS` (
   FOREIGN KEY (`PRIMARY_CONTACT`)
     REFERENCES CONTACTS(CONTACT_ID),
   CONSTRAINT fk_PrimaryGear
-  FOREIGN KEY(`PRIMARY_GEAR`),
+  FOREIGN KEY(`PRIMARY_GEAR`)
     REFERENCES GEAR_CODES(GEAR_CODE)
 ) COMMENT='This table stores information about vessels involved in the program, who owns and operates them, where they are based, and what fisheries they participate in.';
