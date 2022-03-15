@@ -5,7 +5,7 @@ CREATE TABLE `CONTACTS` (
   `PHONE` varchar(10) COMMENT 'Phone number in format xxxxxxxxxx',
   `MOBILE` varchar(10) COMMENT 'Mobile phone number in format xxxxxxxxxx',
   `EMAIL` varchar(50) COMMENT 'Email address',
-  `PREFERRED_CONTACT` SET('CALL_PHONE','CALL_MOBILE','TXT_MOBILE','EMAIL') COMMENT 'Preferred method of contact',
+  `PREFERRED_CONTACT` SET('CALL_PHONE','CALL_MOBILE','TXT_MOBILE','EMAIL','MAIL','NO CONTACT') COMMENT 'Preferred method of contact',
   `STREET_1` varchar(50) COMMENT 'Street address line 1',
   `STREET_2` varchar(50) COMMENT 'Street address line 2 (if applicable)',
   `CITY` varchar(50) COMMENT 'City of addressee',
