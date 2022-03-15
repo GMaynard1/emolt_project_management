@@ -11,7 +11,7 @@ CREATE TABLE `CONTACTS` (
   `CITY` varchar(50) COMMENT 'City of addressee',
   `STATE_POSTAL` varchar(2) COMMENT 'Two character abbreviation of state or province used by postal service',
   `ZIP` varchar(6) COMMENT 'Postal code, 5 characters for USA and 6 for Canada',
-  `ROLE` set('ACTIVE_SUPPORT','ACTIVE_INDUSTRY','ACTIVE_ADMIN','INACTIVE') NOT NULL COMMENT 'A way of categorizing contacts',
+  `ROLE` set('ACTIVE_SUPPORT','ACTIVE_INDUSTRY','ACTIVE_ADMIN','INACTIVE','DATA_USER') NOT NULL COMMENT 'A way of categorizing contacts',
   
   PRIMARY KEY (`CONTACT_ID`)
   
