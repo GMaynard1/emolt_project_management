@@ -20,7 +20,7 @@ library(dplyr)
 ## Read in the EMOLT_PEOPLE table to convert to CONTACTS format
 people=read.csv(file.choose())
 ## Some fields are deprecated and can be removed. Keep only what's needed
-people=select(people,LAST_NAME,FIRST_NAME,PHONE_HOME,EMAIL_HOME,EMAIL_BOAT,TITLE,PHONE_CELL,STREET_ADDRESS,INSTITUTE,VESSEL,TOWN,STATE,ZIP)
+people=select(people,LAST_NAME,FIRST_NAME,PHONE_HOME,EMAIL_HOME,EMAIL_BOAT,TITLE,PHONE_CELL,STREET_ADDRESS,INSTITUTE,VESSEL,TOWN,STATE,ZIP,HOME_PORT,HOME_STATE)
 ## Create a vector of First Names -- all uppercase
 FIRST_NAME=toupper(people$FIRST_NAME)
 ## Create a vector of Last Names -- all uppercase
@@ -40,11 +40,13 @@ MOBILE=gsub(
   MOBILE
 )
 ## Create a standardized email column, prioritizing home emails over vessel emails
-EMAIL=ifelse(
-  people$EMAIL_HOME!="",
-  people$EMAIL_HOME,
-  people$EMAIL_BOAT
-)
+EMAIL=toupper(
+  ifelse(
+    people$EMAIL_HOME!="",
+    people$EMAIL_HOME,
+    people$EMAIL_BOAT
+    )
+  )
 ## Read in street addresses and convert to all upper case
 STREET_1=toupper(people$STREET_ADDRESS)
 ## Read in city names and convert to all upper case
@@ -92,6 +94,16 @@ ROLE=ifelse(
     "SOUTH SHORE LOBSTERMEN"),
   "ACTIVE_INDUSTRY",
   ROLE
+)
+## Add in vessel and home port columns to facilitate matching to other tables
+VESSEL=toupper(
+  people$VESSEL
+)
+HOME_PORT=toupper(
+  people$HOME_PORT
+)
+HOME_STATE=toupper(
+  people$HOME_STATE
 )
 ## Combine all columns into the new table format
 CONTACTS=data.frame(
