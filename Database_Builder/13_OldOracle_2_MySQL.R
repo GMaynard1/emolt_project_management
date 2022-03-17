@@ -110,7 +110,6 @@ CONTACTS=data.frame(
   FIRST_NAME,
   LAST_NAME,
   PHONE,
-  MOBILE,
   EMAIL,
   PREFERRED_CONTACT=NA,
   STREET_1,
@@ -120,4 +119,8 @@ CONTACTS=data.frame(
   ZIP,
   ROLE=NA
 )
-
+write.csv(
+  CONTACTS,
+  "C:/Users/george.maynard/Documents/eMOLT-db/Uploads/Independent_Tables/Contacts_pt1.csv",
+  row.names=FALSE
+)
