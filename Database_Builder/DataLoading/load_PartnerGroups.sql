@@ -1,0 +1,6 @@
+LOAD DATA INFILE '/var/lib/mysql-files/Independent_Tables/Partners.csv'
+INTO TABLE PARTNER_GROUPS
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '/n'
+IGNORE 1 ROWS;
