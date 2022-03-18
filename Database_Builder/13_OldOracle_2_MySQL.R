@@ -40,6 +40,12 @@ MOBILE=gsub(
   "",
   MOBILE
 )
+## Merge mobile and phone into one column, preferring mobile
+PHONE=ifelse(
+  MOBILE!="",
+  MOBILE,
+  PHONE
+)
 ## Create a standardized email column, prioritizing home emails over vessel emails
 EMAIL=toupper(
   ifelse(
