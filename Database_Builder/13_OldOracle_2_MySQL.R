@@ -115,16 +115,16 @@ HOME_STATE=toupper(
 ## Combine all columns into the new table format, removing leading and trailing
 ##    whitespaces
 CONTACTS=data.frame(
-  str_trim(FIRST_NAME),
-  str_trim(LAST_NAME),
-  str_trim(PHONE),
-  str_trim(EMAIL),
+  FIRST_NAME=str_trim(FIRST_NAME),
+  LAST_NAME=str_trim(LAST_NAME),
+  PHONE=str_trim(PHONE),
+  EMAIL=str_trim(EMAIL),
   PREFERRED_CONTACT=NA,
-  str_trim(STREET_1),
+  STREET1=str_trim(STREET_1),
   STREET_2=NA,
-  str_trim(CITY),
-  str_trim(STATE_POSTAL),
-  str_trim(ZIP),
+  CITY=str_trim(CITY),
+  STATE_POSTAL=str_trim(STATE_POSTAL),
+  ZIP=str_trim(ZIP),
   ROLE=NA
 )
 write.csv(
