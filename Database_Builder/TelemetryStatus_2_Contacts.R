@@ -15,29 +15,30 @@
 ##  work from the raw version of the file available on Google drive
 ##
 ## ---------------------------
+library(stringr)
 ## Read in the file
 ts=read.csv(file.choose())
 ## Standardize fields and recombine
 CONTACTS=data.frame(
-  FIRST_NAME=toupper(ts$FIRST_NAME),
-  LAST_NAME=toupper(ts$LAST_NAME),
-  PHONE=gsub(
+  FIRST_NAME=str_trim(toupper(ts$FIRST_NAME)),
+  LAST_NAME=str_trim(toupper(ts$LAST_NAME)),
+  PHONE=str_trim(gsub(
     "-",
     "",
     ts$PHONE
-  ),
-  EMAIL=toupper(ts$EMAIL),
+  )),
+  EMAIL=str_trim(toupper(ts$EMAIL)),
   PREFERRED_CONTACT=NA,
-  STREET_1=toupper(ts$STREET_1),
+  STREET_1=str_trim(toupper(ts$STREET_1)),
   STREET_2=NA,
-  CITY=toupper(ts$CITY),
-  STATE_POSTAL=toupper(ts$STATE_POSTAL),
-  ZIP=ifelse(
+  CITY=str_trim(toupper(ts$CITY)),
+  STATE_POSTAL=str_trim(toupper(ts$STATE_POSTAL)),
+  ZIP=str_trim(ifelse(
     nchar(ts$ZIP)==4,
     paste0(0,ts$ZIP),
     ts$ZIP
-  ),
-  ROLE=ts$ROLE
+  )),
+  ROLE=str_trim(ts$ROLE)
 )
 ## Write the clean data out to a new file called Contacts_pt2.csv
 write.csv(
