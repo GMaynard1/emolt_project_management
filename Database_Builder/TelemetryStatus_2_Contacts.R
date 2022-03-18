@@ -1,0 +1,47 @@
+## ---------------------------
+## Script name: TelemetryStatus_2_Contacts.R
+##
+## Purpose of script: To convert a modified version of the telemetry_status
+##    Google sheet into the format of the new emolt_dev.CONTACTS table.
+##
+## Date Created: 2022-03-18
+##
+## Copyright (c) NOAA Fisheries, 2022
+##
+## Email: george.maynard@noaa.gov
+##
+## ---------------------------
+## Notes: Requires access to a modified version of telemetry_status and will not
+##  work from the raw version of the file available on Google drive
+##
+## ---------------------------
+## Read in the file
+ts=read.csv(file.choose())
+## Standardize fields and recombine
+CONTACTS=data.frame(
+  FIRST_NAME=toupper(ts$FIRST_NAME),
+  LAST_NAME=toupper(ts$LAST_NAME),
+  PHONE=gsub(
+    "-",
+    "",
+    ts$PHONE
+  ),
+  EMAIL=toupper(ts$EMAIL),
+  PREFERRED_CONTACT=NA,
+  STREET_1=toupper(ts$STREET_1),
+  STREET_2=NA,
+  CITY=toupper(ts$CITY),
+  STATE_POSTAL=toupper(ts$STATE_POSTAL),
+  ZIP=ifelse(
+    nchar(ts$ZIP)==4,
+    paste0(0,ts$ZIP),
+    ts$ZIP
+  ),
+  ROLE=ts$ROLE
+)
+## Write the clean data out to a new file called Contacts_pt2.csv
+write.csv(
+  CONTACTS,
+  "C:/Users/george.maynard/Documents/eMOLT-db/Uploads/Independent_Tables/Contacts_pt2.csv",
+  row.names=FALSE
+)
