@@ -32,39 +32,90 @@ pt2$ID=gsub(
   "",
   paste0(pt2$FIRST_NAME,pt2$LAST_NAME)
 )
-## Print a list of duplicate values
-select(
-  subset(
-    pt1,
-    pt1$ID%in%pt2$ID
-  ),
-  FIRST_NAME,
-  LAST_NAME
-)
-duplicates1=subset(
-  pt1,
-  pt1$ID%in%pt2$ID
-)
-duplicates1=duplicates1[order(duplicates1$LAST_NAME),]
-duplicates2=subset(
-  pt2,
-  pt2$ID%in%pt1$ID
-)
-duplicates2=duplicates2[order(duplicates2$LAST_NAME),]
-## Check to see if information matches exactly
-for(i in 1:nrow(duplicates1)){
-  print(paste(duplicates1$FIRST_NAME[i],duplicates1$LAST_NAME[i],sep=" "))
-  if(duplicates1[i,3]!=duplicates2[i,3]){
-    print(c(duplicates1[i,3],duplicates2[i,3]))
+## If the ID exists in both tables, remove it from the older table and update 
+##    the newer table to be as complete as possible
+for(i in 1:nrow(pt2)){
+  if(pt2$ID[i]%in%pt1$ID){
+    pt2$PHONE[i]=ifelse(
+      pt2$PHONE[i]=="",
+      pt1$PHONE[which(pt1$ID==pt2$ID[i])],
+      pt2$PHONE[i]
+      )
+    pt2$EMAIL[i]=ifelse(
+      pt2$EMAIL[i]=="",
+      pt1$EMAIL[which(pt1$ID==pt2$ID[i])],
+      pt2$EMAIL[i]
+    )
+    pt2$STREET_1[i]=ifelse(
+      pt2$STREET_1[i]=="",
+      pt1$STREET_1[which(pt1$ID==pt2$ID[i])],
+      pt2$STREET_1[i]
+    )
+    pt2$CITY[i]=ifelse(
+      pt2$CITY[i]=="",
+      pt1$CITY[which(pt1$ID==pt2$ID[i])],
+      pt2$CITY[i]
+    )
+    pt2$STATE_POSTAL[i]=ifelse(
+      pt2$STATE_POSTAL[i]=="",
+      pt1$STATE_POSTAL[which(pt1$ID==pt2$ID[i])],
+      pt2$STATE_POSTAL[i]
+    )
+    pt2$ZIP[i]=ifelse(
+      pt2$ZIP[i]=="",
+      pt1$ZIP[which(pt1$ID==pt2$ID[i])],
+      pt2$ZIP[i]
+    )
+    ## Remove the duplicate contact from the older sheet
+    pt1=pt1[-which(pt1$ID==pt2$ID[i]),]
   }
-  if(duplicates1[i,4]!=duplicates2[i,4]){
-    print(c(duplicates1[i,4],duplicates2[i,4]))
-  }
-  if(duplicates1[i,6]!=duplicates2[i,6]){
-    print(c(duplicates1[i,6],duplicates2[i,6]))
-  }
-  if(duplicates1[i,8]!=duplicates2[i,8]){
-    print(c(duplicates1[i,8],duplicates2[i,8]))
-  }
-  print("----------")
 }
+## Merge the two data sets
+CONTACTS=rbind(pt1,pt2)
+## Remove the now unecessary ID column
+CONTACTS$ID=NULL
+## Add a new empty column to facilitate upload to the database
+CONTACTS$CONTACT_ID=0
+## Export the table to a .csv file
+write.csv(
+  CONTACTS,
+  "C:/Users/george.maynard/Documents/eMOLT-db/Uploads/Independent_Tables/Contacts.csv",
+  row.names=FALSE
+)
+
+# ## Print a list of duplicate values
+# select(
+#   subset(
+#     pt1,
+#     pt1$ID%in%pt2$ID
+#   ),
+#   FIRST_NAME,
+#   LAST_NAME
+# )
+# duplicates1=subset(
+#   pt1,
+#   pt1$ID%in%pt2$ID
+# )
+# duplicates1=duplicates1[order(duplicates1$LAST_NAME),]
+# duplicates2=subset(
+#   pt2,
+#   pt2$ID%in%pt1$ID
+# )
+# duplicates2=duplicates2[order(duplicates2$LAST_NAME),]
+# ## Check to see if information matches exactly
+# for(i in 1:nrow(duplicates1)){
+#   print(paste(duplicates1$FIRST_NAME[i],duplicates1$LAST_NAME[i],sep=" "))
+#   if(duplicates1[i,3]!=duplicates2[i,3]){
+#     print(c(duplicates1[i,3],duplicates2[i,3]))
+#   }
+#   if(duplicates1[i,4]!=duplicates2[i,4]){
+#     print(c(duplicates1[i,4],duplicates2[i,4]))
+#   }
+#   if(duplicates1[i,6]!=duplicates2[i,6]){
+#     print(c(duplicates1[i,6],duplicates2[i,6]))
+#   }
+#   if(duplicates1[i,8]!=duplicates2[i,8]){
+#     print(c(duplicates1[i,8],duplicates2[i,8]))
+#   }
+#   print("----------")
+# }
