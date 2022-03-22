@@ -19,7 +19,7 @@ library(dplyr)
 library(stringr)
 ## ---------------------------
 ## Read in the EMOLT_PEOPLE table to convert to CONTACTS format
-people=read.csv(file.choose())
+people=read.csv("C:/Users/george.maynard/Documents/eMOLT-db/Uploads/Old_Formats/EMOLT_PEOPLE.csv")
 ## Some fields are deprecated and can be removed. Keep only what's needed
 people=select(people,LAST_NAME,FIRST_NAME,PHONE_HOME,EMAIL_HOME,EMAIL_BOAT,TITLE,PHONE_CELL,STREET_ADDRESS,INSTITUTE,VESSEL,TOWN,STATE,ZIP,HOME_PORT,HOME_STATE)
 ## Create a vector of First Names -- all uppercase
@@ -120,7 +120,7 @@ CONTACTS=data.frame(
   PHONE=str_trim(PHONE),
   EMAIL=str_trim(EMAIL),
   PREFERRED_CONTACT=NA,
-  STREET1=str_trim(STREET_1),
+  STREET_1=str_trim(STREET_1),
   STREET_2=NA,
   CITY=str_trim(CITY),
   STATE_POSTAL=str_trim(STATE_POSTAL),
