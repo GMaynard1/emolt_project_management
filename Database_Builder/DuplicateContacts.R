@@ -45,7 +45,26 @@ duplicates1=subset(
   pt1,
   pt1$ID%in%pt2$ID
 )
-duplicates1=subset(
+duplicates1=duplicates1[order(duplicates1$LAST_NAME),]
+duplicates2=subset(
   pt2,
   pt2$ID%in%pt1$ID
 )
+duplicates2=duplicates2[order(duplicates2$LAST_NAME),]
+## Check to see if information matches exactly
+for(i in 1:nrow(duplicates1)){
+  print(paste(duplicates1$FIRST_NAME[i],duplicates1$LAST_NAME[i],sep=" "))
+  if(duplicates1[i,3]!=duplicates2[i,3]){
+    print(c(duplicates1[i,3],duplicates2[i,3]))
+  }
+  if(duplicates1[i,4]!=duplicates2[i,4]){
+    print(c(duplicates1[i,4],duplicates2[i,4]))
+  }
+  if(duplicates1[i,6]!=duplicates2[i,6]){
+    print(c(duplicates1[i,6],duplicates2[i,6]))
+  }
+  if(duplicates1[i,8]!=duplicates2[i,8]){
+    print(c(duplicates1[i,8],duplicates2[i,8]))
+  }
+  print("----------")
+}
