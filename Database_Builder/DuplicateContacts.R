@@ -76,6 +76,60 @@ CONTACTS=rbind(pt1,pt2)
 CONTACTS$ID=NULL
 ## Add a new empty column to facilitate upload to the database
 CONTACTS$CONTACT_ID=0
+## Clear out any remaining problems in the telephone number column
+CONTACTS$PHONE=gsub(
+  " ",
+  "",
+  CONTACTS$PHONE
+)
+CONTACTS$PHONE=gsub(
+  "\\.",
+  "",
+  CONTACTS$PHONE
+)
+CONTACTS$PHONE=gsub(
+  "=",
+  "",
+  CONTACTS$PHONE
+)
+## Reorder columns to match database format
+col_order=c(
+  'CONTACT_ID',
+  'FIRST_NAME',
+  'LAST_NAME',
+  'PHONE',
+  'EMAIL',
+  'PREFERRED_CONTACT',
+  'STREET_1',
+  'STREET_2',
+  'CITY',
+  'STATE_POSTAL',
+  'ZIP',
+  'ROLE'
+)
+CONTACTS=CONTACTS[,col_order]
+## Set empty columns to blank
+CONTACTS$PREFERRED_CONTACT=ifelse(
+  is.na(CONTACTS$PREFERRED_CONTACT),
+  "",
+  CONTACTS$PREFERRED_CONTACT
+)
+CONTACTS$STREET_2=ifelse(
+  is.na(CONTACTS$STREET_2),
+  "",
+  CONTACTS$STREET_2
+)
+CONTACTS$ROLE=ifelse(
+  is.na(CONTACTS$ROLE),
+  "",
+  CONTACTS$ROLE
+)
+CONTACTS$ROLE=ifelse(
+  CONTACTS$ROLE=='RETIRED',
+  'INACTIVE',
+  CONTACTS$ROLE
+)
+
 ## Export the table to a .csv file
 write.csv(
   CONTACTS,

@@ -113,11 +113,7 @@ HOME_STATE=toupper(
   people$HOME_STATE
 )
 ## Update the record for Bruce Fernald to include an area code
-CONTACTS$PHONE=ifelse(
-  CONTACTS$LAST_NAME=="FERNALD"&CONTACTS$FIRST_NAME=="BRUCE",
-  paste0("207",CONTACTS$PHONE),
-  CONTACTS$PHONE
-)
+PHONE[which(CONTACTS$FIRST_NAME=="BRUCE"&CONTACTS$LAST_NAME=="FERNALD")]=paste0("207",PHONE[which(CONTACTS$FIRST_NAME=="BRUCE"&CONTACTS$LAST_NAME=="FERNALD")])
 ## Combine all columns into the new table format, removing leading and trailing
 ##    whitespaces
 CONTACTS=data.frame(
