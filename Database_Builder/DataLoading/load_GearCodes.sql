@@ -1,0 +1,6 @@
+LOAD DATA INFILE '/var/lib/mysql-files/Independent_Tables/gear_codes.csv'
+INTO TABLE GEAR_CODES
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS;
