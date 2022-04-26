@@ -1,4 +1,4 @@
-LOAD DATA INFILE '/var/lib/mysql-files/Independent_Tables/gear_codes.csv'
+LOAD DATA INFILE '/var/lib/mysql-files/Independent_Tables/Gear_All.csv'
 INTO TABLE GEAR_CODES
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
