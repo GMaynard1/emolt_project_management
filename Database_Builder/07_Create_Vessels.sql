@@ -6,7 +6,7 @@ CREATE TABLE `VESSELS` (
   `OPERATOR` integer COMMENT 'This field references CONTACTS.CONTACT_ID and identifies the operator of a vessel',
   `PRIMARY_CONTACT` integer NOT NULL COMMENT 'This field references CONTACTS.CONTACT_ID and identifies the best contact person for a vessel which could be the owner, the operator, or a fleet manager, Study Fleet tech, etc.',
   `TECHNICAL_CONTACT` integer NOT NULL COMMENT 'This field references CONTACTS.CONTACT_ID and identifies the best tech support person for a vessel which could be the owner, the operator, or a fleet manager, Study Fleet tech, etc.',
-  `PRIMARY_GEAR` varchar(6) NOT NULL COMMENT 'This field is the type of gear fished by the vessel most often and is the concatenation of ACCSP and VTR gear codes used to map gears between the two data sets available at FVTR.FVTR_GEAR_CODES@sole',
+  `PRIMARY_GEAR` varchar(6) COMMENT 'This field is the type of gear fished by the vessel most often and is the concatenation of ACCSP and VTR gear codes used to map gears between the two data sets available at FVTR.FVTR_GEAR_CODES@sole',
   `PRIMARY_FISHERY` varchar(50) COMMENT 'The primary fishery prosecuted by the vessel',
   `HULL_NUMBER` varchar(30) COMMENT 'The vessel number issued by the federal or state government',
   
