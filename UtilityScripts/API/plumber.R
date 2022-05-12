@@ -1,5 +1,6 @@
 # plumber.R
 require(plumber)
+require(RMySQL)
 source('login.R')
 
 #* Get MAC addresses associated with vessels
