@@ -39,3 +39,10 @@ GRANT SELECT ON emolt_dev.VESSEL_MAC TO 'carles'@'%';
 GRANT SELECT ON emolt_dev.VESSEL_SIM TO 'carles'@'%';
 GRANT SELECT ON emolt_dev.VESSEL_MAC TO 'carles'@'localhost';
 GRANT SELECT ON emolt_dev.VESSEL_SIM TO 'carles'@'localhost';
+
+CREATE USER 'huanxin'@'%' IDENTIFIED BY 'password';
+CREATE USER 'huanxin'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT ON emolt_test.* TO 'huanxin'@'%';
+GRANT SELECT ON emolt_test.* TO 'huanxin'@'localhost';
+GRANT SELECT ON emolt_dev.* TO 'huanxin'@'%';
+GRANT SELECT ON emolt_dev.* TO 'huanxin'@'localhost';
