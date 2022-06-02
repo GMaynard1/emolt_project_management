@@ -117,7 +117,14 @@ function(timestamp, MAC, IP){
 #* @param device_type The type of device
 #* @param serial Serial number of the device
 #* @param momsn Number of messages sent from the device
+#* @param transmit_time Timestamp of message transmission
 #* @param data Information sent in the report whether a status update or data upload
-#* @post /insert_reboot
+#* @post /getRock_API
 function(imei, device_type, serial, momsn, data){
+  print(imei)
+  print(device_type)
+  print(serial)
+  print(momsn)
+  print(transmit_time)
+  print(data)
 }
