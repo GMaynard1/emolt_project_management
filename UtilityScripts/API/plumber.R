@@ -1,7 +1,9 @@
 # plumber.R
 require(plumber)
 require(RMySQL)
+require(wkb)
 source('login.R')
+
 
 #* Get MAC addresses associated with vessels
 #* @param vessel The vessel of interest
@@ -120,11 +122,90 @@ function(timestamp, MAC, IP){
 #* @param transmit_time Timestamp of message transmission
 #* @param data Information sent in the report whether a status update or data upload
 #* @post /getRock_API
-function(imei, device_type, serial, momsn, data){
-  print(imei)
-  print(device_type)
-  print(serial)
-  print(momsn)
-  print(transmit_time)
-  print(data)
+function(imei, device_type, serial, momsn, transmit_time, data, res){
+  ## Convert the data from hex to character
+  datastring=rawToChar(
+    as.raw(
+      strtoi(
+        wkb::hex2raw(data),
+        16L
+      )
+    )
+  )
+  ## Parse the datastring into distinct elements
+  ## Latitude
+  raw=strsplit(datastring,",")[[1]][1]
+  lat=as.numeric(substr(raw,1,2))+as.numeric(substr(raw,3,nchar(raw)))/60
+  ## Longitude
+  raw=strsplit(datastring,",")[[1]][2]
+  lon=as.numeric(substr(raw,1,2))*-1-as.numeric(substr(raw,3,nchar(raw)))/60
+  ## Depth (m) 
+  ## CHECK WITH HUANXIN TO MAKE SURE THIS IS RIGHT
+  raw=substr(strsplit(datastring,",")[[1]][3],1,3)
+  depth=as.numeric(
+    paste0(
+      substr(raw,1,2),
+      ".",
+      substr(raw,3,3)
+    )
+  )
+  ## Total range of depths observed (m)
+  ## CHECK WITH HUANXIN TO MAKE SURE THIS IS RIGHT
+  raw=substr(strsplit(datastring,",")[[1]][3],4,6)
+  rangedepth=as.numeric(
+    paste0(
+      substr(raw,1,2),
+      ".",
+      substr(raw,3,3)
+    )
+  )
+  ## Soak time (minutes for mobile gear, hours for fixed gear)
+  raw=as.numeric(substr(strsplit(datastring,",")[[1]][3],7,9))
+  ## LOOK UP GEAR CODE ASSOCIATED WITH VESSEL HERE
+  if(mobile==TRUE){
+    soak=raw
+  } else {
+    soak=raw*60
+  }
+  ## Average temperature (C)
+  raw=as.numeric(substr(strsplit(datastring,",")[[1]][3],10,14))/100
+  ## Standard deviation of temperature (C)
+  ## Last four characters of MAC Address and daily average temperatures 
+  ## (up to five, fixed gear only)
+  if(mobile!=TRUE){
+    raw=strsplit(datastring,"eee")[[1]][2]
+    MAC4=substring(
+      raw,
+      seq(1,nchar(raw),4),
+      seq(4,nchar(raw),4)
+    )[1]
+    temps=substring(
+      raw,
+      seq(1,nchar(raw),4),
+      seq(4,nchar(raw),4)
+    )[2:(length(
+      substring(
+        raw,
+        seq(1,nchar(raw),4),
+        seq(4,nchar(raw),4)
+      )
+    )-1)]
+    for(i in 1:length(temps)){
+      temps[i]=paste0(
+        substr(temps[i],1,2),
+        ".",
+        substr(temps[i],3,4)
+      )
+    }
+    temps=as.numeric(temps)
+  } else {
+    raw=strsplit(datastring,"eee")[[1]][2]
+    MAC4=substring(
+      raw,
+      1,
+      4
+    )
+  }
+  res$body=datastring
+  res
 }
