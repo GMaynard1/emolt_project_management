@@ -111,3 +111,13 @@ function(timestamp, MAC, IP){
     )
   }
 }
+
+#* Record status updates and haul average data transmissions via satellite
+#* @param imei The IMEI number of the device
+#* @param device_type The type of device
+#* @param serial Serial number of the device
+#* @param momsn Number of messages sent from the device
+#* @param data Information sent in the report whether a status update or data upload
+#* @post /insert_reboot
+function(imei, device_type, serial, momsn, data){
+}
