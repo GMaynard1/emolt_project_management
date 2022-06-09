@@ -1,0 +1,9 @@
+default:
+  db_remote:
+    dbname: 'emolt_dev'
+    username: 
+    password: 
+    host: 
+    port: 
+
+    
