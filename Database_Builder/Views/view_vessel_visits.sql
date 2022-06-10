@@ -5,7 +5,7 @@
 * Purpose: Creates a view called `vessel_visits` that contains the vessel name
 *   associated with each equipment change and visit
 */ 
-CREATE OR REPLACE VIEW vessel_visits AS
+CREATE OR REPLACE VIEW zz_vessel_visits AS
 SELECT
   VESSEL_VISIT_LOG.VESSEL_ID,
   VESSEL_VISIT_LOG.VISIT_ID,

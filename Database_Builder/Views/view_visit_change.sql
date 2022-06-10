@@ -6,7 +6,7 @@
 *   VISIT_DATE, and END_INVENTORY_ID for each equipment change that has been
 *   recorded in the database
 */
-CREATE OR REPLACE VIEW visit_changes AS
+CREATE OR REPLACE VIEW zz_visit_changes AS
 SELECT 
   VESSEL_VISIT_LOG.VESSEL_ID, 
   VESSEL_VISIT_LOG.VISIT_DATE,

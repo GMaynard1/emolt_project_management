@@ -6,13 +6,13 @@
 *   hardware address types and values for all equipment listed in the view
 *   `most_recent_gear_install`
 */
-CREATE OR REPLACE VIEW all_hardware_addresses AS
+CREATE OR REPLACE VIEW zz_all_hardware_addresses AS
 SELECT 
   HARDWARE_ADDRESSES.ADDRESS_TYPE,
   HARDWARE_ADDRESSES.HARDWARE_ADDRESS,
-  most_recent_gear_install.*
+  zz_most_recent_gear_install.*
 FROM 
   HARDWARE_ADDRESSES
   INNER JOIN 
-  most_recent_gear_install
-  ON HARDWARE_ADDRESSES.INVENTORY_ID = most_recent_gear_install.END_INVENTORY_ID
+  zz_most_recent_gear_install
+  ON HARDWARE_ADDRESSES.INVENTORY_ID = zz_most_recent_gear_install.END_INVENTORY_ID
