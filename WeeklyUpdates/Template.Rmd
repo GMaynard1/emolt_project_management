@@ -1,0 +1,252 @@
+---
+title: "eMOLT Weekly Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+library(marmap)
+library(rstudioapi)
+source("../../emolt_serverside/API/API_header.R")
+today=Sys.Date()
+lastWeek=today-days(7)
+conn=dbConnector(db_config)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Weekly Update `r Sys.Date()` * </font>
+
+</center>
+
+Well here it is, the first eMOLT weekly email ever that wasn't authored by 
+**JiM Manning**. It's both an honor, and a really intimidating prospect to
+follow up in his footsteps. Throughout my career, and especially over the last 
+few weeks, I've heard time and time again that **JiM** does cooperative research
+right; that he's someone who's passionate about the ocean and the people who 
+make their livings on it. These are big shoes to fill, and I hope you'll all give me a chance and 
+stick with the eMOLT program moving forward. I haven't had a chance to meet many
+of the participating captains and crew (especially up in Maine), but I look forward to some
+quality time together at the [2023 Forum](https://mainefishermensforum.org/) and/or [Mass Lobstermen's Weekend](https://lobstermen.com/annual-weekend/). For
+those of you who won't be at either event or would like to chat before then, I'm
+reachable by email (george.maynard@noaa.gov), text, or phone call (508-299-9693).
+I look forward to working with all of you on this impressive research project
+to keep collecting data for decades more as **JiM** takes a well-deserved break (although he plans to be in touch with this group at least once each month).
+
+
+### Weekly Recap 
+
+On Tuesday, **Giovanni Gianesin** and I went Chatham to 
+install a few new instruments on the **F/V Noah**. Despite the pouring rain and
+howling wind, **Captain Doug** and crewman **Tim** worked with us to set up an RFID
+gear-in-gear-out system (to help make haul-by-haul fixed gear reporting easier for our Study Fleet partners) and an eMOLT dissolved oxygen / temperature system 
+reporting via cell modem. Thanks to **Nick Lowell** for jumping online
+that afternoon to remotely smooth over a hiccup on the deckbox. **Emma Fowler**
+was able to get on board a few vessels including the
+**F/V Nicole Leigh**, which will soon be receiving a brand new eMOLT rig. 
+**Huanxin Xu** programmed a new SD card for the
+**F/V Virginia Marise** so hopefully, one of us will be headed to Point Judith
+in the near future to get that system back online and fix any other issues
+that arise in the port between now and then. 
+
+On Wednesday, I met with **Huanxin** and **Aubrey Ellertson** from the Commercial Fisheries Research Foundation at the 
+Bourne Public Library to go through some of our data quality control checks and
+talk about ways to improve fishermen's ability to access the data they collect.
+As a reminder, if you are interested in being able to view your historic data, 
+please check out [the ODN data portal](https://www.portal.fishydata.com/login/?next=/emolt/) 
+and request an account. Your detailed data will remain confidential and viewable
+only through that secure login. 
+
+On Thursday, there was a potluck lunch to celebrate **JiM's** retirement at the
+Woods Hole Lab. A special thanks goes out to retired captain and eMOLT participant **Dave Goethel** of the **F/V Ellen Diane**, who made 
+the trek all the way down from New Hampshire for the party. **JiM's** colleagues 
+shared a few stories of his willingness to listen to others, share his knowledge,
+and do what it takes to get good science done, and **JiM** received a clamming
+basket full of beer, coffee, and French pastries.
+
+![Group_celebrating_Jims_retirement](jimRetirement.jpg)
+
+
+### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+
+Thanks to the relentless remnants of Hurricane Ian, this was a quiet week on the water. 
+
+This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
+
+```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
+dbDisconnectAll()
+conn=dbConnector(db_config)
+lastweek=Sys.Date()-days(7)
+data=dbGetQuery(
+  conn=conn,
+  statement=paste0(
+    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
+    lastweek,
+    "' AND VESSEL_ID != 23"
+  )
+)
+data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
+bath=getNOAA.bathy(
+  lon1=min(data$LONGITUDE-0.5),
+  lon2=max(data$LONGITUDE+0.5),
+  lat1=min(data$LATITUDE-0.5),
+  lat2=max(data$LATITUDE+0.5),
+  resolution=1
+)
+## Create color ramp
+blues=c(
+  "lightsteelblue4", 
+  "lightsteelblue3",
+  "lightsteelblue2", 
+  "lightsteelblue1"
+)
+## Plotting the bathymetry with different colors for land and sea
+plot(
+  bath,
+  step=100,
+  deepest.isobath=-1000,
+  shallowest.isobath=0,
+  col="darkgray",
+  image = TRUE, 
+  land = TRUE, 
+  lwd = 0.1,
+  bpal = list(
+    c(0, max(bath), "gray"),
+    c(min(bath),0,blues)
+  ),
+  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
+)
+
+
+## Plot the status report locations
+x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='red',
+  cex=2
+)
+## Plot data uploads
+x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='blue',
+  cex=2
+)
+legend(
+  'topleft',
+  col=c('blue','red'),
+  legend=c('Summary Data Upload','Status Report'),
+  pch=c(1,1),
+  bty='n',
+  bg=NULL,
+  border='black'
+)
+```
+
+![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
+
+In the figure above, you can see the approximate locations where we receieved "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. 
+
+One vessel that was out, the **F/V Terri Ann** returned some interesting results that show when Hurricane Fiona impacted their gear as it moved north towards the Maritimes around September 23rd-24th. You can see the pressure readings start to change rapidly as the storm system moves over the gear (gray line) followed by an increase in water temperature (red line). 
+
+
+```{r coolPlot,dev='png',echo=FALSE, fig.width=8, fig.height=6}
+## Read in the data file
+filename = "C:/Users/george.maynard/Downloads/li_7ae3_20220929_210554.csv"
+## Open a connection to the file
+con=file(filename)
+## Dump the whole file
+open(con)
+all=readLines(
+  con=con
+)
+close(con)
+## Some line will have the column names
+col_names=which(grepl("Lat,Lon,Temp",all))
+## The lines above that contain metadata
+metadata=as.list(all[1:col_names])
+VESSEL_NAME=vessel_name(strsplit(metadata[[which(grepl("Vessel Name",metadata))]],split=",")[[1]][2])
+## Read in the remainder of the file
+data=read.table(text=all[(col_names+1):length(all)],sep=",")
+colnames(data)=ifelse(
+  grepl(" ", tolower(strsplit(all[col_names][[1]],split=",")[[1]]))==TRUE,
+  gsub(tolower(strsplit(all[col_names][[1]],split=",")[[1]])," ",""),
+  tolower(strsplit(all[col_names][[1]],split=",")[[1]])
+)
+## Convert all numeric variables to numeric format
+data$lat=as.numeric(data$lat)
+data$lon=as.numeric(data$lon)
+data$`temperature(c)`=as.numeric(data$`temperature(c)`)
+## Convert latitude and longitude to the correct format
+data$LATITUDE=as.numeric(substr(data$lat,1,2))+as.numeric(substr(data$lat,3,nchar(data$lat)))/60
+data$LONGITUDE=(as.numeric(substr(data$lon,1,2))+as.numeric(substr(data$lon,3,nchar(data$lon)))/60)*-1
+## Convert the timestamp to the correct format
+data$TIMESTAMP=ymd_hms(data$`datet(gmt)`)
+## Convert the temp and depth to imperial units
+data$TEMPERATURE=data$`temperature(c)`*1.8+32
+data$DEPTH=data$`depth(m)`*0.546807
+## Save the bottom 75% of depths
+data=subset(
+  data,
+  data$DEPTH>0.75*max(data$DEPTH)
+)
+## Trim bottom temperature records to allow probe to equilibrate
+data=subset(
+  data,
+  data$TEMPERATURE<1.05*min(data$TEMPERATURE)
+)
+## Plot the depths
+par(mar = c(5, 4, 4, 4) + 0.3)
+plot(
+  data$DEPTH~data$TIMESTAMP,
+  xlab="",
+  ylab='Depth (fathoms)',
+  ylim=c(rev(range(data$DEPTH))),
+  type='l',
+  main=paste0("F/V ",VESSEL_NAME),
+  col='darkgray',
+  lwd=1.5
+)
+par(new=TRUE)
+plot(
+  data$TEMPERATURE~data$TIMESTAMP,
+  xlab="",
+  ylab="",
+  axes=FALSE,
+  type='l',
+  col='red',
+  lwd=1.5
+)
+axis(side=4, at = pretty(range(data$TEMPERATURE)))
+mtext("Bottom Temperature (F)", side=4, line=3)
+legend(
+  "topleft",
+  lwd=c(1.5,1.5),
+  col=c('darkgray','red'),
+  legend=c("Depth", "Temp")
+)
+```
+
+### Announcements and Upcoming Weeks
+
+I mentioned before that I'm looking forward to meeting with many of you at the Maine Fishermen's Forum next year, but there are other opportunities for commercial fishermen and scientists to get together before then. 
+
+- The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes on **December 2, 2022**.
+
+- Woods Hole Oceanographic Institution (in collaboration with the Northeast Fisheries Science Center, Gulf of Maine Lobster Foundation, Commercial Fisheries Research Foundation, and Ocean Data Networks) is hosting a three day workshop exploring the possibility of creating an eMOLT-style biogeochemical sensor array up and down the Eastern Seaboard using fishing gear to deploy sensors. The workshop will focus on gathering input from the fishing industry, instrument manufacturers, and data users and will take place in Falmouth, MA from January 18-20, 2023. Again, there are stipends available for fishing industry members to attend. If you are interested, please fill out the [expression of interest form](https://us-ocb.us14.list-manage.com/track/click?u=be293460fdcca7c7856fb3819&id=41350bcab6&e=8760dfb114)
+
+If you'd like a hand registering for either event, have questions about them, or just want to introduce yourself please dont hesitate to reach out by email, text, or call. 
+
+All the best,
+
+-George
