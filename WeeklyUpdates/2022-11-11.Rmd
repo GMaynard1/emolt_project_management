@@ -1,0 +1,226 @@
+---
+title: "eMOLT Weekly Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+library(marmap)
+library(rstudioapi)
+source("../../emolt_serverside/API/API_header.R")
+today=Sys.Date()
+lastWeek=today-days(7)
+conn=dbConnector(db_config)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Weekly Update `r Sys.Date()` * </font>
+
+</center>
+
+### Weekly Recap 
+
+As you all know, there is no singular "eMOLT" hardware system. Every participating vessel has a slightly different configuration of sensors, computers, and transmitters. To some extent, this is by design. We want to know what works in real-world, at-sea conditions, not just on the benches in our workshop. However, as we identify things that work, we like to roll them out across the fleet. **Huanxin** and I identified five vessels that are still using the old AP3-style satellite transmitters.
+
+![AP3 Transmitter](AP3.PNG)
+
+*Figure 1 -- Older style AP3 Transmitter, previously installed on the **F/V Tenacious II***
+
+If you are on this list, we will be reaching out to you with a new SD card for your vessel as well as a new Rockblock satellite transmitter. 
+
+- **F/V Devocean**
+- **F/V Dorcas Anne**
+- **F/V Excalibur**
+- **F/V Freemantle Doctor**
+- **F/V Virginia Marise**
+
+Besides the vessels with AP3 transmitters and Rockblock transmitters, there is also a subset of eMOLT participants who report solely via a cell modem that's built in to their deckbox. 
+
+![Deck data hub on F/V Mary Elizabeth](Mary_Elizabeth_DDH.PNG)
+
+*Figure 2 -- Captain **Phil Lynch** with a cell-integrated deckbox on the **F/V Mary Elizabeth*** 
+
+**Huanxin Xu** and **Joaquim Oller** have been experimenting with getting these cell modems to work alongside the satellite transmitters. If we can get these operational, and start installing them across the fleet, it will mean you no longer have to connect to Wi-Fi hotspots to transmit your raw data to us.
+
+### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+
+This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
+
+```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
+dbDisconnectAll()
+conn=dbConnector(db_config)
+lastweek=Sys.Date()-days(7)
+data=dbGetQuery(
+  conn=conn,
+  statement=paste0(
+    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
+    lastweek,
+    "' AND VESSEL_ID != 23"
+  )
+)
+data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
+bath=getNOAA.bathy(
+  lon1=min(data$LONGITUDE-0.5),
+  lon2=max(data$LONGITUDE+0.5),
+  lat1=min(data$LATITUDE-0.5),
+  lat2=max(data$LATITUDE+0.5),
+  resolution=1
+)
+## Create color ramp
+blues=c(
+  "lightsteelblue4", 
+  "lightsteelblue3",
+  "lightsteelblue2", 
+  "lightsteelblue1"
+)
+## Plotting the bathymetry with different colors for land and sea
+plot(
+  bath,
+  step=100,
+  deepest.isobath=-1000,
+  shallowest.isobath=0,
+  col="darkgray",
+  image = TRUE, 
+  land = TRUE, 
+  lwd = 0.1,
+  bpal = list(
+    c(0, max(bath), "gray"),
+    c(min(bath),0,blues)
+  ),
+  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
+)
+
+
+## Plot the status report locations
+x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='red',
+  cex=2
+)
+## Plot data uploads
+x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='blue',
+  cex=2
+)
+legend(
+  'topleft',
+  col=c('blue','red'),
+  legend=c('Summary Data Upload','Status Report'),
+  pch=c(1,1),
+  bty='n',
+  bg=NULL,
+  border='black'
+)
+```
+
+![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
+
+In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+
+```{r coolPlot,dev='png',echo=FALSE, fig.width=8, fig.height=6}
+## Read in the data file
+filename = "C:/Users/george.maynard/Downloads/li_7ae3_20220929_210554.csv"
+## Open a connection to the file
+con=file(filename)
+## Dump the whole file
+open(con)
+all=readLines(
+  con=con
+)
+close(con)
+## Some line will have the column names
+col_names=which(grepl("Lat,Lon,Temp",all))
+## The lines above that contain metadata
+metadata=as.list(all[1:col_names])
+VESSEL_NAME=vessel_name(strsplit(metadata[[which(grepl("Vessel Name",metadata))]],split=",")[[1]][2])
+## Read in the remainder of the file
+data=read.table(text=all[(col_names+1):length(all)],sep=",")
+colnames(data)=ifelse(
+  grepl(" ", tolower(strsplit(all[col_names][[1]],split=",")[[1]]))==TRUE,
+  gsub(tolower(strsplit(all[col_names][[1]],split=",")[[1]])," ",""),
+  tolower(strsplit(all[col_names][[1]],split=",")[[1]])
+)
+## Convert all numeric variables to numeric format
+data$lat=as.numeric(data$lat)
+data$lon=as.numeric(data$lon)
+data$`temperature(c)`=as.numeric(data$`temperature(c)`)
+## Convert latitude and longitude to the correct format
+data$LATITUDE=as.numeric(substr(data$lat,1,2))+as.numeric(substr(data$lat,3,nchar(data$lat)))/60
+data$LONGITUDE=(as.numeric(substr(data$lon,1,2))+as.numeric(substr(data$lon,3,nchar(data$lon)))/60)*-1
+## Convert the timestamp to the correct format
+data$TIMESTAMP=ymd_hms(data$`datet(gmt)`)
+## Convert the temp and depth to imperial units
+data$TEMPERATURE=data$`temperature(c)`*1.8+32
+data$DEPTH=data$`depth(m)`*0.546807
+## Save the bottom 75% of depths
+data=subset(
+  data,
+  data$DEPTH>0.75*max(data$DEPTH)
+)
+## Trim bottom temperature records to allow probe to equilibrate
+data=subset(
+  data,
+  data$TEMPERATURE<1.05*min(data$TEMPERATURE)
+)
+## Plot the depths
+par(mar = c(5, 4, 4, 4) + 0.3)
+plot(
+  data$DEPTH~data$TIMESTAMP,
+  xlab="",
+  ylab='Depth (fathoms)',
+  ylim=c(rev(range(data$DEPTH))),
+  type='l',
+  main=paste0("F/V ",VESSEL_NAME),
+  col='darkgray',
+  lwd=1.5
+)
+par(new=TRUE)
+plot(
+  data$TEMPERATURE~data$TIMESTAMP,
+  xlab="",
+  ylab="",
+  axes=FALSE,
+  type='l',
+  col='red',
+  lwd=1.5
+)
+axis(side=4, at = pretty(range(data$TEMPERATURE)))
+mtext("Bottom Temperature (F)", side=4, line=3)
+legend(
+  "topleft",
+  lwd=c(1.5,1.5),
+  col=c('darkgray','red'),
+  legend=c("Depth", "Temp")
+)
+```
+![Jon_Carter](CJ01.png)
+
+### Other Science
+
+- Most of us think of the St John River as that flowing into the Gulf of Maine. Well, there is another big St John River flowing out of Jacksonville Florida.  The students at the Jacksonville Marine Lab just deployed a set of our drifters
+  last week at the mouth.  They documented the river plume dynamics and the alongshore flow to the south but unfortunately the
+units came ashore before getting into the Gulf Stream. Seeing these contraptions come ashore near  St Augustine area as shown  at:
+[JML_tracks](https://studentdrifters.org/tracks/drift_jml_2022_2.html) made a scene and it got into the news
+[msc.com_news](https://www.msn.com/en-us/video/weather/strange-contraption-washes-up-on-beach-turns-out-to-be-a-piece-of-scientific-equipment/vi-AA13KOeN?t=2). 
+
+### Announcements and Upcoming Weeks
+
+- The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes on **December 2, 2022**.
+
+All the best,
+
+-George
