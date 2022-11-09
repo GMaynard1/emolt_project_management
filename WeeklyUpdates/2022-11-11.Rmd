@@ -29,27 +29,8 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
-As you all know, there is no singular "eMOLT" hardware system. Every participating vessel has a slightly different configuration of sensors, computers, and transmitters. To some extent, this is by design. We want to know what works in real-world, at-sea conditions, not just on the benches in our workshop. However, as we identify things that work, we like to roll them out across the fleet. **Huanxin** and I identified five vessels that are still using the old AP3-style satellite transmitters.
-
-![AP3 Transmitter](AP3.PNG)
-
-*Figure 1 -- Older style AP3 Transmitter, previously installed on the **F/V Tenacious II***
-
-If you are on this list, we will be reaching out to you with a new SD card for your vessel as well as a new Rockblock satellite transmitter. 
-
-- **F/V Devocean**
-- **F/V Dorcas Anne**
-- **F/V Excalibur**
-- **F/V Freemantle Doctor**
-- **F/V Virginia Marise**
-
-Besides the vessels with AP3 transmitters and Rockblock transmitters, there is also a subset of eMOLT participants who report solely via a cell modem that's built in to their deckbox. 
-
-![Deck data hub on F/V Mary Elizabeth](Mary_Elizabeth_DDH.PNG)
-
-*Figure 2 -- Captain **Phil Lynch** with a cell-integrated deckbox on the **F/V Mary Elizabeth*** 
-
-**Huanxin Xu** and **Joaquim Oller** have been experimenting with getting these cell modems to work alongside the satellite transmitters. If we can get these operational, and start installing them across the fleet, it will mean you no longer have to connect to Wi-Fi hotspots to transmit your raw data to us.
+As the lobstering season comes to a close for many along the coast of Maine, we are started to get the non-realtime probes mailed in as they have for the last 20 years.  Shown below is the time series of bottom temperature collected, for example, by Jon Carter in 25 fathoms out of Bar Harbor, Maine.  It depicts the last few years as being as warm or warmer than the record 2012. We have simliar plots showing the results of Bobby Ingalls and George Sprague further downeast. We expect to get a few dozen of these Minilog probes in the mail in the coming weeks and complete the documentation of a record warm 2022.
+![Jon_Carter](CJ01.png)
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
@@ -207,7 +188,7 @@ legend(
   legend=c("Depth", "Temp")
 )
 ```
-![Jon_Carter](CJ01.png)
+
 
 ### Other Science
 
