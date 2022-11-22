@@ -28,12 +28,32 @@ conn=dbConnector(db_config)
 </center>
 
 ### Weekly Recap 
+For this week's newsletter, we welcome back the man, the myth, the legend **JiM** who put together some plots and accompanying write ups from the non-realtime data that's coming in. 
 
 As the lobstering season comes to a close for many along the coast of Maine, we are started to get the non-realtime probes mailed in as they have for the last 20 years.  Shown below is the time series of bottom temperature collected, for example, by Frank Kristy at Dave Kandrick's old site in 20 fathoms in Cape Cod Bay. We can see the effect of a strong storm in late Sept and early Oct (>20 knot daily means) that mixed up the water column and warmed the bottom by several degrees.
 ![Frank Kristy 2022](mdk0122.png)
 
 Jon Carter's observations from 25 fathoms off Bar Harbor Maine depict (see figure below) the last few years as being as warm or warmer than the record 2012. We have simliar plots showing the results of Frank Kristy, Bobby Ingalls, and George Sprague further downeast. We expect to get a few dozen of these Minilog probes in the mail in the coming weeks and complete the documentation of a record warm 2022.
 ![Jon_Carter](CJ01.png)
+
+In the realtime portion of the program, the Lowell team were able to remotely work on the **F/V Miss Emma** earlier this week, and **Huanxin** and I spent the morning in Sandwich where we visited the **F/V Terri Ann**, **F/V Virginia Marie**, and **F/V Miss Julie**. 
+
+![Sandwich Boats](20221118_sandwich.PNG)
+
+It was great to spend a bit of time talking with longtime lobsterman and eMOLT participant **Marc Palombo**. Once again, we got to see a crazy temperature bottom temperature spike over their gear, coincident with a push of warm surface water as the remnants of Hurricane Nicole pushed northwards last week. 
+
+```{r terriPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
+terri=read.csv("C:/Users/george.maynard/Downloads/li_7ae3_20221116_192834.csv",skip=9)
+
+terri$TIMESTAMP=ymd_hms(terri$Datet.GMT.)
+times=c(terri$TIMESTAMP)
+temps=c(terri$Temperature.C.)
+plot(temps~times,type='n',xlab="",ylab="Temperature (C)")
+lines(terri$Temperature.C.~terri$TIMESTAMP,col='red')
+```
+![Terri Ann Plot.](`r knitr::fig_chunk('terriPlot', 'png')`)
+
+![Rutgers Plot](20221109_rutgers.PNG)
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
@@ -52,13 +72,7 @@ data=dbGetQuery(
   )
 )
 data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
-bath=getNOAA.bathy(
-  lon1=min(data$LONGITUDE-0.5),
-  lon2=max(data$LONGITUDE+0.5),
-  lat1=min(data$LATITUDE-0.5),
-  lat2=max(data$LATITUDE+0.5),
-  resolution=1
-)
+bath=readGEBCO.bathy("C:/Users/george.maynard/Downloads/GEBCO_17_Nov_2022_4faab929240a/GEBCO_17_Nov_2022_4faab929240a/gebco_2022_n45.0_s35.0_w-78.0_e-63.0.nc",resolution=10)
 ## Create color ramp
 blues=c(
   "lightsteelblue4", 
@@ -115,84 +129,6 @@ legend(
 
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
 
-```{r coolPlot,dev='png',echo=FALSE, fig.width=8, fig.height=6}
-## Read in the data file
-filename = "C:/Users/george.maynard/Downloads/li_7ae3_20220929_210554.csv"
-## Open a connection to the file
-con=file(filename)
-## Dump the whole file
-open(con)
-all=readLines(
-  con=con
-)
-close(con)
-## Some line will have the column names
-col_names=which(grepl("Lat,Lon,Temp",all))
-## The lines above that contain metadata
-metadata=as.list(all[1:col_names])
-VESSEL_NAME=vessel_name(strsplit(metadata[[which(grepl("Vessel Name",metadata))]],split=",")[[1]][2])
-## Read in the remainder of the file
-data=read.table(text=all[(col_names+1):length(all)],sep=",")
-colnames(data)=ifelse(
-  grepl(" ", tolower(strsplit(all[col_names][[1]],split=",")[[1]]))==TRUE,
-  gsub(tolower(strsplit(all[col_names][[1]],split=",")[[1]])," ",""),
-  tolower(strsplit(all[col_names][[1]],split=",")[[1]])
-)
-## Convert all numeric variables to numeric format
-data$lat=as.numeric(data$lat)
-data$lon=as.numeric(data$lon)
-data$`temperature(c)`=as.numeric(data$`temperature(c)`)
-## Convert latitude and longitude to the correct format
-data$LATITUDE=as.numeric(substr(data$lat,1,2))+as.numeric(substr(data$lat,3,nchar(data$lat)))/60
-data$LONGITUDE=(as.numeric(substr(data$lon,1,2))+as.numeric(substr(data$lon,3,nchar(data$lon)))/60)*-1
-## Convert the timestamp to the correct format
-data$TIMESTAMP=ymd_hms(data$`datet(gmt)`)
-## Convert the temp and depth to imperial units
-data$TEMPERATURE=data$`temperature(c)`*1.8+32
-data$DEPTH=data$`depth(m)`*0.546807
-## Save the bottom 75% of depths
-data=subset(
-  data,
-  data$DEPTH>0.75*max(data$DEPTH)
-)
-## Trim bottom temperature records to allow probe to equilibrate
-data=subset(
-  data,
-  data$TEMPERATURE<1.05*min(data$TEMPERATURE)
-)
-## Plot the depths
-par(mar = c(5, 4, 4, 4) + 0.3)
-plot(
-  data$DEPTH~data$TIMESTAMP,
-  xlab="",
-  ylab='Depth (fathoms)',
-  ylim=c(rev(range(data$DEPTH))),
-  type='l',
-  main=paste0("F/V ",VESSEL_NAME),
-  col='darkgray',
-  lwd=1.5
-)
-par(new=TRUE)
-plot(
-  data$TEMPERATURE~data$TIMESTAMP,
-  xlab="",
-  ylab="",
-  axes=FALSE,
-  type='l',
-  col='red',
-  lwd=1.5
-)
-axis(side=4, at = pretty(range(data$TEMPERATURE)))
-mtext("Bottom Temperature (F)", side=4, line=3)
-legend(
-  "topleft",
-  lwd=c(1.5,1.5),
-  col=c('darkgray','red'),
-  legend=c("Depth", "Temp")
-)
-```
-
-
 ### Other Science
 
 - Most of us think of the St John River as that flowing into the Gulf of Maine. Well, there is another big St John River flowing out of Jacksonville Florida.  The students at the Jacksonville Marine Lab deployed a set of our drifters a few weeks ago at the mouth.  They documented the river plume dynamics and the alongshore flow to the south but unfortunately the units came ashore before getting into the Gulf Stream. Seeing these contraptions come ashore near  St Augustine area as shown  at:
@@ -206,6 +142,4 @@ legend(
 
 - The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes on **December 2, 2022**.
 
-All the best,
-
--George
+**Huanxin** and his family are traveling south to Florida for the holiday next week, while my family is headed in the opposite direction to visit relatives in northern Vermont, so you won't see us or a Friday newsletter next week. Wherever you are though, whether on land or at sea, best wishes for a wonderful Thanksgiving from the whole eMOLT team.  
