@@ -29,6 +29,8 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
+As we continue to experiment with new sensors every year, it is essential that we assess their performance/accuracy relative to those we have used to date. In the case of the new Moana probe, we are thankful for Mark Phillips who has had mulitple probes lashed to his gear this past Summer. We were able to look at the difference in haul-averaged bottom temperatures as reported by both the Lowell sensor (our standard for the last several years) and the Moana sensor.  As shown in the figure below, we are happy with the results in that they recorded a mean difference of ~0.03 degC with a root-mean-square differenc of ~0.07 degC which is well within our 0.1 degC goal.
+![Comparing haul-averaged bottom temperatures as derived from Lowell and Moana sensors attached to the same trawl.](Illusion_Lowell_vs_Moana.png)
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
@@ -187,7 +189,7 @@ legend(
 ### Other Science
 
 - A few weeks ago, while R/V Neil Armstrong was out recovering the last of the Ocean Observatory Initiative moorings on the shelf edge south of Martha's Vineyard, they deployed both a miniboat and a drifter as prepared by students in Waterford CT.
-- A video of the launch is posted at https://vimeo.com/user110037220/ladylance. The full story of the miniboat is posted at https://educationalpassages.org/boats/ladylance/.  The track of both units is posted at  https://studentdrifters.org/tracks/drift_whs_2022_1.html. 
+- A video of the launch is posted at https://vimeo.com/user110037220/ladylance. The full story of the miniboat is posted at https://educationalpassages.org/boats/ladylance/.  The track of both units is posted at  https://studentdrifters.org/tracks/drift_whs_2022_1.html along with an animation of modeled surface temps at https://studentdrifters.org/tracks/2022-11-14SNE_DOPPIO_-1.gif.
 - 
 
 ### Announcements and Upcoming Weeks
