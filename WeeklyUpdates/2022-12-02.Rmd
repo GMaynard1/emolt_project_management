@@ -190,7 +190,7 @@ legend(
 
 - A few weeks ago, while R/V Neil Armstrong was out recovering the last of the Ocean Observatory Initiative moorings on the shelf edge south of Martha's Vineyard, they deployed both a miniboat and a drifter as prepared by students in Waterford CT.
 - A video of the launch is posted at https://vimeo.com/user110037220/ladylance. The full story of the miniboat is posted at https://educationalpassages.org/boats/ladylance/.  The track of both units is posted at  https://studentdrifters.org/tracks/drift_whs_2022_1.html along with an animation of modeled surface temps at https://studentdrifters.org/tracks/2022-11-14SNE_DOPPIO_-1.gif.
-- Two Falmouth High School drifters are being deployed today by Rob Martine off F/V Resolve in Cape Cod Bay.  You can follow their tracks at https://studentdrifters.org/tracks/drift_fhs_2022_1.html.
+- Two Falmouth High School drifters were deployed this morning by Rob Martin off F/V Resolve in Cape Cod Bay.  You can follow their tracks at https://studentdrifters.org/tracks/drift_fhs_2022_1.html.
 - ![drifters on the Rob's deck](drift_fhs_2022_1_on_deck1.jpg) 
 
 ### Announcements and Upcoming Weeks
