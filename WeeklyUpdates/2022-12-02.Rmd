@@ -18,6 +18,7 @@ library(rstudioapi)
 source("../../emolt_serverside/API/API_header.R")
 today=Sys.Date()
 lastWeek=today-days(7)
+db_config=config::get(file="C:/Users/george.maynard/Documents/GitHubRepos/emolt_serverside/API/config.yml")$dev_intranet
 conn=dbConnector(db_config)
 ```
 
@@ -29,8 +30,16 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
-As we continue to experiment with new sensors every year, it is essential that we assess their performance/accuracy relative to those we have used to date. In the case of the new Moana probe, we are thankful for Mark Phillips who has had mulitple probes lashed to his gear this past Summer. We were able to look at the difference in haul-averaged bottom temperatures as reported by both the Lowell sensor (our standard for the last several years) and the Moana sensor.  As shown in the figure below, we are happy with the results in that they recorded a mean difference of ~0.03 degC with a root-mean-square differenc of ~0.07 degC which is well within our 0.1 degC goal.
+As we continue to experiment with new sensors every year, it is essential that we assess their performance/accuracy relative to those we have used to date. In the case of the new Moana probe, we are thankful for **Mark Phillips** who has had mulitple probes lashed to his gear this past summer. We were able to look at the difference in haul-averaged bottom temperatures as reported by both the Lowell sensor (our standard for the last several years) and the Moana sensor.  As shown in the figure below, we are happy with the results in that they recorded a mean difference of ~0.03 $^\circ$C with a root-mean-square difference of ~0.07 $^\circ$C which is well within our 0.1 $^\circ$C goal.
+
 ![Comparing haul-averaged bottom temperatures as derived from Lowell and Moana sensors attached to the same trawl.](Illusion_Lowell_vs_Moana.png)
+*Figure 1 -- Comparing haul-averaged bottom temperatures as derived from Lowell and Moana sensors attached to the same trawl.*
+
+Speaking of Moana sensors, **Julie Jakoboski** trekked halfway around the world to give a seminar about the [Moana Project](https://www.moanaproject.org/) at SMAST earlier this week. **JiM**, **Huanxin**, **Cooper**, and I all attended. For those of you who aren't familiar with the project, New Zealand's government put a large amount of money into building a temperature sensor array (similar to eMOLT) on hundreds of fishing vessels to improve ocean forecasting. One of the products of this investment was the development of the blue Moana sensors that we've been installing on eMOLT vessels over the last few months. In addition to developing new technologies, the Moana Project is also paying dividends in ocean forecasting with observations from hundreds of fishing vessels now being assimilated into New Zealand's marine forecasts in near real time. We're hoping to get **Julie** to the docks at least once over the next month while she's around visiting family in the region. **Cooper** continues to facilitate dialogue between these type of programs at an international level, and we look forward to more opportunities to compare notes, improve our system, and coordinate our efforts with colleagues around the globe. 
+
+One of the interesting differences between eMOLT and the Moana Program is the difference in communication strategies. eMOLT relies heavily on satellite communication while Moana uses mobile networks to transmit data. Of course one of the reasons for that difference became apparent when neither Julie or I could get cell reception in the parking lot of SMAST after her talk...
+
+Another major difference between the program is how data are relayed back to participating captains. As you are all aware, eMOLT systems display a graph of temperature data nearly instantaneously in the wheelhouse after the gear is hauled. The Moana program deckboxes don't have a screen on them, and instead send an email to the vessel's email address within 3 hours of data collection that includes graphs and summary statistics from the haul. The tradeoff is that removing the deckbox screen makes the Moana program's deckboxes much simpler to install and maintain. Is that an approach that would be worth exploring here for eMOLT? I'd be curious to hear from any eMOLT captains who are willing to share their opinions.
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
@@ -49,12 +58,9 @@ data=dbGetQuery(
   )
 )
 data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
-bath=getNOAA.bathy(
-  lon1=min(data$LONGITUDE-0.5),
-  lon2=max(data$LONGITUDE+0.5),
-  lat1=min(data$LATITUDE-0.5),
-  lat2=max(data$LATITUDE+0.5),
-  resolution=1
+bath=readGEBCO.bathy(
+  file="../UtilityScripts/GEBCO/gebco_2022_n47.0_s38.0_w-76.0_e-59.0.nc",
+  resolution=10
 )
 ## Create color ramp
 blues=c(
@@ -107,99 +113,34 @@ legend(
 ```
 
 ![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
-In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
-```{r coolPlot,dev='png',echo=FALSE, fig.width=8, fig.height=6}
-## Read in the data file
-filename = "C:/Users/george.maynard/Downloads/li_7ae3_20220929_210554.csv"
-## Open a connection to the file
-con=file(filename)
-## Dump the whole file
-open(con)
-all=readLines(
-  con=con
-)
-close(con)
-## Some line will have the column names
-col_names=which(grepl("Lat,Lon,Temp",all))
-## The lines above that contain metadata
-metadata=as.list(all[1:col_names])
-VESSEL_NAME=vessel_name(strsplit(metadata[[which(grepl("Vessel Name",metadata))]],split=",")[[1]][2])
-## Read in the remainder of the file
-data=read.table(text=all[(col_names+1):length(all)],sep=",")
-colnames(data)=ifelse(
-  grepl(" ", tolower(strsplit(all[col_names][[1]],split=",")[[1]]))==TRUE,
-  gsub(tolower(strsplit(all[col_names][[1]],split=",")[[1]])," ",""),
-  tolower(strsplit(all[col_names][[1]],split=",")[[1]])
-)
-## Convert all numeric variables to numeric format
-data$lat=as.numeric(data$lat)
-data$lon=as.numeric(data$lon)
-data$`temperature(c)`=as.numeric(data$`temperature(c)`)
-## Convert latitude and longitude to the correct format
-data$LATITUDE=as.numeric(substr(data$lat,1,2))+as.numeric(substr(data$lat,3,nchar(data$lat)))/60
-data$LONGITUDE=(as.numeric(substr(data$lon,1,2))+as.numeric(substr(data$lon,3,nchar(data$lon)))/60)*-1
-## Convert the timestamp to the correct format
-data$TIMESTAMP=ymd_hms(data$`datet(gmt)`)
-## Convert the temp and depth to imperial units
-data$TEMPERATURE=data$`temperature(c)`*1.8+32
-data$DEPTH=data$`depth(m)`*0.546807
-## Save the bottom 75% of depths
-data=subset(
-  data,
-  data$DEPTH>0.75*max(data$DEPTH)
-)
-## Trim bottom temperature records to allow probe to equilibrate
-data=subset(
-  data,
-  data$TEMPERATURE<1.05*min(data$TEMPERATURE)
-)
-## Plot the depths
-par(mar = c(5, 4, 4, 4) + 0.3)
-plot(
-  data$DEPTH~data$TIMESTAMP,
-  xlab="",
-  ylab='Depth (fathoms)',
-  ylim=c(rev(range(data$DEPTH))),
-  type='l',
-  main=paste0("F/V ",VESSEL_NAME),
-  col='darkgray',
-  lwd=1.5
-)
-par(new=TRUE)
-plot(
-  data$TEMPERATURE~data$TIMESTAMP,
-  xlab="",
-  ylab="",
-  axes=FALSE,
-  type='l',
-  col='red',
-  lwd=1.5
-)
-axis(side=4, at = pretty(range(data$TEMPERATURE)))
-mtext("Bottom Temperature (F)", side=4, line=3)
-legend(
-  "topleft",
-  lwd=c(1.5,1.5),
-  col=c('darkgray','red'),
-  legend=c("Depth", "Temp")
-)
-```
 
+*Figure 2 - eMOLT Satellite Transmitter status plot for the previous week.*
+
+In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+
+### Data Portal News
+
+We are continuing to load all of the data that this program has collected over the last few decades into our new database, which interfaces with the Ocean Data Network portal to provide easy, on-demand access to data visualizations for fishermen who are interested in viewing their historic data. So far, we are up to 4.2 million individual temperature/depth records in the database, with millions more to go. If you are interested in seeing your data on the portal, please reach out and let me know. **Phil Michaud** I'm hoping to have all of your historic data loaded by the end of the day today! Data for **Jordan Drouin**, **Josh Miller**, and **Jim Barclay** should be all or mostly loaded already. If you can't access it or it looks incomplete, please let me know!
 
 ### Drifter and Miniboat Update
 
-- A few weeks ago, while R/V Neil Armstrong was out recovering the last of the Ocean Observatory Initiative moorings on the shelf edge south of Martha's Vineyard, they deployed both a miniboat and a drifter as prepared by students in Waterford CT.
-- A video of the launch is posted at https://vimeo.com/user110037220/ladylance. The full story of the miniboat is posted at https://educationalpassages.org/boats/ladylance/.  The track of both units is posted at  https://studentdrifters.org/tracks/drift_whs_2022_1.html along with an animation of modeled surface temps at https://studentdrifters.org/tracks/2022-11-14SNE_DOPPIO_-1.gif.
-- Two Falmouth High School drifters were deployed this morning by Rob Martin off F/V Resolve in Cape Cod Bay.  You can follow their tracks at https://studentdrifters.org/tracks/drift_fhs_2022_1.html.
-- ![drifters on the Rob's deck](drift_fhs_2022_1_on_deck1.jpg) 
+A few weeks ago, while R/V Neil Armstrong was out recovering the last of the Ocean Observatory Initiative moorings on the shelf edge south of Martha's Vineyard, they deployed both a miniboat and a drifter as prepared by students in Waterford, CT. 
+
+- A video of the launch is available [here](https://vimeo.com/user110037220/ladylance). The full story of the miniboat is posted at https://educationalpassages.org/boats/ladylance/.
+- The track of both units is available [here](https://studentdrifters.org/tracks/drift_whs_2022_1.html) along with an animation of modeled surface temps [here](https://studentdrifters.org/tracks/2022-11-14SNE_DOPPIO_-1.gif).
+
+Two Falmouth High School drifters were deployed this morning by **Rob Martin** off the **F/V Resolve** in Cape Cod Bay.  You can follow their tracks [here](https://studentdrifters.org/tracks/drift_fhs_2022_1.html).
+
+![drifters on the Rob's deck](drift_fhs_2022_1_on_deck2.jpg) 
+
+*Figure 3 -- Falmouth High School drifters on the deck of the F/V Resolve*
 
 ### Announcements and Upcoming Weeks
 
-- The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes on **December 2, 2022**.
+- The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes **TODAY**. 
 
-- There is also a workshop scheduled at Woods Hole Oceanographic Institute on January 18-20 as described at https://www.us-ocb.org/coastal-bgc-obs-network-with-fishing-community/
-- Fishers are especially welcome and funds are available to cover their travel.
-- 
+- There is also a workshop scheduled at Woods Hole Oceanographic Institute on January 18-20 as described [here](https://www.us-ocb.org/coastal-bgc-obs-network-with-fishing-community/) to discuss the feasibility of getting some National Science Foundation funding to incorporate additional sensors (salinity, pH, etc.) into an eMOLT style program coastwide. We especially encourage participation from fishermen and have funding available to cover travel and lodging. If you are interested, the registration for this event is online [here](https://docs.google.com/forms/d/e/1FAIpQLScJ9QA94Lm7LrKmOHTo36gUyB0eOlcWcKnAz6BXDyp76QTzHg/viewform?usp=sf_link) and closes on **December 16, 2020** 
+
 All the best,
 
--George
+-George and JiM
