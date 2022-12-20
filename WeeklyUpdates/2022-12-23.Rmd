@@ -30,11 +30,11 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
-As we struggle with the day-to-day operations, we need to occasionally remind ourselves of the general progress.  A couple of significant milestones have been reached in the longterm evolution of eMOLT. 1) The total number of hauls that have reported realtime bottom temperatures has surpassed 20 thousand this week. 2) The total number of hourly records of bottom temperature from non-realtime traps has surpassed 10 million which, given the hundreds of instrumented traps, converts to over 1000 years of data. 
+As we struggle with the day-to-day operations, we need to occasionally remind ourselves of the general progress.  A couple of significant milestones have recently been reached in the longterm evolution of eMOLT. 1) The total number of hauls that have reported realtime bottom temperatures has surpassed 20 thousand. 2) The total number of hourly records of bottom temperature from non-realtime traps has surpassed 10 million which, given the hundreds of instrumented traps, converts to over 1000 years of data. 
 
-Bob Baines, a prominent member of the Maine Lobstermen Association and longterm eMOLT participant, mailed in his Minilog probe this past week.
-Like many of the original eMOLT lobstermen, Bob is fishing shorter seasons as he approaches retirement age. In 2022, he had his probe in the water only for a few months but, as seen in the graphic below, it was enough to document his 48 fathom (87 meters) site off Spruce Head Maine being warm like last year.
+Bob Baines and John Drouin, both prominent members of the Maine Lobstermen Association and longterm eMOLT participants, mailed in his Minilog probe in the past week weeks. Like many of the original eMOLT lobstermen, Bob is fishing shorter seasons as he approaches retirement age. In 2022, he had his probe in the water only for a few months but, as seen in the graphic below, it was enough to document his 48 fathom (87 meters) site off Spruce Head Maine being warm like last year. John who fishes off Cutler also in 48 fathoms returned similar records with 2022 being similar to 2012 and 2021.
 ![Bob Baines time series](TH01.png)
+![John Drouin time series](OD08.png)
 
 We recently heard from the engineers at Creare Inc on their wireless probe development. As with many tech companies in the last few years, they are struggling with supply chain issues in getting the parts they need but, nevertheless, they are now on track to provide another instrument for testing in 2023.
 
