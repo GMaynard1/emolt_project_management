@@ -30,9 +30,21 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
+Happy New Year! 
+
+This week has been a mix of meetings with partner organizations, planning for the upcoming biogeochemical network workshop at WHOI, digging out from the holiday back log, and even hopping on a few boats.
+
 We heard from both Maine Dept of Marine Resources and Mass Dept of Marine Fisheries colleaques concerning their respective bottom temperature collections.
 In the the ME-DMR case, we received about a dozen multi-month time series from their 2021 Ventless-Trap program and added these data to the master database. 
 We started discussions with MA-DMF to update the time series from their multi-decadal ship wreck time series, the longest running bottom-temperature data in the Northeast.
+
+We also met with the crew over at the Commercial Fisheries Research Foundation to discuss our efforts to help QA/QC their data and make it more widely available to the scientific community. 
+
+In an exciting new chapter for eMOLT, JiM and George spent time working with scientists at SMAST and NOAA's National Ocean Service to begin the process of providing realtime eMOLT data to the [Northeast Coastal Ocean Forecast System](http://134.88.229.245:8080/fvcomwms/). 
+
+![Grace Sarah Dredge](2022-01-06/dredge.JPG)
+
+*Figure 1 -- After running dissolved oxygen probes on his lobster traps all summer, we've swapped David Marsh's F/V Grace Sarah over to a temperature profiler mounted on the dredge*
 
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
@@ -109,24 +121,13 @@ legend(
 ![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
 *Figure 2 - eMOLT Satellite Transmitter status plot for the previous week.*
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
-### Data Portal News
-### Drifter and Miniboat Update
-### Announcements and Upcoming Weeks
-- The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes **TODAY**. 
-- There is also a workshop scheduled at Woods Hole Oceanographic Institute on January 18-20 as described [here](https://www.us-ocb.org/coastal-bgc-obs-network-with-fishing-community/) to discuss the feasibility of getting some National Science Foundation funding to incorporate additional sensors (salinity, pH, etc.) into an eMOLT style program coastwide. We are happy to have 16 fishermen registered. While the funding was limited to just that many, let us know if you are interested in case slots open up. 
+
+### Announcements
+
+- Thanks to captains Tony Alvernaz, Rob Martin, and Rodman Sykes who volunteered to participate in panel discussions about their fishing operations and their experience with environmental monitoring at the WHOI biogeochemical workshop in a few weeks. 
+- Thanks also to Joaquim Oller and Nick Lowell from Lowell Instruments who've hopped on the phone numerous times this week to help debug a few deckboxes remotely. If you're having any issues with your eMOLT system, please reach out and let us know. You can call or text George at 508-299-9693 or send an email to george.maynard@noaa.gov 
+- We strive to be flexible so that we can keep up with our industry partners. If you fish multiple gears and want your eMOLT system to work regardless of which fishery you're pursuing, let us know! We're always happy to provide additional housings and sensors so that the data keeps flowing, no matter what else you're catching. 
+
 All the best,
--George and JiM
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+
+George and JiM
