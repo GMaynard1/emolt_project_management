@@ -30,9 +30,8 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
-Pete Begley (Little Bay Lobsters) mailed in his two non-realtime probes this week with year-round data from both (164 and 183 fathom) Gulf of Maine.
-As seen in the case of the deeper site in the plot below, it was a relatively warm year and ended in being the warmest December of all the years they have deployed at that location. 
-The interesting thing about these deep sites is the lack of a seasonal cycle.
+Pete Begley (Little Bay Lobsters) mailed in his two non-realtime probes this week with year-round data from both (164 and 183 fathoms) Gulf of Maine.
+As seen in the case of the deeper site in the plot below, it was a relatively warm year and ended in being the warmest December of all the years they have deployed at these locations. The interesting thing about these deep sites is the lack of a seasonal cycle.
 ![JS02]('JS02.png')
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
@@ -109,10 +108,15 @@ legend(
 ![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
 *Figure 2 - eMOLT Satellite Transmitter status plot for the previous week.*
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+
 ### Miniboat news
-The Waterford CT High School miniboat Lady Lance has been at sea for a few months. After getting caught in the 1st Gulf Stream Ring shown in the animation below, it is now rotating around a second as animated by the teacher at 
+The Waterford CT High School's R/V Neil Armstrong-deployed miniboat "Lady Lance" has been at sea for a few months. After revolving around a Gulf Stream Ring several times last month as shown in the animation below, it is now rotating around another ring as animated by the teacher at 
+
 ![2nd ring]('https://watch.screencastify.com/v/V1gaL4BNV9QZqkaCxUY7')
-![1st ring]('2022-11-27NEC_DOPPIO_-1.gif')
+
+![1st ring]('2022-11-27NEC_DOPPIO_-1.gif'.  
+
+This is just one of many interesting stories the miniboat project has to offer at, for example  Cassie's podcast website [here]('https://educationalpassages.org/podcast/')
 
 ### Announcements
 - We look forward to seeing many eMOLT participants at the workshop next week in Woods Hole. Some have been assigned to participate in a panel discussion but if you are uncomfortable with that, let us know. We have alternates.
