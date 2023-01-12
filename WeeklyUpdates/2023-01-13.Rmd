@@ -110,11 +110,11 @@ legend(
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
 
 ### Miniboat news
-The Waterford CT High School's R/V Neil Armstrong-deployed miniboat "Lady Lance" has been at sea for a few months. After revolving around a Gulf Stream Ring several times last month as shown in the animation below, it is now rotating around another ring as animated by the teacher at 
+The Waterford CT High School's R/V Neil Armstrong-deployed sensor-laden miniboat "Lady Lance" has been at sea for a few months. After revolving around a Gulf Stream Ring several times last month as shown in the animation below, it is now rotating around another ring as animated by the teacher at 
 
-![2nd ring]('https://watch.screencastify.com/v/V1gaL4BNV9QZqkaCxUY7')
+[2nd ring]('https://watch.screencastify.com/v/V1gaL4BNV9QZqkaCxUY7')
 
-![1st ring]('2022-11-27NEC_DOPPIO_-1.gif'.  
+![1st ring]('2022-11-27NEC_DOPPIO_-1.gif').  
 
 This is just one of many interesting stories the miniboat project has to offer at, for example  Cassie's podcast website [here]('https://educationalpassages.org/podcast/'). A total of 44 deployments were made in 2022.
 
