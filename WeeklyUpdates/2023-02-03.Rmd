@@ -30,11 +30,11 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
-In his recent tour of local used book stores, JiM came across a $2 publication from 1882 entitled "The Fishermen's Own Book" where, among many other interesting sections, there
-was an account of the US Fish Commission's "Summer Headquarters in Gloucester" under the direction of Spencer Baird in 1878. See photo below ![baird_story]('baird_1878.jpg').
-It is interesting to note that way back then, they had the idea to lease an office/laboratory in a large building on the wharf and that this "served to create an intereest in its field of 
-operations among the Gloucester fishermen". Isn't this what we should do? Set up operations at all the major fishing harbors in the Northeast. JiM suggest finding
-abandoned vessels and turn them into office/meeting space where we can work with fishermen.
+Clayton Philbrook, a longterm eMOLT participant out of Matinicus Island, Maine, mailed in his Minilog probe a few days ago with data documenting 2022 being warm but not as warm as 2021 as seen in the figure below.
+![clayton]['CP01.png']
+
+In his recent tour of local used book stores, JiM came across a vintage publication from 1882 entitled "The Fishermen's Own Book" where, among many other interesting sections, there was an account of the US Fish Commission's "Summer Headquarters in Gloucester" under the direction of Spencer Baird in 1878. See photo below ![baird_story]('baird_1878.jpg').
+It is interesting to note that way back then, they had the idea to lease an office/laboratory in a large building on the wharf and that this "served to create an intereest in its field of operations among the Gloucester fishermen". Isn't this what we should do? Set up operations at all the major fishing harbors in the Northeast. JiM suggest finding abandoned/unused vessels and turn them into office/meeting space where we can work with fishermen.
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
