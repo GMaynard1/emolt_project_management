@@ -1,0 +1,158 @@
+---
+title: "eMOLT Weekly Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+library(marmap)
+library(rstudioapi)
+source("C:/Users/george.maynard/Documents/GitHubRepos/emolt_serverside/API/API_header.R")
+today=Sys.Date()
+lastWeek=today-days(7)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Weekly Update `r Sys.Date()` * </font>
+
+</center>
+
+### Weekly Recap 
+
+My apologies for a few weeks with no update. The last few weeks have been busy with preparations for the Cooperative Research Summits and the biogeochemical network workshop at WHOI. On that front, a big thank you to all of the eMOLT participants who made the effort to come down to WHOI and attend for one or more days. Thanks especially to those who were willing to sit in front of a room full of scientists and tech nerds and answer questions about their fishing operations and experiences out on the water. eMOLT was well represented in the room thanks to
+
+- Tony Alvernaz (F/V Chatham and F/V Kathryn Marie)
+- Jim Barclay (F/V Lina Rose)
+- Dave Casoni (F/V Margaret M)
+- Doug Feeney (F/V Noah)
+- Jim Ford (F/V Lisa Ann III - retired)
+- Rob Jarmol (F/V Christy and F/V Christi Caroline)
+- Mike Marchetti (F/V Mister G)
+- Dave Marsh (F/V Grace Sarah)
+- Rob Martin (F/V Resolve)
+- Marc Palombo (F/V Terri Ann)
+- Rodman Sykes (F/V Virginia Marise)
+- Stephen Welch (F/V Mystic - retired)
+
+There were a handful of industry members from other programs as well, including the CFRF Shelf Research Fleet and NEFSC Study Fleet, and we even had some West Coast fisheries representation from the Alaska Trollers Association and science representation with **Linus Stoltz** from the [F.I.S.H. Project](http://fishresearch.net/#/data) joining us to share his work with the dungeness crab fleet off Oregon. Our close collaborators from Ocean Data Network and Lowell Instruments were in the room and online too, along with many of their colleagues in the instrument manufacturing and tech spaces. 
+
+Overall, the general consensus seems to be that the meeting was time well spent. Some preliminary notes: 
+
+- Huanxin and I have been discussing ways that we might start to implement additional sensor calibration and testing into our dock visits to rise to the bar set by some of the oceanographers in the room. 
+- There were great talks from people who put eMOLT data to use. **John Wilkin** at Rutgers explained how eMOLT data are incorporated into his ocean forecasting model to improve model performance. He also took it a step further to say that the US Coast Guard uses his forecasts to help inform their Search and Rescue operations. So, all of you who are out on the water collecting data are also helping make marine search and rescue more efficient in the Northeast!
+
+![Model performance with and without eMOLT](fig09.png)
+
+*Figure 1 - model performance of the DOPPIO, Mercator, and GOFS models across three different metrics. Lighter colors indicate better performance. The (a) DOPPIO column is the only column that includes eMOLT data, and is the best performer. The (d) NA Doppio column is the same model without the eMOLT data.*
+
+- We also heard from **Yong Chen** at SUNY Stony Brook who has explored incorporating eMOLT data into stock assessments through habitat suitability indices and using environmental metrics to inform assumptions about fish biology such as growth rates, reproductive output, etc.
+
+- Conversations with industry members, CFRF, ODN, Lowell Instruments, and the NEFSC Study Fleet staff have sparked some interest in thinking up new designs for the hardware and software that you see on your vessels. Getting CFRF, NEFSC Study Fleet, and eMOLT on similar hardware should reduce the electronic clutter for people who participate in multiple programs and make it easier for us to get someone dockside to help troubleshoot if something goes wrong. 
+
+
+### Non-realtime update
+
+Pete Begley (Little Bay Lobsters) mailed in his two non-realtime probes the other week week with year-round data from both (164 and 183 fathoms) Gulf of Maine.
+As seen in the case of the deeper site in the plot below, it was a relatively warm year and ended in being the warmest December of all the years they have deployed at these locations. The interesting thing about these deep sites is the lack of a seasonal cycle.
+![JS02](JS02.png)
+
+*Figure 2 - 21 year bottom temperature time series from Pete Begley*
+
+### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+
+This week, we received 12 haul-averaged reports from 3 vessels.
+
+```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
+lastweek=Sys.Date()-days(7)
+data=read.csv("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/2023-01-27/20230127_status_data.csv")
+data$REPORT_TYPE=trimws(data$REPORT_TYPE,"both")
+bath=readGEBCO.bathy(
+  file="C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/UtilityScripts/GEBCO/gebco_2022_n47.0_s38.0_w-76.0_e-59.0.nc",
+  resolution=10
+)
+## Create color ramp
+blues=c(
+  "lightsteelblue4", 
+  "lightsteelblue3",
+  "lightsteelblue2", 
+  "lightsteelblue1"
+)
+## Plotting the bathymetry with different colors for land and sea
+plot(
+  bath,
+  step=100,
+  deepest.isobath=-1000,
+  shallowest.isobath=0,
+  col="darkgray",
+  image = TRUE, 
+  land = TRUE, 
+  lwd = 0.1,
+  bpal = list(
+    c(0, max(bath), "gray"),
+    c(min(bath),0,blues)
+  ),
+  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
+)
+## Plot the status report locations
+x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='red',
+  cex=2
+)
+## Plot data uploads
+x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='blue',
+  cex=2
+)
+legend(
+  'topleft',
+  col=c('blue','red'),
+  legend=c('Summary Data Upload','Status Report'),
+  pch=c(1,1),
+  bty='n',
+  bg=NULL,
+  border='black'
+)
+```
+
+![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
+*Figure 3 - eMOLT Satellite Transmitter status plot for the previous week.*
+
+In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+
+On the topic of problems with systems, Huanxin and I visited Newport and Point Judith to troubleshoot issues on a few different vessels. The Lowell MATP temperature depth sensors that have been the workhorse sensor of the realtime program seem to be reaching their end of life. We just replaced the sensor on the F/V Virginia Marise this week. If you have a MATP probe and the data you see don't make sense, please let us know. A common symptom of the ones we've replaced recently is that the depth reading is stuck at a very shallow value. 
+
+![MATP-2W](matp.png)
+
+*Figure 4 - Lowell MATP-2W loggers*
+
+### Miniboat news
+
+The Waterford CT High School's R/V Neil Armstrong-deployed sensor-laden miniboat "Lady Lance" has been at sea for a few months. After revolving around a Gulf Stream Ring several times last month as shown in the animation below, it is now rotating around another ring [as animated by the teacher here](https://watch.screencastify.com/v/V1gaL4BNV9QZqkaCxUY7)
+
+![1st ring](2022-11-27NEC_DOPPIO_-1.gif).
+
+*Figure 5 - Animation of surface temperatures, drifter tracks, and eMOLT-produced bottom temperatures*
+
+This is just one of many interesting stories the miniboat project has to offer at, for example  Cassie's podcast website [here](https://educationalpassages.org/podcast/). A total of 44 deployments were made in 2022.
+
+### Announcements
+
+- The National Weather Service is soliciting feedback on a proposed new format for their Coastal Waters wave height forecasts. For more information about the proposed changes, you can view a video from NWS here [here](https://www.youtube.com/watch?v=A8XBsAwAB7w). To see the new format and the old, visit [this website](https://www.weather.gov/box/ProposedCWF). To provide feedback via survey, please visit [this website](https://www.surveymonkey.com/r/ExpCWFWaveComponentUpdate_2022). 
+ 
+All the best,
+George and JiM
