@@ -37,6 +37,9 @@ It is critical we be as accurate as possible in documenting these positions and 
 ![CascoBay settlement sites]('CurtBrown_RW_sites.png')
 ![CutlerMaine settlement sites]('JordanDrouin_RW_sites.png')
 
+In recent years, many of the original eMOLT lobstermen have shortened their season as they approach retirement.  You can see this, for example, in the case of Rick Alley's plot (see below) where he only fished Aug-Oct but long enough to document 2022 as being one of the warmest yet at his Mid-Coast Maine location.
+![Mid-Coast]('RA01.png')
+
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
 This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
