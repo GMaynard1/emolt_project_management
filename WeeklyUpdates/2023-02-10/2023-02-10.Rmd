@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(blastula)
 library(marmap)
 library(rstudioapi)
-source("../../emolt_serverside/API/API_header.R")
+source("../../../emolt_serverside/API/API_header.R")
 today=Sys.Date()
 lastWeek=today-days(7)
 db_config=config::get(file="C:/Users/george.maynard/Documents/GitHubRepos/emolt_serverside/API/config.yml")$dev_intranet
@@ -32,13 +32,13 @@ conn=dbConnector(db_config)
 
 Clayton Philbrook, a longterm eMOLT participant out of Matinicus Island, Maine, mailed in his Minilog probe a few days ago with data documenting 2022 being warm but not as warm as 2021 as seen in the figure below.
 
-![clayton]['CP01.png']
+![clayton](CP01.png)
 
 *Figure 1 -- Temperatures from Clayton's site*
 
 In his recent tour of local used book stores, JiM came across a vintage publication from 1882 entitled "The Fishermen's Own Book" where, among many other interesting sections, there was an account of the US Fish Commission's "Summer Headquarters in Gloucester" under the direction of Spencer Baird in 1878. See photo below.
 
-![baird_story]('baird_1878.jpg').
+![baird_story](baird_1878.jpg).
 
 *Figure 2 -- A snapshot from "The Fishermen's Own Book"*
 
@@ -68,7 +68,7 @@ data=dbGetQuery(
 )
 data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
 bath=readGEBCO.bathy(
-  file="../UtilityScripts/GEBCO/gebco_2022_n47.0_s38.0_w-76.0_e-59.0.nc",
+  file="../../UtilityScripts/GEBCO/gebco_2022_n47.0_s38.0_w-76.0_e-59.0.nc",
   resolution=10
 )
 ## Create color ramp
