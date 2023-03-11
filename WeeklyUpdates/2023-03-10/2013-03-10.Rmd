@@ -109,7 +109,9 @@ legend(
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
 
 ### Announcements
-GLad to hear many of you were at the Maine Fishermen's Forum. Sorry we missed it.
+Glad to hear many of you were at the Maine Fishermen's Forum. Sorry we missed it.
+
+For those of you who missed the workshop at WHOI back in January, you can view the full recordings/videos at https://www.us-ocb.org/coastal-bgc-obs-network-with-fishing-community/. Just click on the blue "Watch Recordings" button.
 
 All the best,
 George and JiM
