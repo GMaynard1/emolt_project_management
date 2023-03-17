@@ -112,12 +112,8 @@ legend(
 ```
 
 ![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
-<<<<<<< HEAD:WeeklyUpdates/2023-03-10/2013-03-10.Rmd
-*Figure - eMOLT Satellite Transmitter status plot for the previous week.*
-=======
 
 *Figure 3 - eMOLT Satellite Transmitter status plot for the previous week.*
->>>>>>> 509d5b831de07cb06171db91f34adfb57ed61b41:WeeklyUpdates/2023-03-17/2013-03-17.Rmd
 
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
 
