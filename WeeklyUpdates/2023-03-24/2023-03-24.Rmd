@@ -36,6 +36,7 @@ We also got another year of data from Bruce Fernald's site in 25 fathoms off Lit
 
 We were happy to secure the last 17 Minilog-II probes available from INNOVASEA (aka VEMCO).  These devices have served us well.  This new batch will provide us the instruments needed to maintain the original eMOLT sites for another decade.
 
+An article was published in Nature Communications this past month entitled "Bottom marine heatwaves along the continental shelves of North America" describing the similarities and, most importantly, the differences with surface heatwaves. While the results were obtained purely from model output, they did, at least, mentioned the importance of observations a couple times.
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
