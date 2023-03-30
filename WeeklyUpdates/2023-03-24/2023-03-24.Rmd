@@ -30,13 +30,15 @@ conn=dbConnector(db_config)
 
 ### Weekly Recap 
 
-Jim Tripp, a longtime eMOLT participant out of Spruce Head Maine, documented his warmest year yet in 63 fathoms (~114 meters).  As seen in the [figure below]('JT04.png'), early February 2023 was alrmingly warmer than 
+Jim Tripp, a longtime eMOLT participant out of Spruce Head Maine, documented his warmest year yet in 63 fathoms (~114 meters).  As seen in the ![figure below]('JT04.png'), early February 2023 was especially warmer than 
 all his other years at this site.  While Jim is retiring from fishing at this site, we hope his son John may be able to maintain a year round location nearby.
-We also got another year of data from Bruce Fernald's site in 25 fathoms off Little Cranberry but still waiting for his brother Mark's probe deployed in 30 fathoms.
+We also got another year of data from Bruce Fernald's site in 25 fathoms off Little Cranberry and hoping his brother Mark's 30 fth probe shows up soon.
 
 We were happy to secure the last 17 Minilog-II probes available from INNOVASEA (aka VEMCO).  These devices have served us well.  This new batch will provide us the instruments needed to maintain the original eMOLT sites for another decade.
 
 An article was published in Nature Communications this past month entitled "Bottom marine heatwaves along the continental shelves of North America" describing the similarities and, most importantly, the differences with surface heatwaves. While the results were obtained purely from model output, they did, at least, mentioned the importance of observations a couple times.
+
+The Southern Maine Community College prepared a drifter [seen here]('drift_smcc_2023_1_on_dock.jpg') and had it deployed by Capt Jeff Putman on the F/V Captain B. You can follow that track [here]('studentdrifters.org/track/drift_smcc_2023_1.html').
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
