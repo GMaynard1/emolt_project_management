@@ -44,6 +44,7 @@ body:
         - label: Scallop dredge
         - label: Longline
         - label: Gillnet
+        - label: Clam dredge
     validations:
       required: true
   - type: dropdown
