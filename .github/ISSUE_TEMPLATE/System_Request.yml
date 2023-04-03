@@ -36,17 +36,16 @@ body:
   - type: checkboxes
     id: gears-fished
     attributes:
-      label: What gears are fished on the vessel?
-      value: "please check as many as apply"
+      label: "What gears are fished on the vessel?"
+      description: "Please check as many as apply."
       options:
-        - Lobster pot / fish pot
-        - Otter trawl
-        - Scallop dredge
-        - Longline
-        - Gillnet
+        - label: Lobster pot / fish pot
+        - label: Otter trawl
+        - label: Scallop dredge
+        - label: Longline
+        - label: Gillnet
     validations:
       required: true
-      multiple: true
   - type: dropdown
     id: homeport_region
     attributes:
