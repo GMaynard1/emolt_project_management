@@ -68,6 +68,6 @@ body:
     id: homeport
     attributes:
       label: Home Port
-      placeholder: Sandwich Boat Basin
+      placeholder: ex. Sandwich Boat Basin
     validations:
       required: true
