@@ -37,6 +37,7 @@ body:
     id: gears-fished
     attributes:
       label: What gears are fished on the vessel?
+      value: please check as many as apply
       options:
         - Lobster pot / fish pot
         - Otter trawl
