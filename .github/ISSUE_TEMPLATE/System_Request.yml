@@ -1,0 +1,73 @@
+name: System Request
+description: Request an eMOLT system for a vessel
+title: "[System Request]: VESSEL NAME "
+assignees:
+  - gmaynard1
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill this form out to the best of your ability to ensure we get systems where they're needed most. 
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Name
+      description: Who is the point of contact for the vessel?
+      placeholder: ex. Bob Smith
+    validations:
+      required: true
+  - type: input
+    id: vessel-name
+    attributes:
+      label: Vessel Name
+      placeholder: F/V Tamatoa
+    validations:
+      required: true
+  - type: dropdown
+    id: primary-interest
+    attributes:
+      label: Primary Interest
+      description: What parameter is of interest to the captain?
+      options:
+        - Bottom Temperature
+        - Temperature Profiles
+        - Dissolved Oxygen
+    validations:
+      required: true
+  - type: checkboxes
+    id: gears-fished
+    attributes:
+      label: What gears are fished on the vessel?
+      multiple: true
+      options:
+        - Lobster pot / fish pot
+        - Otter trawl
+        - Scallop dredge
+        - Longline
+        - Gillnet
+      required: true
+  - type: dropdown
+    id: homeport_region
+    attributes:
+      label: Region
+      description: Where does the vessel normally tie up?
+      options: 
+        - Downeast
+        - Mid-Coast Maine
+        - Southern Maine
+        - New Hampshire
+        - North Shore
+        - South Shore
+        - Cape Cod
+        - South Coast
+        - Rhode Island
+        - Connecticut
+        - Long Island
+        - New Jersey
+  - type: input
+    id: homeport
+    attributes:
+      label: Home Port
+      placeholder: Sandwich Boat Basin
+    validations:
+      required: true
