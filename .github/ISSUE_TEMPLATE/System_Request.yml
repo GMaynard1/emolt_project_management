@@ -43,9 +43,9 @@ body:
         - Scallop dredge
         - Longline
         - Gillnet
-      validations:
-        required: true
-        multiple: true
+    validations:
+      required: true
+      multiple: true
   - type: dropdown
     id: homeport_region
     attributes:
