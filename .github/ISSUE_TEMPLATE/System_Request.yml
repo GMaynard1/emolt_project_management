@@ -64,6 +64,8 @@ body:
         - Connecticut
         - Long Island
         - New Jersey
+    validations:
+      required: true
   - type: input
     id: homeport
     attributes:
