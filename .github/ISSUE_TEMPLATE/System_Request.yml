@@ -6,8 +6,7 @@ assignees:
 body:
   - type: markdown
     attributes:
-      value: |
-        Please fill this form out to the best of your ability to ensure we get systems where they're needed most. 
+      value: Please fill this form out to the best of your ability to ensure we get systems where they're needed most. 
   - type: input
     id: contact
     attributes:
