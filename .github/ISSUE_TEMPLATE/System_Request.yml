@@ -19,7 +19,7 @@ body:
     id: vessel-name
     attributes:
       label: Vessel Name
-      placeholder: F/V Tamatoa
+      placeholder: ex. F/V Tamatoa
     validations:
       required: true
   - type: dropdown
