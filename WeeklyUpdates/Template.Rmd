@@ -1,5 +1,5 @@
 ---
-title: "eMOLT Weekly Update"
+title: "eMOLT Update"
 author: "George Maynard"
 date: "`r Sys.Date()`"  
 output: 
@@ -23,33 +23,11 @@ conn=dbConnector(db_config)
 
 <center> 
 
-<font size="5"> *eMOLT Weekly Update `r Sys.Date()` * </font>
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
 
 </center>
 
 ### Weekly Recap 
-
-As you all know, there is no singular "eMOLT" hardware system. Every participating vessel has a slightly different configuration of sensors, computers, and transmitters. To some extent, this is by design. We want to know what works in real-world, at-sea conditions, not just on the benches in our workshop. However, as we identify things that work, we like to roll them out across the fleet. **Huanxin** and I identified five vessels that are still using the old AP3-style satellite transmitters.
-
-![AP3 Transmitter](AP3.PNG)
-
-*Figure 1 -- Older style AP3 Transmitter, previously installed on the **F/V Tenacious II***
-
-If you are on this list, we will be reaching out to you with a new SD card for your vessel as well as a new Rockblock satellite transmitter. 
-
-- **F/V Devocean**
-- **F/V Dorcas Anne**
-- **F/V Excalibur**
-- **F/V Freemantle Doctor**
-- **F/V Virginia Marise**
-
-Besides the vessels with AP3 transmitters and Rockblock transmitters, there is also a subset of eMOLT participants who report solely via a cell modem that's built in to their deckbox. 
-
-![Deck data hub on F/V Mary Elizabeth](Mary_Elizabeth_DDH.PNG)
-
-*Figure 2 -- Captain **Phil Lynch** with a cell-integrated deckbox on the **F/V Mary Elizabeth*** 
-
-**Huanxin Xu** and **Joaquim Oller** have been experimenting with getting these cell modems to work alongside the satellite transmitters. If we can get these operational, and start installing them across the fleet, it will mean you no longer have to connect to Wi-Fi hotspots to transmit your raw data to us.
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
@@ -131,87 +109,22 @@ legend(
 
 In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
 
-```{r coolPlot,dev='png',echo=FALSE, fig.width=8, fig.height=6}
-## Read in the data file
-filename = "C:/Users/george.maynard/Downloads/li_7ae3_20220929_210554.csv"
-## Open a connection to the file
-con=file(filename)
-## Dump the whole file
-open(con)
-all=readLines(
-  con=con
-)
-close(con)
-## Some line will have the column names
-col_names=which(grepl("Lat,Lon,Temp",all))
-## The lines above that contain metadata
-metadata=as.list(all[1:col_names])
-VESSEL_NAME=vessel_name(strsplit(metadata[[which(grepl("Vessel Name",metadata))]],split=",")[[1]][2])
-## Read in the remainder of the file
-data=read.table(text=all[(col_names+1):length(all)],sep=",")
-colnames(data)=ifelse(
-  grepl(" ", tolower(strsplit(all[col_names][[1]],split=",")[[1]]))==TRUE,
-  gsub(tolower(strsplit(all[col_names][[1]],split=",")[[1]])," ",""),
-  tolower(strsplit(all[col_names][[1]],split=",")[[1]])
-)
-## Convert all numeric variables to numeric format
-data$lat=as.numeric(data$lat)
-data$lon=as.numeric(data$lon)
-data$`temperature(c)`=as.numeric(data$`temperature(c)`)
-## Convert latitude and longitude to the correct format
-data$LATITUDE=as.numeric(substr(data$lat,1,2))+as.numeric(substr(data$lat,3,nchar(data$lat)))/60
-data$LONGITUDE=(as.numeric(substr(data$lon,1,2))+as.numeric(substr(data$lon,3,nchar(data$lon)))/60)*-1
-## Convert the timestamp to the correct format
-data$TIMESTAMP=ymd_hms(data$`datet(gmt)`)
-## Convert the temp and depth to imperial units
-data$TEMPERATURE=data$`temperature(c)`*1.8+32
-data$DEPTH=data$`depth(m)`*0.546807
-## Save the bottom 75% of depths
-data=subset(
-  data,
-  data$DEPTH>0.75*max(data$DEPTH)
-)
-## Trim bottom temperature records to allow probe to equilibrate
-data=subset(
-  data,
-  data$TEMPERATURE<1.05*min(data$TEMPERATURE)
-)
-## Plot the depths
-par(mar = c(5, 4, 4, 4) + 0.3)
-plot(
-  data$DEPTH~data$TIMESTAMP,
-  xlab="",
-  ylab='Depth (fathoms)',
-  ylim=c(rev(range(data$DEPTH))),
-  type='l',
-  main=paste0("F/V ",VESSEL_NAME),
-  col='darkgray',
-  lwd=1.5
-)
-par(new=TRUE)
-plot(
-  data$TEMPERATURE~data$TIMESTAMP,
-  xlab="",
-  ylab="",
-  axes=FALSE,
-  type='l',
-  col='red',
-  lwd=1.5
-)
-axis(side=4, at = pretty(range(data$TEMPERATURE)))
-mtext("Bottom Temperature (F)", side=4, line=3)
-legend(
-  "topleft",
-  lwd=c(1.5,1.5),
-  col=c('darkgray','red'),
-  legend=c("Depth", "Temp")
-)
-```
+### Bottom Temperature Forecasts
 
-### Announcements and Upcoming Weeks
+*We plan to add more animations to this section with other models in the future*
 
-- The Cooperative Research Branch at the Northeast Fisheries Science Center is hosting two "Cooperative Research Summits" in early 2023 (January 31 in Newport News, VA and February 15 in Providence, RI) to highlight current coooperative research projects in the region and discuss opportunities for additional collaborations. There are stipends available to support fishermen attending. If you are interested, you can find more information [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/outreach-and-education/cooperative-research-fosters-regional-partnerships#2023-northeast-cooperative-research-summits). Registration is online and closes on **December 2, 2022**.
+#### Northeast Coastal Ocean Forecast System (NECOFS)
+
+![NECOFS Forecast](NECOFS.gif)
+
+Above, please find the bottom temperature forecasts at one hour intervals from 
+the Northeast Coastal Ocean Forecast System run by the 
+[Chen Lab](http://fvcom.smast.umassd.edu/) at the University of Massachusetts 
+School for Marine Science and Technology in New Bedford. 
+
+### Announcements and Other News
+
 
 All the best,
 
--George
+-George and JiM
