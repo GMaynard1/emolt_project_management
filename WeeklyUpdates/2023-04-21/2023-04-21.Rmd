@@ -32,6 +32,8 @@ Thirty four Minilog temperature probes were mailed out to most of the original e
 ![minilogs_2023_mailing]('minilogs_2023_mailing.jpg')
 ![minilogs_2023_mailing_with_kids]('minilogs_2023_mailing_kids.jpg')
 
+Sixteen multi-month time series of hourly bottom temperatures collected by several Maine lobstermen in 2022 as part of the Division of Marine Resources Ventless Trap Program were processed, plotted, and archived this week to become part of the master database. See emolt.org/dmr and scroll down to the bottom to see a list of names.
+
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
 This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
