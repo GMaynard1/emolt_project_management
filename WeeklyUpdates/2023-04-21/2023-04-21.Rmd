@@ -28,11 +28,15 @@ conn=dbConnector(db_config)
 
 </center>
 
-Thirty four Minilog temperature probes were mailed out to most of the original eMOLT lobstermen a few days ago. These non-realtime sensors have been recording hourly bottom temperatures at most of the sites for 20 years or more. As seen in the photo below, JiM got help from his granddaughters in the annual envelope-stuffing routine.
+Thirty four Minilog temperature probes were mailed out to most of the original eMOLT lobstermen a few weeks ago. These non-realtime sensors have been recording hourly bottom temperatures at most of the sites for 20 years or more during the fishing season. As seen in the photo below, JiM got help from his granddaughters in the annual envelope-stuffing routine.
 ![minilogs_2023_mailing]('minilogs_2023_mailing.jpg')
 ![minilogs_2023_mailing_with_kids]('minilogs_2023_mailing_kids.jpg')
 
 Sixteen multi-month time series of hourly bottom temperatures collected by several Maine lobstermen in 2022 as part of the Division of Marine Resources Ventless Trap Program were processed, plotted, and archived this week to become part of the master database. See emolt.org/dmr and scroll down to the bottom to see a list of names.
+
+A few of us met in Newport RI this past week to participate in the [https://theoceanracenewport.com/schedule]['https://theoceanracenewport.com/schedule'] Ocean Race activities including presentations on eMOLT by JiM, on Educational Passages Miniboat Program by Cassie, and on the StudentDrifter Program by Kristi Burkholder (Stonehill Oceanographer) during Thursday's "Citizen Science" session.
+
+We are watching a few drifters move along the coast in the past month as seen at [https://studentdrifters.org/tracks/drift_X.html]['https://studentdrifters.org/tracks/drift_X.html']. One of them, deployed by F/V Captain B on Jeffreys Ledge back in late March, may be running down the backside of Cape Cod this weekend. One of them, deployed by Mississippi's Dept of Natural Resouces off Biloxi back in early March, is headed to Galveston Bay in Texas. While the drifter program slowed during the Covid years, Erin and Kristi are making progress in recent months to restart it.
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
