@@ -13,13 +13,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(blastula)
-library(marmap)
-library(rstudioapi)
-source("C:/Users/george.maynard/Documents/GitHubRepos/emolt_serverside/API/API_header.R")
-today=Sys.Date()
-lastWeek=today-days(7)
-db_config=config::get(file="C:/Users/george.maynard/Documents/GitHubRepos/emolt_serverside/API/config.yml")$dev_intranet
-conn=dbConnector(db_config)
 ```
 
 <center> 
@@ -27,97 +20,59 @@ conn=dbConnector(db_config)
 <font size="5"> *eMOLT Update `r Sys.Date()` * </font>
 
 </center>
-David Johnson has been deploying temperature probes at a few different locations just outside of Casco Bay.  This past year he returned to his 22 fathom site and documented the warming that has occurred there since he left it in 2004. ![DaveJohnson]['DJ02.png']
 
-Speaking of Casco Bay, Captain Alex Todd (F/V Jacob and Joshua) deployed another Southern Maine Community College drifter on Friday (May 26th). You can see the path of this unit at [track]['https://studentdrifters.org/tracks/drift_smcc_2023_1.html'] along with their drifter deployed back in March which ended up in Ptown a few months later and another experimental one to be deployed in a few days with plywood sails.  
+Sorry for the long radio silence; it's been a busy month for the eMOLT team! 
 
-Speaking of drifters, a couple more drifters were deployed in Cape Cod Bay on 30 May by the 5th grade students from the Meadowbrook Elementary School aboard the M/V Albatross out of Sesuit Harbor. They came ashore a week later on the Barnstable and Dennis beaches. Another unit was deployed by the Sandwich MA USCG folks off Plymouth on 8 June is headed in the opposite direction. Drifter tracks for the past month are always posted at [https://studentdrifters.org/tracks/drift_X.html]['https://studentdrifters.org/tracks/drift_X.html'] along with four units in Lake Michigan.
+This week, Erin and George traveled up to South Bristol, Maine to begin our Gulf of Maine expansion effort on board the F/V Ella V. It was great to meet Captain Jamien and work with some new colleagues from the Maine Lobster Institute. We're looking forward to installing another dozen vessels throughout the Mid-Coast and Downeast later this summer. 
 
-On the early morning of 12 May, the miniboat that was deployed by R/V Neil Armstrong back in November south of New England, approached the Azorean Island of Graciosa. Cassie and JiM alerted colleagues who have recovered units there before and, within hours, they rallied their troups and recovered the unit before it might have crashed on the rocks. ![Lady lance]['lady_lance_recovery.jpg']. You can see the full story at [lady_lance]['http://educationalpassages.org/boats/ladylance']. In late June, a few miniboats came ashore prematurely on New England soil, one on the [Gryphon Cruiser]['http://educationalpassages.org/boats/gryphoncruiser'] southern side of Nantucket and another on a small ledge [Topsfield Titan]['http://educationalpassages.org/boats/topsfieldtitan'] east of the Isle of Haut in Maine. If anyone has contacts in these areas, please let us know. As of 29 June, we have not recovered them yet.
+![F/V Ella V](ella_v.JPG){width=300px}
 
-On Thursday 18 May, most of the eMOLT crew participated in a session at the Ocean Race Event in Newport called "Enabling Tools for Citizen Science in Ocean Data Collection" organized by folks from the European Marine Observation Data Network. While there were very few in the audience, we got to meet fellow speakers in person for the first time. They were associated with OpenCtds, Smart-Buoys, MakerBuoys, and Sailing4Science. See pic below. ![newport]['newport_ocean_race_pic.jpg'].  Cassie, pictured front and center, set up near URI Grad School of Oceanography booth and spent most of the week chatting with many tourist and school groups about her Educational Passages Miniboat Program.
+George and Cooper headed to Spain in early June to meet with representatives from a number of fishing-vessel based ocean observing projects underway around the world, the ["Fishing Vessel Ocean Observing Network"](https://fvon.org/). 
 
+![FVON group](IMG_0266.JPG){width=300px}
 
-### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+While it's not the biggest program in the world (the Moana Program in New Zealand has over 300 vessels participating!), eMOLT is one of the longest running programs along with AdriFOOS (an Italian program working primarily with midwater trawlers). It was great to compare notes on hardware, data management, and data use with all of these folks. 
 
-This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
+![japanese app](naoki_app.jpg)
+For example, our colleagues in Japan are deploying CTDs (measuring salinity, temperature, and depth) on commercial fishing gear and delivering forecasts back to fishermen through a smartphone app. 
 
-```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
-dbDisconnectAll()
-conn=dbConnector(db_config)
-lastweek=Sys.Date()-days(7)
-data=dbGetQuery(
-  conn=conn,
-  statement=paste0(
-    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
-    lastweek,
-    "' AND VESSEL_ID != 23"
-  )
-)
-data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
-bath=readGEBCO.bathy(
-  file="C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/UtilityScripts/GEBCO/gebco_2022_n47.0_s38.0_w-76.0_e-59.0.nc",
-  resolution=10
-)
-## Create color ramp
-blues=c(
-  "lightsteelblue4", 
-  "lightsteelblue3",
-  "lightsteelblue2", 
-  "lightsteelblue1"
-)
-## Plotting the bathymetry with different colors for land and sea
-plot(
-  bath,
-  step=100,
-  deepest.isobath=-1000,
-  shallowest.isobath=0,
-  col="darkgray",
-  image = TRUE, 
-  land = TRUE, 
-  lwd = 0.1,
-  bpal = list(
-    c(0, max(bath), "gray"),
-    c(min(bath),0,blues)
-  ),
-  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
-)
-## Plot the status report locations
-x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='red',
-  cex=2
-)
-## Plot data uploads
-x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='blue',
-  cex=2
-)
-legend(
-  'topleft',
-  col=c('blue','red'),
-  legend=c('Summary Data Upload','Status Report'),
-  pch=c(1,1),
-  bty='n',
-  bg=NULL,
-  border='black'
-)
-```
+![ferrybox dashboard](ferrybox_dashboard.JPG)
 
-![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
-*eMOLT Satellite Transmitter status plot for the previous week.*
-In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
-### NECOFS Bottom Temperature Forecast
-![NECOFS gif](NECOFS.gif)
+The [UNDERSEE company](https://undersee.io/ferrybox/) in Portugal has developed a surface water monitoring system that attaches to a vessel's cooling water intake and delivers information about water temperature, oxygen, chlorophyll, salinity, and pH to an online dashboard in real time. They've also started working with aquaculturists in Europe to help monitor water quality around farms. 
+
+Back stateside, David Johnson has been deploying temperature probes at a few different locations just outside of Casco Bay.  This past year he returned to his 22 fathom site and documented the warming that has occurred there since he left it in 2004. ![DaveJohnson](DJ02.png){width=300px}
+
+Speaking of Casco Bay, Captain Alex Todd (F/V Jacob and Joshua) deployed another Southern Maine Community College drifter on Friday May 26th. You can see the [path of this unit](https://studentdrifters.org/tracks/drift_smcc_2023_1.html) along with their drifter deployed back in March which ended up in Ptown a few months later and another experimental one to be deployed in a few days with plywood sails.  
+
+Speaking of drifters, a couple more drifters were deployed in Cape Cod Bay on 30 May by the 5th grade students from the Meadowbrook Elementary School aboard the M/V Albatross out of Sesuit Harbor. They came ashore a week later on the Barnstable and Dennis beaches. Another unit was deployed by the Sandwich MA USCG folks off Plymouth on 8 June is headed in the opposite direction. Drifter tracks for the past month are always posted at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html) along with four units in Lake Michigan.
+
+On the early morning of 12 May, the miniboat that was deployed by R/V Neil Armstrong back in November south of New England, approached the Azorean Island of Graciosa. Cassie and JiM alerted colleagues who have recovered units there before and, within hours, they rallied their troups and recovered the unit before it might have crashed on the rocks. [Click here for the full story](http://educationalpassages.org/boats/ladylance).
+
+![Lady lance](lady_lance_recovery.jpg){width=300px} 
+
+In late June, a few miniboats came ashore prematurely on New England soil, the [Gryphon Cruiser](http://educationalpassages.org/boats/gryphoncruiser) on the southern side of Nantucket and the [Topsfield Titan](http://educationalpassages.org/boats/topsfieldtitan) on a small ledge  east of the Isle of Haut in Maine. If anyone has contacts in these areas, please let us know. As of 29 June, we have not recovered them yet.
+
+On Thursday 18 May, most of the eMOLT crew participated in a session at the Ocean Race Event in Newport called "Enabling Tools for Citizen Science in Ocean Data Collection" organized by folks from the European Marine Observation Data Network. While there were very few in the audience, we got to meet fellow speakers in person for the first time. They were associated with OpenCtds, Smart-Buoys, MakerBuoys, and Sailing4Science.
+
+![newport](newport_ocean_race_pic.png).  
+
+Cassie, pictured front and center, set up near URI Grad School of Oceanography booth and spent most of the week chatting with many tourist and school groups about her Educational Passages Miniboat Program.
+
+### NECOFS Bottom Temperature Forecasts
+
+![NECOFS gif](NECOFS_GOM (3).gif){width=600px}
+
+![MABAY gif](NECOFS_MABAY.gif){width=600px,height=600px}
+
 ### Announcements
 
+- For those of you who haven't heard, our colleagues at Commercial Fisheries Research Foundation and Woods Hole Oceanographic Institution recently published a paper called ["Integrating fishers’ knowledge with oceanographic observations to understand changing ocean conditions in the Northeast United States"](https://www.frontiersin.org/articles/10.3389/fmars.2023.1144178/full)
 
+- The [Commercial Fishing Business Cost Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/commercial-fishing/commercial-fishing-business-cost-survey?utm_medium=email&utm_source=govdelivery) is live for vessel owners to provide feedback on the economic realities faced by people who run fishing businesses. The survey closes July 31. 
 
+- The [Commercial Fishing Crew Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/socioeconomics/2023-commercial-fishing-crew-survey?utm_medium=email&utm_source=govdelivery) is an opportunity for crewmembers and hired vessel operators to provide information about the social and economic well-being of commercial fishing vessel crews and better understand how management and environmental change affect important, socially vulnerable groups.
+
+- Our colleagues  at the Northeast Fisheries Science Center recently published a report on the [Current Conditions of the Northeast U.S. Shelf Ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/current-conditions-northeast-us-shelf-ecosystem-spring-2023?utm_medium=email&utm_source=govdelivery) focusing on surface dynamics during the second half of 2022. 
 
 All the best,
 George and JiM
