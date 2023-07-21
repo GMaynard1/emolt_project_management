@@ -1,0 +1,124 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+### Software Improvements
+
+This week, George and Huanxin spent some time torture testing the Deck Data Hub
+software that we are hoping to roll out across the eMOLT fleet over the coming
+months. This software is a blend of code from Lowell Instruments, Ocean Data 
+Network, and the original python scripts developed by JiM, Huanxin, and many interns.
+By working off a unified code base, we hope to make troubleshooting more efficient,
+provide some of the features our industry partners have been asking for, and 
+streamline our data transmission. 
+
+For those of you who haven't seen this software yet, you can check out some 
+screenshots and features below:
+
+![App resting mode](app_resting.png)
+
+- In the top left, the color of the vessel icon indicates which version of the
+software is running, so we know if your box needs a major update or not.
+- In the middle up top is a network connection indicator showing whether your 
+vessel is connected to a WiFi network, cellular network, or neither.
+- **In the top right is a feature that our industry partners have requested time 
+and time again -- a screen dimmer!**
+- On the bottom left the cloud message indicates whether your vessel is successfully
+transmitting data to the cloud or not.
+- The tabs across the top allow you to toggle back and forth between the main 
+status screen, plots of data, and an information screen that shows the time of
+the last interaction your deckbox had with your logger(s) and whether it successfully downloaded the data from the logger or not. 
+- In the middle of the screen is a large icon indicating your system's current
+activity. In this case, the system is in "resting" mode to save power while the
+vessel is stationary in port.
+
+Just as important as unifying what people see on their deckboxes is unifying
+the information we receive on the back end. For example, the new software sends
+email updates back to the eMOLT team whenever a deckbox powers up, successfully
+downloads a logger, or runs into an error, all information that will help us
+keep your systems running smoothly and (hopefully) reduce the number of times
+we call to bug you about why the system isn't working. 
+
+Finally, the new software transmits data into a pipeline connected directly to
+our new database. That means the data you collect are available almost immediately
+to the modelers who rely on that information to improve their ocean forecasts.
+Additionally, having a single storehouse of data makes it easier for us to 
+leverage all of this information for other scientific research beyond 
+ocean forecasts. 
+
+
+### Hardware Improvements
+
+In addition to improving the software on the boxes, we're also looking for ways
+to make the hardware more resilient without breaking the bank. Recently, we've
+begun heat-shrinking the power connections outside the box to reduce problems 
+with rusting and cables vibrating out of place. 
+
+![Heat shrink power cable](heatshrink.jpeg)
+
+One great thing about working with fishermen and scientists is that there's no
+shortage of creative problem solvers in the room. If you have an idea for making
+these boxes more resilient to life on board commercial fishing vessels, please
+feel free to reach out!
+
+### Acknowledgements
+
+Thanks this week to Chris and Captain Mike at Sea Watch International 
+for your efforts to get the F/V Sea Watcher II online. We appreciate you
+being so communicative and making sure everything was up and running.
+
+Thanks also to Owen and Captain Willis up in Provincetown for bringing the
+F/V Donna Marie back online after a long hiatus due to bluetooth problems. 
+
+### NECOFS Bottom Temperature Forecasts
+
+![NECOFS forecast](NECOFS_GOM.gif)
+
+![MABAY forecast](NECOFS_MABAY.gif)
+### Doppio Bottom Temperature Forecasts
+
+![Doppio forecast](DOPPIO_forecast_F.gif)
+
+### Announcements
+
+- The [Woods Hole Science Stroll](https://woodsholesciencestroll.org/) is back on this year! On August 12, we welcome
+anyone who's interested in meeting scientists and learning more about the work
+we do to come down to Water Street in Woods Hole. In addition to the Cooperative
+Research Branch staff many of you already know and other NOAA Fisheries scientists
+staff from other scientific organizations will be around giving demos of hardware 
+and explaining their research. We'd be happy to have you stop in! Participating
+organizations include:
+    - Marine Biological Laboratory
+    - US Coast Guard
+    - US Geological Survey
+    - Woodwell Climate Research Center
+    - Woods Hole Oceanographic Institution
+  ...and more!
+
+- The [Commercial Fishing Business Cost Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/commercial-fishing/commercial-fishing-business-cost-survey?utm_medium=email&utm_source=govdelivery) is live for vessel owners to provide feedback on the economic realities faced by people who run fishing businesses. The survey closes July 31. 
+
+- The [Commercial Fishing Crew Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/socioeconomics/2023-commercial-fishing-crew-survey?utm_medium=email&utm_source=govdelivery) is an opportunity for crewmembers and hired vessel operators to provide information about the social and economic well-being of commercial fishing vessel crews and better understand how management and environmental change affect important, socially vulnerable groups.
+
+- Our colleagues  at the Northeast Fisheries Science Center recently published a report on the [Current Conditions of the Northeast U.S. Shelf Ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/current-conditions-northeast-us-shelf-ecosystem-spring-2023?utm_medium=email&utm_source=govdelivery) focusing on surface dynamics during the second half of 2022. 
+
+All the best,
+George and JiM
