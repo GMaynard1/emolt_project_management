@@ -34,7 +34,7 @@ streamline our data transmission.
 For those of you who haven't seen this software yet, you can check out some 
 screenshots and features below:
 
-![App resting mode](app_resting.png)
+![App resting mode](app_resting.png){width=300px}
 
 - In the top left, the color of the vessel icon indicates which version of the
 software is running, so we know if your box needs a major update or not.
@@ -73,7 +73,7 @@ to make the hardware more resilient without breaking the bank. Recently, we've
 begun heat-shrinking the power connections outside the box to reduce problems 
 with rusting and cables vibrating out of place. 
 
-![Heat shrink power cable](heatshrink.jpeg)
+![Heat shrink power cable](heatshrink.jpeg){width=300px}
 
 One great thing about working with fishermen and scientists is that there's no
 shortage of creative problem solvers in the room. If you have an idea for making
@@ -91,12 +91,13 @@ F/V Donna Marie back online after a long hiatus due to bluetooth problems.
 
 ### NECOFS Bottom Temperature Forecasts
 
-![NECOFS forecast](NECOFS_GOM.gif)
+![NECOFS forecast](NECOFS_GOM.gif){width=300px}
 
-![MABAY forecast](NECOFS_MABAY.gif)
+![MABAY forecast](NECOFS_MABAY.gif){width=300px}
+
 ### Doppio Bottom Temperature Forecasts
 
-![Doppio forecast](DOPPIO_forecast_F.gif)
+![Doppio forecast](DOPPIO_forecast_F.gif){width=300px}
 
 ### Announcements
 
