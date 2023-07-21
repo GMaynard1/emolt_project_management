@@ -89,6 +89,20 @@ being so communicative and making sure everything was up and running.
 Thanks also to Owen and Captain Willis up in Provincetown for bringing the
 F/V Donna Marie back online after a long hiatus due to bluetooth problems. 
 
+## Forecasts
+
+This week, in addition to the NECOFS forecasts we've been including, we also have
+the bottom temperature forecast from the Doppio modelers at Rutgers. There are
+many differences between these two models. Among them, Doppio assimilates eMOLT
+data, but we are still in the process of setting that up for the NECOFS group.
+That means, the Doppio modelers use the real-world observations from this program
+to improve their model. 
+
+One major difference this week is a streamer of cold water running along the shelf
+southwest to New Jersey that's present in Doppio, but not in NECOFS. According to
+observations in that area from eMOLT participant F/V Christi Caroline and other Cooperative Research Branch partners, bottom temperatures are more in line with 
+what's predicted in Doppio, and cooler than what's predicted by NECOFS.
+
 ### NECOFS Bottom Temperature Forecasts
 
 ![NECOFS forecast](NECOFS_GOM.gif){width=300px}
@@ -118,8 +132,6 @@ organizations include:
 - The [Commercial Fishing Business Cost Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/commercial-fishing/commercial-fishing-business-cost-survey?utm_medium=email&utm_source=govdelivery) is live for vessel owners to provide feedback on the economic realities faced by people who run fishing businesses. The survey closes July 31. 
 
 - The [Commercial Fishing Crew Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/socioeconomics/2023-commercial-fishing-crew-survey?utm_medium=email&utm_source=govdelivery) is an opportunity for crewmembers and hired vessel operators to provide information about the social and economic well-being of commercial fishing vessel crews and better understand how management and environmental change affect important, socially vulnerable groups.
-
-- Our colleagues  at the Northeast Fisheries Science Center recently published a report on the [Current Conditions of the Northeast U.S. Shelf Ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/current-conditions-northeast-us-shelf-ecosystem-spring-2023?utm_medium=email&utm_source=govdelivery) focusing on surface dynamics during the second half of 2022. 
 
 All the best,
 George and JiM
