@@ -1,1 +1,72 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+Thanks primarily to our close colleague Cooper Van Vranken, an important paper was published this past week in Frontiers in Marine Science entitled "Towards a global Fishing Vessel Ocean Observing Network (FVON): State of the art and future directions" as seen [Frontiers paper]['https://www.frontiersin.org/articles/10.3389/fmars.2023.1176814']here. Both challenges and successes of several projects from around the world (eMOLT included) are described.
+
+### Software Improvements
+
+
+
+### Hardware Improvements
+
+
+![Heat shrink power cable](heatshrink.jpeg){width=300px}
+
+### Acknowledgements
+
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecasts
+
+![NECOFS forecast](NECOFS_GOM.gif){width=300px}
+
+![MABAY forecast](NECOFS_MABAY.gif){width=300px}
+
+### Doppio Bottom Temperature Forecasts
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=300px}
+
+### Announcements
+
+- The [Woods Hole Science Stroll](https://woodsholesciencestroll.org/) is back on this year! On August 12, we welcome
+anyone who's interested in meeting scientists and learning more about the work
+we do to come down to Water Street in Woods Hole. In addition to the Cooperative
+Research Branch staff many of you already know and other NOAA Fisheries scientists
+staff from other scientific organizations will be around giving demos of hardware 
+and explaining their research. We'd be happy to have you stop in! Participating
+organizations include:
+    - Marine Biological Laboratory
+    - US Coast Guard
+    - US Geological Survey
+    - Woodwell Climate Research Center
+    - Woods Hole Oceanographic Institution
+  ...and more!
+
+
+
+- The [Commercial Fishing Crew Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/socioeconomics/2023-commercial-fishing-crew-survey?utm_medium=email&utm_source=govdelivery) is an opportunity for crewmembers and hired vessel operators to provide information about the social and economic well-being of commercial fishing vessel crews and better understand how management and environmental change affect important, socially vulnerable groups.
+
+All the best,
+George and JiM
