@@ -21,32 +21,29 @@ library(blastula)
 
 </center>
 
-Thanks primarily to our close colleague Cooper Van Vranken, an important paper was published this past week in Frontiers in Marine Science entitled "Towards a global Fishing Vessel Ocean Observing Network (FVON): State of the art and future directions" as seen [Frontiers paper]['https://www.frontiersin.org/articles/10.3389/fmars.2023.1176814']here. Both challenges and successes of several projects from around the world (eMOLT included) are described.
+This week has been quiet as we prepare for a busy week next week. George will be
+heading up to Maine to assist in setting up several new realtime eMOLT systems
+in Jonesport, Northeast Harbor, and Stonington. Huanxin is sticking closer to home
+to upgrade systems on the South Shore of Massachusetts to the new DDH software. 
 
-### Software Improvements
+Thanks primarily to our close colleague Cooper Van Vranken, an important paper was published this past week in Frontiers in Marine Science entitled ["Towards a global Fishing Vessel Ocean Observing Network (FVON): State of the art and future directions"](https://www.frontiersin.org/articles/10.3389/fmars.2023.1176814). The paper describes both challenges and successes of several projects from around the world (eMOLT included).
 
+## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
 
-
-### Hardware Improvements
-
-
-![Heat shrink power cable](heatshrink.jpeg){width=300px}
-
-### Acknowledgements
-
+![CCB DO](CCB_DO.png){width=600px}
 
 ## Forecasts
 
 
 ### NECOFS Bottom Temperature Forecasts
 
-![NECOFS forecast](NECOFS_GOM.gif){width=300px}
+![NECOFS forecast](NECOFS_GOM.gif){width=400px}
 
-![MABAY forecast](NECOFS_MABAY.gif){width=300px}
+![MABAY forecast](NECOFS_MABAY.gif){width=400px}
 
 ### Doppio Bottom Temperature Forecasts
 
-![Doppio forecast](DOPPIO_forecast_F.gif){width=300px}
+![Doppio forecast](DOPPIO_forecast_F.gif){width=400px}
 
 ### Announcements
 
@@ -63,10 +60,6 @@ organizations include:
     - Woodwell Climate Research Center
     - Woods Hole Oceanographic Institution
   ...and more!
-
-
-
-- The [Commercial Fishing Crew Survey](https://www.fisheries.noaa.gov/new-england-mid-atlantic/socioeconomics/2023-commercial-fishing-crew-survey?utm_medium=email&utm_source=govdelivery) is an opportunity for crewmembers and hired vessel operators to provide information about the social and economic well-being of commercial fishing vessel crews and better understand how management and environmental change affect important, socially vulnerable groups.
 
 All the best,
 George and JiM
