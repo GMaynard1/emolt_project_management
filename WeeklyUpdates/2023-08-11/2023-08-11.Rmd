@@ -39,11 +39,22 @@ depends on how many other electronics are already installed in the wheelhouse*
 Erin also got out into the field helping to deploy some dissolved oxygen loggers
 and working with Huanxin to upgrade the deckbox on the F/V Lina Rose. 
 
+On the modeling side, we also got a notification from Qichun Xu at the Univeristy 
+of Massachusetts School for Marine Science and Technology that the NECOFS
+group has begun to incorporate realtime eMOLT data into their forecast model!
+The plot below shows the first eMOLT points that were assimilated on 2023-08-08
+
+![NECOFS eMOLT assimilation](necofs.png){width=450px}
+
 ## Acknowledgements
 
 Thank you to captains Dustin, Sam, Dominic, Jim, and Jamien who graciously made
 time for us to work on their boats this week. Welcome aboard! We appreciate your 
 willingness to participate in the program. 
+
+Thanks also to the Chen lab at SMAST for their efforts to incorporate eMOLT data
+into the NECOFS forecasts. It's all well and good to collect the data, but it's
+really great to see it being used!
 
 ## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
 
