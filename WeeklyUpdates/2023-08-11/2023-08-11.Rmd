@@ -1,0 +1,80 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+This week is a busy one for the eMOLT team. George put in almost 1000 miles of 
+driving to install eMOLT systems along the coast of Maine with Andrew, Chris, 
+Ryan, and Tessa from the Maine Lobster Institute. 
+
+![Andrew wiring on F/V Every Last Dollar](andy.png){width=300px}
+![Chris and Ryan put a probe in a lobster trap](chris_and_ryan.png){width=300px}
+
+![Dominic and George on the F/V Tyrant](dominic.png){width=300px}
+![Sam brings the skiff around](sam.png){width=300px}
+
+![How many scientists does it take...](howmanyscientists.png){width=450px}
+
+*How many scientists does it take to install an eMOLT system? Sometimes that 
+depends on how many other electronics are already installed in the wheelhouse*
+
+Erin also got out into the field helping to deploy some dissolved oxygen loggers
+and working with Huanxin to upgrade the deckbox on the F/V Lina Rose. 
+
+## Acknowledgements
+
+Thank you to captains Dustin, Sam, Dominic, Jim, and Jamien who graciously made
+time for us to work on their boats this week. Welcome aboard! We appreciate your 
+willingness to participate in the program. 
+
+## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
+
+![CCB DO](Screenshot from 2023-08-11 13-06-02.png){width=800px}
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+### Announcements
+
+- The [Woods Hole Science Stroll](https://woodsholesciencestroll.org/) is back on this year! Tomorrow (August 12), we welcome
+anyone who's interested in meeting scientists and learning more about the work
+we do to come down to Water Street in Woods Hole. In addition to the Cooperative
+Research Branch staff many of you already know and other NOAA Fisheries scientists,
+staff from other scientific organizations will be around giving demos of hardware 
+and explaining their research. We'd be happy to have you stop in! Participating
+organizations include:
+    - Marine Biological Laboratory
+    - US Coast Guard
+    - US Geological Survey
+    - Woodwell Climate Research Center
+    - Woods Hole Oceanographic Institution
+  ...and more!
+
+All the best,
+George and JiM
