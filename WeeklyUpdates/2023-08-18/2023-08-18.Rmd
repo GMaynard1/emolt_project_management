@@ -20,7 +20,7 @@ library(blastula)
 <font size="5"> *eMOLT Update `r Sys.Date()` * </font>
 
 </center>
-JiM's note on OpenDrift results coming soon ...
+JiM has been experimenting with a new open-source "particle tracking" routine, recently developed by oceanographers in Norway, called "OpenDrift". It allows one to numerically simulate drifter tracks through modeled ocean circulation fields.  Thanks to some help from our Rutger's colleagues, he was able to make some initial tests of the system using three student-built units currently drifting in the Gulf of Maine. As see here at [last_month_tracks]['https://studentdrifters.org/tracks/drift_X.html'], the real drifters are distributed in different parts of the Gulf including one of the Southern Maine Community Colleage units that has made its way to the upper reaches of the Bay of Fundy.  As seen here at ![the animation here]['doppio_235430701_8_14.mp4'], it subjected to the enormous tides. The eastern portion of Digby Harbor is visible in the lower half of the frames.
 
 ## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
 
@@ -39,29 +39,9 @@ JiM's note on OpenDrift results coming soon ...
 
 ### Other News
 
-The Massachusetts Division of Marine Fisheries recently released a report titled 
-["Estimating the Costs of Using On-Demand Gear in Massachusetts Lobster 
-Fisheries"](https://www.mass.gov/files/documents/2023/07/31/Estimating%20the%20costs%20of%20using%20on-demand%20gear%20in%20Massachusetts%20lobster%20fisheries.pdf). The report indicates
-that *"operational time costs and resulting decreases in catch
-revenue associated with the decreased efficiency of the type of on-demand gear we used to
-parameterize the model could be significant, reaching a similar level of cost to the acquisition of
-the gear itself for some classes of lobster fishing vessel."*
 
 ### Announcements
 
-- The [Woods Hole Science Stroll](https://woodsholesciencestroll.org/) is back on this year! Tomorrow (August 12), we welcome
-anyone who's interested in meeting scientists and learning more about the work
-we do to come down to Water Street in Woods Hole. In addition to the Cooperative
-Research Branch staff many of you already know and other NOAA Fisheries scientists,
-staff from other scientific organizations will be around giving demos of hardware 
-and explaining their research. We'd be happy to have you stop in! Participating
-organizations include:
-    - Marine Biological Laboratory
-    - US Coast Guard
-    - US Geological Survey
-    - Woodwell Climate Research Center
-    - Woods Hole Oceanographic Institution
-  ...and more!
 
 All the best,
 George and JiM
