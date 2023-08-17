@@ -1,0 +1,67 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+JiM's note on OpenDrift results coming soon ...
+
+## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
+
+![CCB DO](Screenshot from 2023-08-11 13-06-02.png){width=800px}
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+### Other News
+
+The Massachusetts Division of Marine Fisheries recently released a report titled 
+["Estimating the Costs of Using On-Demand Gear in Massachusetts Lobster 
+Fisheries"](https://www.mass.gov/files/documents/2023/07/31/Estimating%20the%20costs%20of%20using%20on-demand%20gear%20in%20Massachusetts%20lobster%20fisheries.pdf). The report indicates
+that *"operational time costs and resulting decreases in catch
+revenue associated with the decreased efficiency of the type of on-demand gear we used to
+parameterize the model could be significant, reaching a similar level of cost to the acquisition of
+the gear itself for some classes of lobster fishing vessel."*
+
+### Announcements
+
+- The [Woods Hole Science Stroll](https://woodsholesciencestroll.org/) is back on this year! Tomorrow (August 12), we welcome
+anyone who's interested in meeting scientists and learning more about the work
+we do to come down to Water Street in Woods Hole. In addition to the Cooperative
+Research Branch staff many of you already know and other NOAA Fisheries scientists,
+staff from other scientific organizations will be around giving demos of hardware 
+and explaining their research. We'd be happy to have you stop in! Participating
+organizations include:
+    - Marine Biological Laboratory
+    - US Coast Guard
+    - US Geological Survey
+    - Woodwell Climate Research Center
+    - Woods Hole Oceanographic Institution
+  ...and more!
+
+All the best,
+George and JiM
