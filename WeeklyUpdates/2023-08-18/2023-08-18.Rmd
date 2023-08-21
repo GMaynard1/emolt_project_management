@@ -32,16 +32,18 @@ These benefits are highlighted in a recent article published in The Journal of S
 called ["Exploring scientists’ perceptions of citizen science for public engagement with science"](https://jcom.sissa.it/article/pubid/JCOM_2107_2022_A01/). The full article is 
 pretty long, but you can read a summary of it [here](https://www.scicommbites.org/post/beyond-data-collection-the-transformative-role-of-citizen-science-in-public-engagement)
 
-This week, we got our first data from the DO loggers that were hastily deployed
+This past week, we got our first data from the DO loggers that were hastily deployed
 up in Maine last week to monitor the potential impacts of a large plankton bloom
 underway in the Gulf of Maine. So far, both loggers that reported are showing good levels of
 Dissolved Oxygen with no discernable downward trends off Cape Elizabeth and Isle Au Haut. 
 We will be working with our colleagues at The Lobster Institute to get some more of
 these sensors out on Maine-based fishing vessels over the next few weeks. 
 
-George and Huanxin will be up on the South Shore this afternoon working with some 
-of our other NOAA colleagues to support data collection on two lobster boats out
-of Cohasset. 
+George and Huanxin went up to the South Shore on Friday afternoon and upgraded the 
+deckbox software on two lobster boats out of Cohasset. Of course, driving back onto
+the Cape on a Friday afternoon in August isn't a great situation, but we try to
+work around fishermen's availability as best we can. It's also why this update
+is coming out this morning instead of last Friday. 
 
 JiM has been experimenting with a new open-source "particle tracking" routine, recently developed by oceanographers in Norway, called "OpenDrift". It allows one to numerically simulate drifter tracks through modeled ocean circulation fields.  Thanks to some help from our Rutger's colleagues, he was able to make some initial tests of the system using three student-built units currently drifting in the Gulf of Maine. As see [here](https://studentdrifters.org/tracks/drift_X.html), the real drifters are distributed in different parts of the Gulf including one of the Southern Maine Community Colleage units that has made its way to the upper reaches of the Bay of Fundy.  As seen below, it subjected to the enormous tides. The eastern portion of Digby Harbor is visible in the lower half of the frames.
 
@@ -60,6 +62,7 @@ As reported by the [Provincetown Independent](https://provincetownindependent.or
 
 ![NECOFS forecast](NECOFS_GOM.gif){width=800px}
 
+![MABAY forecast](NECOFS_MABAY.gif){width=800px}
 ### Doppio Bottom Temperature Forecast
 
 ![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
@@ -67,7 +70,7 @@ As reported by the [Provincetown Independent](https://provincetownindependent.or
 ### Acknowledgements
 
 Thanks to Capt. Dave on the F/V Grace Sarah, Capt. Dustin on the F/V Every Last Dollar
-and Capt. Sam on the F/V Alison Ann for reaching out this week to report challenges
+and Capt. Sam on the F/V Alison Ann for reaching out last week to report challenges
 with their systems. We were able to remotely fix two of the three, and will continue
 monitoring the third to see if things are ok. The text messages you send us are 
 extremely helpful to us in making the hardware more reliable. 
