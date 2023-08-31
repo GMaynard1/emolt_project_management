@@ -29,7 +29,7 @@ appear to be slightly higher off Barnstable and Wellfleet than they were previou
 
 ![CCB DO](Screenshot from 2023-08-25 04-25-58.png){width=800px}
 
-Several years ago, the eMOLT team started to think of ways to measure bottom currents.  What resulted is a tilt current meter that, thanks to Vitalii Sheremet and Nick Lowell, has become a reality and seen many applications.  In addition to these measurements at fixed locations, we also considered ways to develop a "bottom drifter".  The first prototypes were made in 2019 and the results of these initial experiments was published this week [here][https://peerj.com/articles/15866/].
+Several years ago, the eMOLT team started to think of ways to measure bottom currents.  What resulted is a tilt current meter that, thanks to Vitalii Sheremet and Nick Lowell, has become a reality and seen many applications.  In addition to these measurements at fixed locations, we also considered ways to develop a "bottom drifter".  The first prototypes were made in 2019 and the results of these initial experiments was published this week [here](https://peerj.com/articles/15866/).
 
 ## Forecasts
 
