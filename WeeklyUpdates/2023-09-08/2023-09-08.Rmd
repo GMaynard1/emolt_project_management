@@ -1,0 +1,55 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+JiM got some time this past week to work on a new satellite-tracked surface drifter design. After testing the prototype Falmouth Harbor (see photos), he found more adjustments needed to the foam-filled mast buoyancy. 
+The objective in this buoyless case, as in all previous designs, is to minimize windage, maintain oceanographic standards in approximate size/shape, minimizes dangers to both mariners and wildlife, and experiment with new more eco-friendly materials.
+![drifter on dock](drift_fhs_2023_2_on_dock.jpg)
+![drifter in water](drift_fhs_2023_2_on_dock.jpg)
+
+## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
+
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+![MABAY forecast](NECOFS_MABAY.gif){width=800px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+### Acknowledgements
+
+
+### Announcements
+
+- The next [meeting of the New England Fisheries Management Council](https://www.nefmc.org/calendar/september-2023-council-meeting) will be September 25-28 in Plymouth, MA. 
+
+- Saildrone is operating two Uncrewed Surface Vessels in the eastern third of the Gulf of Maine to collect high resolution bathymetric data from August 28 - October 18. Coordinates by date and contact information can be found [here](https://d23h0vhsm26o6d.cloudfront.net/Saildrone-Gulf-of-Maine-Mapping-Project-Announcement.pdf)
+
+All the best,
+George and JiM
