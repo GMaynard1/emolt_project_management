@@ -21,13 +21,25 @@ library(blastula)
 
 </center>
 
+This week, eMOLT entered a new fishery, thanks to support from the Cooperative Research Branch at the Northeast Fisheries Science Center. Lontime CRB partner the F/V Bookie, a tilefish longliner fishing out of Long Island joined the eMOLT fleet on Thursday. Jack from the Study Fleet program and George met with Captain Rob at Goodison Shipyard in Rhode Island to install the new system. We look forward to having some new temperature profiles from the shelf break south of Long Island. 
+
+![f/v Bookie on blocks in the yard](bookie1.png)
+
 JiM got time this past week to work on a new satellite-tracked surface drifter design. After testing the prototype Falmouth Harbor (see photos), he found more ballast needed below the foam-filled mast. 
 The objective in this buoyless case, as in all previous designs, is to minimize windage, maintain oceanographic standards in approximate size/shape, minimizes dangers to both mariners and wildlife, and experiment with new more eco-friendly low-cost materials.
 ![drifter on dock](drift_fhs_2023_2_on_dock.jpg)
 ![drifter in water](drift_fhs_2023_2_on_dock.jpg)
 
+
+George also worked up some new, more detailed data products for an interested captain including 3D plots of gear tows, and trip by trip summaries of bottom temperatures. If you're interested in a more detailed look at the bottom data collected on your vessel beyond just what we can produce on the deckboxes, please feel free to reach out by phone, text, or email. You collect the data, and we want to make it useful for you. 
+
+![example 3d plot](3dplot.png){width=600px}
+
 ## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
 
+Some areas of low DO showed up in central and western parts of Cape Cod Bay this week, although the very low DO areas observed in the last few weeks off Wellfleet appear to be clearing up. 
+
+![screenshot of CCB DO data](ccb_do.png)
 
 ## Forecasts
 
@@ -44,6 +56,7 @@ The objective in this buoyless case, as in all previous designs, is to minimize 
 
 ### Acknowledgements
 
+Thanks to Capt. Rob on the Bookie for taking the time to meet with Jack and George yesterday. It was a sweaty day to be baking on the tarmac, but we appreciate you saving us the drive down to Long Island. 
 
 ### Announcements
 
