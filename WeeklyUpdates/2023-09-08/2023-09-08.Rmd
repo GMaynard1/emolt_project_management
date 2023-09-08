@@ -39,6 +39,8 @@ George also worked up some new, more detailed data products for an interested ca
 
 Some areas of low DO showed up in central and western parts of Cape Cod Bay this week, although the very low DO areas observed in the last few weeks off Wellfleet appear to be clearing up. 
 
+In news from the north, the DO loggers we've deployed with realtime systems in the Gulf of Maine continue to produce readings in the normal range. 
+
 ![screenshot of CCB DO data](ccb_do.png)
 
 ## Forecasts
@@ -59,6 +61,14 @@ Some areas of low DO showed up in central and western parts of Cape Cod Bay this
 Thanks to Capt. Rob on the Bookie for taking the time to meet with Jack and George yesterday. It was a sweaty day to be baking on the tarmac, but we appreciate you saving us the drive down to Long Island. 
 
 ### Announcements
+
+- In other weather news, Hurricane Lee is building strength ESE of Puerto Rico. The official NOAA forecast expects the storm to be between the Bahamas and Bermuda by the middle of next week. 
+
+![official NOAA NHC forecast](lee_official.png)
+
+Models run in the Global Ensemble Prediction System (GEPS) -- longer time series and less certain -- show a range of possible tracks for later in the week. Most seem to put the storm east of Cape Cod, but a few models have the storm grazing the Cape.
+
+![Tropical Tidbits GEPS model outputs](lee_geps.png)
 
 - The next [meeting of the New England Fisheries Management Council](https://www.nefmc.org/calendar/september-2023-council-meeting) will be September 25-28 in Plymouth, MA. 
 
