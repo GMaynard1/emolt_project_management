@@ -1,0 +1,50 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+It is often the episodic storm systems that affect the oceanographic conditions any one season. The recent passing of Lee, for example, evidently restructured the water column. It cooled and transported surface waters
+. As shown in the animation below, the storm arriving about Sept 16th was evidently enough to drop the surface temperatures significantly and drive the two surface drifters (built by Meadowbrook Elementary and Southern Maine Community College, respectively) a good distance. 
+![TS_Lee][(2023-09-13_SNE_DOPPIO.gif)
+          
+## [Cape Cod Bay Dissolved Oxygen Snapshot](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
+
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+![MABAY forecast](NECOFS_MABAY.gif){width=800px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+### Acknowledgements
+
+
+### Announcements
+
+
+All the best,
+George and JiM
