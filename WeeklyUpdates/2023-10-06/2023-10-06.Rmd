@@ -1,0 +1,45 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+![MABAY forecast](NECOFS_MABAY.gif){width=800px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+
+### Announcements
+
+- Saildrone is operating two Uncrewed Surface Vessels in the eastern third of the Gulf of Maine to collect high resolution bathymetric data from August 28 - October 18. Coordinates by date and contact information can be found [here](https://d23h0vhsm26o6d.cloudfront.net/Saildrone-Gulf-of-Maine-Mapping-Project-Announcement.pdf)
+
+
+All the best,
+George and JiM
