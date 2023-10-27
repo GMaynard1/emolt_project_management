@@ -21,7 +21,9 @@ library(blastula)
 
 </center>
 
-The StudentDrifter Program is slowly coming back from its Covid-era slump. This past week, a dozen surface drifters were deployed by the Jacksonville Marine Lab. With help from the USCG, they were dropped about 30 miles offshore in hopes of catching the Gulf Stream north.  Just this morning, a wooden turtle drifter made by the Wellan Montesorri School  was deployed by lobsterman Jeff White off York, Maine. You can see the tracks of these drifters and the last month worth of other drifters currently in the water at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html).
+The semi-annual printed newsletter was mailed to a few dozen lobstermen today, mostly those who participate in the non-realtime project.  Since many do not read emails or websites, this is another way to communicate with them. It reminds them of the project and to mail in their probes when they are done fishing for the year.
+
+The StudentDrifter Program is slowly coming back from its Covid-era slump. This past week, a dozen surface drifters were deployed by the Jacksonville Marine Lab. With help from the USCG, they were dropped about 30 miles offshore in hopes of catching the Gulf Stream north.  Just this morning, a wooden turtle drifter made by the Wellan Montesorri School is set to be deployed by lobsterman Jeff White off York, Maine. You can see the tracks of these drifters and other drifters currently in the water at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html).
 
 ## Forecasts
 
