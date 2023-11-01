@@ -40,6 +40,7 @@ The StudentDrifter Program is slowly coming back from its Covid-era slump. This 
 
 
 ### Announcements
+- An interesting study was published by scientists at Woods Hole Oceanographic Institute last week entitled "Warming and lateral shift of the Gulf Stream from in situ observations since 2001" and described [here](https://www.whoi.edu/press-room/news-release/gulf-stream-is-warming-and-shifting/) as affecting the Gulf of Maine.
 
 - Saildrone is operating two Uncrewed Surface Vessels in the eastern third of the Gulf of Maine to collect high resolution bathymetric data from August 28 - October 18. Coordinates by date and contact information can be found [here](https://d23h0vhsm26o6d.cloudfront.net/Saildrone-Gulf-of-Maine-Mapping-Project-Announcement.pdf)
 
