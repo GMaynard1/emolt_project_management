@@ -21,9 +21,9 @@ library(blastula)
 
 </center>
 
-The semi-annual printed newsletter was mailed to a few dozen lobstermen today, mostly those who participate in the non-realtime project.  Since many do not read emails or websites, this is another way to communicate with them. It reminds them of the project and to mail in their probes when they are done fishing for the year.
+Last week, the semi-annual printed newsletter was mailed to 35 lobstermen, mostly those who participate in the non-realtime project.  Since many do not read emails or websites, this is another way to communicate with them. It reminds them of the project and to mail in their probes when they are done fishing for the year.
 
-The StudentDrifter Program is slowly coming back from its Covid-era slump. This past week, a dozen surface drifters were deployed by the Jacksonville Marine Lab. With help from the USCG, they were dropped about 30 miles offshore in hopes of catching the Gulf Stream north.  Just this morning, a wooden turtle drifter made by the Wellan Montesorri School is set to be deployed by lobsterman Jeff White off York, Maine. You can see the tracks of these drifters and other drifters currently in the water at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html).
+The StudentDrifter Program is slowly coming back from its Covid-era slump. This past week, a dozen surface drifters were deployed by the Jacksonville Marine Lab. With help from the USCG, they were dropped about 30 miles offshore in hopes of catching the Gulf Stream north.  A wooden turtle drifter, made by the Wellan Montesorri School in Newton Mass, was deployed by lobsterman Jeff White off York, Maine. You can see the tracks of these drifters and other drifters currently in the water at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html).
 
 ## Forecasts
 
@@ -40,7 +40,7 @@ The StudentDrifter Program is slowly coming back from its Covid-era slump. This 
 
 
 ### Announcements
-- An interesting study was published by scientists at Woods Hole Oceanographic Institute last week entitled "Warming and lateral shift of the Gulf Stream from in situ observations since 2001" and described [here](https://www.whoi.edu/press-room/news-release/gulf-stream-is-warming-and-shifting/) as affecting the Gulf of Maine.
+- Using a set of floating instruments, an interesting study was published by scientists at Woods Hole Oceanographic Institute last week entitled "Warming and lateral shift of the Gulf Stream from in situ observations since 2001" and described [here](https://www.whoi.edu/press-room/news-release/gulf-stream-is-warming-and-shifting/). The [Portland Herald article](https://www.pressherald.com/2023/10/23/a-warming-gulf-stream-is-edging-ever-closer-to-shore/) focusses on the effects in the Gulf of Maine.
 
 - Saildrone is operating two Uncrewed Surface Vessels in the eastern third of the Gulf of Maine to collect high resolution bathymetric data from August 28 - October 18. Coordinates by date and contact information can be found [here](https://d23h0vhsm26o6d.cloudfront.net/Saildrone-Gulf-of-Maine-Mapping-Project-Announcement.pdf)
 
