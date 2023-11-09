@@ -21,8 +21,12 @@ library(blastula)
 
 </center>
 
-Last week, the semi-annual printed newsletter was mailed to 35 lobstermen, mostly those who participate in the non-realtime project.  Since many do not read emails or websites, this is another way to communicate with them. It reminds them that a) the project is still alive and b) to mail in their probes when they are done fishing for the year.  While only a few have mailed in their probes so far, it appears that 2023 was still warm but not quite as warm as the last few years. In the case of Brian Tarbox's 5 fathom Casco Bay example, it looks like a warm Spring in 2023 was followed by a normal Summer and a warm Fall as seen in the figure below.
+Last week, the semi-annual printed newsletter was mailed to 35 lobstermen, mostly those who participate in the non-realtime project.  Since many do not read emails or websites, this is another way to communicate with them. It reminds them that a) the project is still alive and b) to mail in their probes when they are done fishing for the year.  
+
+While only a few have mailed in their probes so far, it appears that, in the case of Brian Tarbox's 5 fathom Casco Bay example, it looks like a warm Spring in 2023 was followed by a normal Summer and a warm Fall as seen in the figure below. The same can be seen in the case of Frank Kristy's data from 20 fathoms (inside Cape Cod Bay) and Billy Souza (outside Cape Cod Bay). In all cases, the dramatic effect of Hurricane Ian in late September is evident.
 ![Brian Tarbox example](BT01.png)
+![Billy Souza example](BS02.png)
+![Frank Kristy example](DK01.png)
 
 The StudentDrifter Program is slowly coming back from its Covid-era slump. This past month, a dozen surface drifters were deployed by the Jacksonville Marine Lab. With help from the USCG, they were dropped about 30 miles offshore in hopes of catching the Gulf Stream north but ended up further documenting a strong coastal current towards the south.  A wooden turtle drifter, made by the Wellan Montesorri School in Newton Mass, was deployed by lobsterman Jeff White off York, Maine. You can see the tracks of these drifters and other drifters currently in the water at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html).
 
