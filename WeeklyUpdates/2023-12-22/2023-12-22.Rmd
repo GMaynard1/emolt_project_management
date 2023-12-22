@@ -28,7 +28,7 @@ A few dozen have mailed in their probes so far. It appears that, as in the case 
 ![Billy Souza example](BS02.png)
 ![Frank Kristy example](DK01.png)
 
-The StudentDrifter Program is slowly coming back from its Covid-era slump. You can see the last month of tracks at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html). Most interesting, as seen in the ![animation](ccbay_2023_fvcom.gif) animation below, is the result of three clusters deployed in Cape Cod Bay on Nov 25th, Dec 2nd, and Dec 15th. They were deployed by mariners in Sandwich: USCG, Dave Marsh, and Rob Martin, respectively. The last two clusters included a pair of sensor laden miniboats which sail quickly across the bay. 
+The StudentDrifter Program is slowly coming back from its Covid-era slump. You can see the last month of tracks at [https://studentdrifters.org/tracks/drift_X.html](https://studentdrifters.org/tracks/drift_X.html). Most interesting, as seen in the ![animation](ccbay_2023_fvcom_short.gif) animation below, is the result of three clusters deployed in Cape Cod Bay on Nov 25th, Dec 2nd, and Dec 15th. They were deployed by mariners in Sandwich: USCG, Dave Marsh, and Rob Martin, respectively. The last two clusters included a pair of sensor laden miniboats which sail quickly across the bay. 
 
 ## Forecasts
 
