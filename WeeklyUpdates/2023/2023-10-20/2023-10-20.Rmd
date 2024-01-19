@@ -1,0 +1,54 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+In oceanographic news, a study published by scientists at Woods Hole Oceanographic Institution and the University of Miami found that the Gulf Stream has slowed down over the last 40 years
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+![MABAY forecast](NECOFS_MABAY.gif){width=800px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+
+### Announcements
+
+
+
+- Applications for the [Sea Scallop RSA](https://www.grants.gov/web/grants/search-grants.html?keywords=scallop%20rsa) are due 10/23/23
+
+- Applications for the [Saltonstall-Kennedy program](https://www.grants.gov/web/grants/search-grants.html?keywords=saltonstall) are due 11/8/23
+
+- Pre-proposals for the [Bycatch Reduction Engineering Program](https://www.grants.gov/web/grants/search-grants.html?keywords=brep) are due 12/15/23
+
+- Full proposals for the [Bycatch Reduction Engineering Program](https://www.grants.gov/web/grants/search-grants.html?keywords=brep) are due 3/20/24
+
+
+All the best,
+George and JiM

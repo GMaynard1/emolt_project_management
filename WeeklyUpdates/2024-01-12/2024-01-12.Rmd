@@ -1,0 +1,63 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+Our thoughts are with everyone up in Maine after the devastating January 10th storm. 
+
+DMR Commissioner Keliher is encouraging anyone with privately owned infrastructure (wharves, floats, vessels, etc.) that sustained damage to document and report the damage to the state.
+
+To facilitate that reporting, we'd like to pass along the following resources courtesy of the Maine Coast Fishermen's Association:
+
+- Damage reports have been overwhelming. Instead of calling your local town hall to report damage, [please fill out this online form](https://survey123.arcgis.com/share/f72826c1e40d4420ad89934b553c0e82) from the Maine Emergency Management Agency. This is not an application for assistance nor a guarantee of financial assistance. Submission of damage information will help the State of Maine understand the extent of damage from the January 10th storm. 
+
+- Individuals who sustained damages to their primary residence are encouraged to document and report that damage by filling out the [Individuals and Households Initial Damage Assessment Survey](https://survey123.arcgis.com/share/9d30851ba5e448fbb099592ed09e31cc).
+
+MCFA will be updating their [website](https://www.mainecoastfishermen.org/) and [Facebook page](https://www.facebook.com/MaineCoastFishermensAssociation/) with further information and links. Please contact [Monique Coombs](monique@mainecoastfishermen.org) if you need assistance with the survey. 
+
+## Forecasts
+
+
+### NECOFS Bottom Temperature Forecast
+
+![NECOFS forecast](NECOFS_GOM.gif){width=800px}
+
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px}
+
+## Cooperative Research Opportunities
+- Commercial Fisheries Research Foundation is seeking captains interested in *Exploring the Feasibility and Market Potential of a Common Spider Crab Fishery in Southern New England*. To get involved with the project check out their [website](https://www.cfrfoundation.org/spider-crabs?fbclid=IwAR3QoTjBauKFaGM03DO9sWaQbKzKIDcIgoiBPYEvWOvFUhxhQ3cIJhyU79c). 
+
+
+## New research
+
+- Dr. Grace Saba and Dr. Josh Kohut from The Rutgers University Center for Ocean Observing Leadership were [recently interviewed](https://www.thesandpaper.net/articles/rutgers-researchers-observe-unusual-ocean-conditions/) about low dissolved oxygen and pH measurments that were collected by their glider fleet off the coast of New Jersey last summer and the potential impacts on fisheries. These developing situations highlight the need for more of the bottom water observations that you all collect. 
+
+## Announcements
+
+- Full proposals for the [Bycatch Reduction Engineering Program](https://www.grants.gov/web/grants/search-grants.html?keywords=brep) are due 3/20/24
+
+
+All the best,
+
+George and JiM
