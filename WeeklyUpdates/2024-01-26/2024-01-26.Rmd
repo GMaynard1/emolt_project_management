@@ -25,8 +25,7 @@ conn=dbConnector(db_config)
 
 <font size="5"> *eMOLT Update `r Sys.Date()` * </font>
 The Students at Wellan Montesorri School (Newton Mass) are probably wondering why their [wooden loggerhead turtle]{'https://studentdrifters.org/tracks/drift_wms_2023_1_on_deck.jpg'} 
-deployed by Jeff White, a lobsterman out of York Maine, back in October is now going around in circles south north of Bermuda. It turns out that, on about Christmas day, it got caught in a "cold core ring" 
-and is still rotating this week as seen ![in the animation of seasurface temperatures.]{'https://studentdrifters.org/tracks/drift_wms_2023_1_ccr.gif'}.
+deployed by Jeff White, a lobsterman out of York Maine back in October, is now going around in circles south north of Bermuda. It turns out that, on about Christmas day, it got caught in a "cold core ring" (~37 degrees north) and is still rotating this week as seen ![in the animation of seasurface temperatures.]{'https://studentdrifters.org/tracks/drift_wms_2023_1_ccr.gif'}. You can see at least four other drifters in this animation including one from the Southern Maine Community college that is entrained in the actual Gulf Stream and enters the frame on about 23 January 2024.
 </center>
 
 ### Weekly Recap 
