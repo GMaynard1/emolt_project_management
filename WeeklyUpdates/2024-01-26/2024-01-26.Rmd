@@ -13,118 +13,60 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(blastula)
-library(marmap)
-library(rstudioapi)
-source("../../emolt_serverside/API/API_header.R")
-today=Sys.Date()
-lastWeek=today-days(7)
-conn=dbConnector(db_config)
+# library(marmap)
+# library(rstudioapi)
+# source("../../../emolt_serverside/API/API_header.R")
+# today=Sys.Date()
+# lastWeek=today-days(7)
+# conn=dbConnector(db_config)
 ```
 
 <center> 
 
 <font size="5"> *eMOLT Update `r Sys.Date()` * </font>
-The Students at Wellan Montesorri School (Newton Mass) are probably wondering why their [wooden loggerhead turtle]{'https://studentdrifters.org/tracks/drift_wms_2023_1_on_deck.jpg'} 
-deployed by Jeff White, a lobsterman out of York Maine back in October, is now going around in circles south north of Bermuda. It turns out that, on about Christmas day, it got caught in a "cold core ring" (~37 degrees north) and is still rotating this week as seen ![in the animation of seasurface temperatures.]{'https://studentdrifters.org/tracks/drift_wms_2023_1_ccr.gif'}. You can see at least four other drifters in this animation including one from the Southern Maine Community college that is entrained in the actual Gulf Stream and enters the frame on about 23 January 2024.
+
 </center>
+### Weekly Update
 
-### Weekly Recap 
+This week, we've been busy prepping for the 2024 Northeast Cooperative Research Summit down in Cape May next week. It should be a great meeting with lots of discussions of interest to everyone engaged in eMOLT.
 
-### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+- Dr. John Wilkin who leads the Doppio modeling effort at Rutgers will be presenting about how observations from commercial fishing vessels are incorporated into his work
 
-This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
+- Samantha Alaimo, a PhD Student at Rutgers will present on how cold pool stratification in the Mid-Atlantic Bight influences commercially harvested species
 
-```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
-dbDisconnectAll()
-conn=dbConnector(db_config)
-lastweek=Sys.Date()-days(7)
-data=dbGetQuery(
-  conn=conn,
-  statement=paste0(
-    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
-    lastweek,
-    "' AND VESSEL_ID != 23"
-  )
-)
-data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
-bath=getNOAA.bathy(
-  lon1=min(data$LONGITUDE-0.5),
-  lon2=max(data$LONGITUDE+0.5),
-  lat1=min(data$LATITUDE-0.5),
-  lat2=max(data$LATITUDE+0.5),
-  resolution=1
-)
-## Create color ramp
-blues=c(
-  "lightsteelblue4", 
-  "lightsteelblue3",
-  "lightsteelblue2", 
-  "lightsteelblue1"
-)
-## Plotting the bathymetry with different colors for land and sea
-plot(
-  bath,
-  step=100,
-  deepest.isobath=-1000,
-  shallowest.isobath=0,
-  col="darkgray",
-  image = TRUE, 
-  land = TRUE, 
-  lwd = 0.1,
-  bpal = list(
-    c(0, max(bath), "gray"),
-    c(min(bath),0,blues)
-  ),
-  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
-)
+- Captains Rob Jarmol (F/V Christy) and Bill Bright (F/V Retriever) will join Dr. Glen Gawarkiewicz (WHOI), Dr. Grace Saba (Rutgers), and Dr. John Manderson (OpenOcean Research) on a panel discussing the impacts of our changing climate on ecosystems and fisheries in our region.
 
+plus, lots of other presentations and panels focused on everything from impacts of offshore wind development on fisheries to maintaining fish health in live fish markets. George, Erin, and Huanxin are looking forward to seeing many of you there. 
 
-## Plot the status report locations
-x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='red',
-  cex=2
-)
-## Plot data uploads
-x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='blue',
-  cex=2
-)
-legend(
-  'topleft',
-  col=c('blue','red'),
-  legend=c('Summary Data Upload','Status Report'),
-  pch=c(1,1),
-  bty='n',
-  bg=NULL,
-  border='black'
-)
-```
+For those of you who haven't attended a Cooperative Research Summit before, last year's dual meetings in Providence, RI and Newport News, VA are summarized in a new report available [here](https://github.com/GMaynard1/emolt_project_management/blob/main/WeeklyUpdates/2024-01-26/NortheastCooperativeResearchSummits_Report_2023.pdf). Also, stay tuned for more information about 2025's Summit which will be held at a location TBD in Maine. 
 
-![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
+### Drifter Update
+The Students at Wellan Montesorri School (Newton Mass) are probably wondering why their [wooden loggerhead turtle]('https://studentdrifters.org/tracks/drift_wms_2023_1_on_deck.jpg')
+deployed by Jeff White, a lobsterman out of York, Maine back in October, is now going around in circles south north of Bermuda. It turns out that, on about Christmas Day, it got caught in a "cold core ring" (~37 degrees north) and is still rotating this week as seen in the animation of sea surface temperatures below. You can also see at least four other drifters in this animation including one from the Southern Maine Community College that is entrained in the actual Gulf Stream and enters the frame on about 23 January 2024.
 
-In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+![drifter animation](drift_wms_2023_1_ccr.gif)
 
 ### Bottom Temperature Forecasts
 
-*We plan to add more animations to this section with other models in the future*
-
 #### Northeast Coastal Ocean Forecast System (NECOFS)
 
-![NECOFS Forecast](NECOFS.gif)
+![NECOFS Forecast](NECOFS_GOM.gif){width=800px}
 
-Above, please find the bottom temperature forecasts at one hour intervals from 
-the Northeast Coastal Ocean Forecast System run by the 
-[Chen Lab](http://fvcom.smast.umassd.edu/) at the University of Massachusetts 
-School for Marine Science and Technology in New Bedford. 
+![Mass Bay Forecast](NECOFS_MABAY.gif){width=500px}
+
+### Doppio Bottom Temperature Forecast
+
+![Doppio forecast](DOPPIO_forecast_F.gif){width=800px} 
 
 ### Announcements and Other News
+On-demand lobster and Jonah crab gear testing is underway off Massachusetts and Rhode Island. Science Center scientists are working with commercial lobster vessels to test on-demand (ropeless) fishing gear in state and federal waters normally closed to lobster and Jonah crab fishing with static vertical lines. Testing in this area will occur through April 30, 2024. 
 
+![map of testing areas](on-demand-map.jpg)
+
+Because on-demand gear has no surface buoys, it won’t be visible at the surface. To visualize the gear positions and orientations, mariners can download and subscribe to the EdgeTech Trap Tracker app ($25) on the [Apple](https://apps.apple.com/us/app/trap-tracker/id1450280978) or [Google Play](https://play.google.com/store/apps/details?id=com.edgetech.TrapTracker&hl=en&gl=US) app stores. For more information on this work, click [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/marine-mammal-protection/2024-northeast-experimental-demand-gear-system).
+Mariners: There is a potential gear conflict area immediately west of the Great South Channel in former Groundfish Closed Area 1. On-demand gear in that area is set northwest to southeast in trawls approximately 1.5 nautical miles in length. If anyone accidentally tows up the on-demand gear, don’t discard it. Hold onto the gear and contact our Gear Research Team. Contact info can be found [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/marine-mammal-protection/2024-northeast-experimental-demand-gear-system#contacts).
+
+- Full proposals for the [Bycatch Reduction Engineering Program](https://www.grants.gov/web/grants/search-grants.html?keywords=brep) are due 3/20/24
 
 All the best,
 
