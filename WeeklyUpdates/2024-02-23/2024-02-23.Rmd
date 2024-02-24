@@ -15,120 +15,59 @@ knitr::opts_chunk$set(echo = TRUE)
 library(blastula)
 library(marmap)
 library(rstudioapi)
-source("../../emolt_serverside/API/API_header.R")
-today=Sys.Date()
-lastWeek=today-days(7)
-conn=dbConnector(db_config)
 ```
 
 <center> 
 
 <font size="5"> *eMOLT Update `r Sys.Date()` * </font>
 
-We met virtually with NERACOOS personnel recently to discuss the non-realtime eMOLT updates on their climatology website.
-We decided to display results for at least a half dozen of the 20+ year time series which have recent years included.
-As seen in the graphics below, there are many hourly time series available including more than a dozen that span more than two decades!
-![eMOLT station plot with the most data](plot_mostdata.png)
 
 </center>
 
 ### Weekly Recap 
 
-### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+George and Huanxin were both out of the office for a large part of this week because of school vacations, so things were pretty quiet. However, the next few weeks will be pretty busy...
 
-This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
+While there is no eMOLT seminar scheduled at the Maine Fishermen's Forum, we encourage you to stop by the Gulf of Maine Lobster Foundation (outside the large meeting rooms) and the Northeastern Regional Association of Coastal Ocean Observing Systems (near main lobby) booths.  If you do not find anyone there and/or would like to make an appointment, please call/text Erin Pelletier (GOMLF) at 207-205-8088 or Tom (NERACOOS) at 207-650-9766  to schedule a chat. George and JiM will not be at the forum but if you'd like to set up a time to learn about options to visualize your data, feel free to reach out to George ahead of the Forum at 508-299-9693. 
 
-```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
-dbDisconnectAll()
-conn=dbConnector(db_config)
-lastweek=Sys.Date()-days(7)
-data=dbGetQuery(
-  conn=conn,
-  statement=paste0(
-    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
-    lastweek,
-    "' AND VESSEL_ID != 23"
-  )
-)
-data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
-bath=getNOAA.bathy(
-  lon1=min(data$LONGITUDE-0.5),
-  lon2=max(data$LONGITUDE+0.5),
-  lat1=min(data$LATITUDE-0.5),
-  lat2=max(data$LATITUDE+0.5),
-  resolution=1
-)
-## Create color ramp
-blues=c(
-  "lightsteelblue4", 
-  "lightsteelblue3",
-  "lightsteelblue2", 
-  "lightsteelblue1"
-)
-## Plotting the bathymetry with different colors for land and sea
-plot(
-  bath,
-  step=100,
-  deepest.isobath=-1000,
-  shallowest.isobath=0,
-  col="darkgray",
-  image = TRUE, 
-  land = TRUE, 
-  lwd = 0.1,
-  bpal = list(
-    c(0, max(bath), "gray"),
-    c(min(bath),0,blues)
-  ),
-  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
-)
+Also before the Forum, Erin Pelletier (Gulf of Maine Lobster Foundation) and Andrew Goode (The Lobster Institute) will be attending the Island Institute's Climate Round Table discussion in Rockland, ME next Wednesday February 28 from 1030-1630 to present our plans to expand eMOLT in the Gulf of Maine and get feedback from the fishing industry. This event is an annual opportunity for fishermen and scientists to come together and share notes about the past fishing year, as well as the longer-term environmental changes they are noticing on the water. If you are interested in attending and would like more information, please contact Andrew at andrew.goode@maine.edu
 
+We met virtually with NERACOOS personnel recently to discuss the non-realtime eMOLT updates on their climatology website.
+We decided to display results for at least a half dozen of the 20+ year time series which have recent years included.
+As seen in the graphics below, there are many hourly time series available including more than a dozen that span more than two decades!
 
-## Plot the status report locations
-x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='red',
-  cex=2
-)
-## Plot data uploads
-x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='blue',
-  cex=2
-)
-legend(
-  'topleft',
-  col=c('blue','red'),
-  legend=c('Summary Data Upload','Status Report'),
-  pch=c(1,1),
-  bty='n',
-  bg=NULL,
-  border='black'
-)
-```
-
-![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
-
-In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+![eMOLT station plot with the most data](plot_mostdata.png)
 
 ### Bottom Temperature Forecasts
 
-*We plan to add more animations to this section with other models in the future*
 
 #### Northeast Coastal Ocean Forecast System (NECOFS)
 
-![NECOFS Forecast](NECOFS.gif)
+![NECOFS Forecast](NECOFS_GOM.gif){width=800px} 
 
-Above, please find the bottom temperature forecasts at one hour intervals from 
-the Northeast Coastal Ocean Forecast System run by the 
-[Chen Lab](http://fvcom.smast.umassd.edu/) at the University of Massachusetts 
-School for Marine Science and Technology in New Bedford. 
+#### Doppio Bottom Temperature Forecast
+
+![Doppio Forecast](DOPPIO_forecast_F.gif){width=800px} 
+
+![Doppio zoomed in forecast](DOPPIO_forecast_F_zoom.gif){width=800px}
 
 ### Announcements and Other News
 
+- For Massachusetts fishermen: South Fork Wind (owned by Ørsted) announced that their eligibility application for direct compensation has opened for commercial and recreational fishing vessels that have experienced economic impacts from construction and/or interruptions during operation from offshore wind vessels operating in the South Fork Wind Project Area. PKF O’Connor Davis (PKFOD), the third-party administrator for South Fork Wind, will be reviewing and processing eligibility and direct compensation claims. For more info, [click here](https://www.fisheriescompensationprogram.com/massachusetts-fisheries-direct-compensation-program)
+
+- The Commercial Fisheries Research Foundation is hosting several workshops in March to help understand how changing ocean conditions might impact the scallop fishery and the communities it supports. Workshops will take place on March 19, 21, and 22, and will focus on how the industry can help monitor these impacts and adapt to them. For more information, please visit the [CFRF website](https://www.cfrfoundation.org/atlantic-sea-scallop-socialecological-system) or contact [Victoria Thomas](vthomas@cfrfoundation.org).
+
+
+- On-demand lobster and Jonah crab gear testing is underway off Massachusetts and Rhode Island. Science Center scientists are working with commercial lobster vessels to test on-demand (ropeless) fishing gear in state and federal waters normally closed to lobster and Jonah crab fishing with static vertical lines. Testing in this area will occur through April 30, 2024. 
+
+![map of testing areas](on-demand-map.jpg)
+
+Because on-demand gear has no surface buoys, it won’t be visible at the surface. To visualize the gear positions and orientations, mariners can download and subscribe to the EdgeTech Trap Tracker app ($25) on the [Apple](https://apps.apple.com/us/app/trap-tracker/id1450280978) or [Google Play](https://play.google.com/store/apps/details?id=com.edgetech.TrapTracker&hl=en&gl=US) app stores. For more information on this work, click [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/marine-mammal-protection/2024-northeast-experimental-demand-gear-system).
+Mariners: There is a potential gear conflict area immediately west of the Great South Channel in former Groundfish Closed Area 1. On-demand gear in that area is set northwest to southeast in trawls approximately 1.5 nautical miles in length. If anyone accidentally tows up the on-demand gear, don’t discard it. Hold onto the gear and contact our Gear Research Team. Contact info can be found [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/marine-mammal-protection/2024-northeast-experimental-demand-gear-system#contacts).
+
+- Full proposals for the [Bycatch Reduction Engineering Program](https://www.grants.gov/web/grants/search-grants.html?keywords=brep) are due 3/20/24
+
+- The Bottom Longline Survey marks 10 years of a cooperative, industry-based survey in the Gulf of Maine. Check out some [reflections on that decade](https://www.fisheries.noaa.gov/science-blog/fall-bottom-longline-survey-survey-chronicles) from Giovanni Gianesin, chief scientist aboard the F/V Tenacious II
 
 All the best,
 
