@@ -1,3 +1,37 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+library(marmap)
+library(rstudioapi)
+source("../../emolt_serverside/API/API_header.R")
+today=Sys.Date()
+lastWeek=today-days(7)
+conn=dbConnector(db_config)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+### Weekly Recap 
+For nearly a decade, we have been processing bottom temperature records from the lobster larvae settlement traps off the coast of Maine. With Rick Wahle's retirement, the trap collections are now coordinated by other folks like Andrew Goode at the Lobster Institute. A few different fishermen have been involved each year with Minilog temperature probes install at three different depths off their region of the coast. This past year, HOBO temperature probes were also installed at the surface (see example timeseries figures below). We can see in Curt Brown's shallow (8 fth) site, the vertical stratification of temperature can break down for short periods (evidently due to wind, moon tide, or river runoff events) during the summer and more permanently in the fall. As can be seen in the map below for the Casco Bay case (currently occupied by Curt Brown and crew), the traps are located in different areas each year.
+![timeseries Curt](mrw3201.png)
+![timeseries Jordan](mrw3601.png)
+![Downeast map](CurtBrown_RW_sites.png)
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
