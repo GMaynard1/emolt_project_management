@@ -15,10 +15,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(blastula)
 library(marmap)
 library(rstudioapi)
-source("../../emolt_serverside/API/API_header.R")
-today=Sys.Date()
-lastWeek=today-days(7)
-conn=dbConnector(db_config)
 ```
 
 <center> 
@@ -28,106 +24,36 @@ conn=dbConnector(db_config)
 </center>
 
 ### Weekly Recap 
-For several years, we have been processing bottom temperature records from the lobster larvae settlement traps off the coast of Maine. With Rick Wahle's retirement, the trap collections are now coordinated by other folks like Andrew Goode at the Lobster Institute. A few different fishermen have been involved each year with Minilog temperature probes install at three different depths off their region of the coast. This past year, HOBO temperature probes were also installed at the surface (see example timeseries figures below). We can see in Curt Brown's shallow (8 fth) site, the vertical stratification of temperature can break down for short periods (evidently due to wind, moon tide, or river runoff events) during the summer and more permanently in the fall. As can be seen in the map below for the Casco Bay case (currently occupied by Curt Brown and crew), the traps are located in different areas each year.
+
+Today, a large chunk of the eMOLT team spent time at the Mass Lobstermen's Association annual trade show and meeting. We'll be there again tomorrow. Our booth is right between NERACOOS and the Center for Coastal Studies, across from Massachusetts DMF. If you're around the show tomorrow, stop by and bring your friends and coworkers! For eMOLT participants both long-term and new, we also have an ask for you. If you'd like to see the program grow and empower more fishermen to collect environmental data, please consider signing a letter of support for our application to the MassTech Program. Funding from this program would allow us to outfit an additional 150 vessels in Southern New England and the Mid-Atlantic and fund the development of a new low-cost CTD for deployment on fishing gear. These new instruments would allow eMOLT participants to start collecting salinity data along with temperature and dissolved oxygen. If you won't be at the trade show and are still interested in supporting our application to MassTech, please reach out to George at george.maynard@noaa.gov
+
+For several years, we have been processing bottom temperature records from the lobster larvae settlement traps off the coast of Maine. With Rick Wahle's retirement, the trap collections are now coordinated by other folks like Dr. Andrew Goode at the Lobster Institute. A few different fishermen have been involved each year with Minilog temperature probes install at three different depths off their region of the coast. This past year, HOBO temperature probes were also installed at the surface (see example timeseries figures below). We can see in Curt Brown's shallow (8 fth) site, the vertical stratification of temperature can break down for short periods (evidently due to wind, moon tide, or river runoff events) during the summer and more permanently in the fall. As can be seen in the map below for the Casco Bay case (currently occupied by Curt Brown and crew), the traps are located in different areas each year.
 ![timeseries Curt](mrw3201.png)
 ![timeseries Jordan](mrw3601.png)
 ![Downeast map](CurtBrown_RW_sites.png)
 
-### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
-
-This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
-
-```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
-dbDisconnectAll()
-conn=dbConnector(db_config)
-lastweek=Sys.Date()-days(7)
-data=dbGetQuery(
-  conn=conn,
-  statement=paste0(
-    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
-    lastweek,
-    "' AND VESSEL_ID != 23"
-  )
-)
-data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
-bath=getNOAA.bathy(
-  lon1=min(data$LONGITUDE-0.5),
-  lon2=max(data$LONGITUDE+0.5),
-  lat1=min(data$LATITUDE-0.5),
-  lat2=max(data$LATITUDE+0.5),
-  resolution=1
-)
-## Create color ramp
-blues=c(
-  "lightsteelblue4", 
-  "lightsteelblue3",
-  "lightsteelblue2", 
-  "lightsteelblue1"
-)
-## Plotting the bathymetry with different colors for land and sea
-plot(
-  bath,
-  step=100,
-  deepest.isobath=-1000,
-  shallowest.isobath=0,
-  col="darkgray",
-  image = TRUE, 
-  land = TRUE, 
-  lwd = 0.1,
-  bpal = list(
-    c(0, max(bath), "gray"),
-    c(min(bath),0,blues)
-  ),
-  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
-)
-
-
-## Plot the status report locations
-x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='red',
-  cex=2
-)
-## Plot data uploads
-x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
-points(
-  x$LATITUDE~x$LONGITUDE,
-  pch=1,
-  col='blue',
-  cex=2
-)
-legend(
-  'topleft',
-  col=c('blue','red'),
-  legend=c('Summary Data Upload','Status Report'),
-  pch=c(1,1),
-  bty='n',
-  bg=NULL,
-  border='black'
-)
-```
-
-![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
-
-In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
 
 ### Bottom Temperature Forecasts
 
-*We plan to add more animations to this section with other models in the future*
-
 #### Northeast Coastal Ocean Forecast System (NECOFS)
 
-![NECOFS Forecast](NECOFS.gif)
+![NECOFS Forecast](NECOFS_GOM.gif){width=800px} 
 
-Above, please find the bottom temperature forecasts at one hour intervals from 
-the Northeast Coastal Ocean Forecast System run by the 
-[Chen Lab](http://fvcom.smast.umassd.edu/) at the University of Massachusetts 
-School for Marine Science and Technology in New Bedford. 
+![Mass Bay Forecast](NECOFS_MABAY.gif){width=500px}
+
+#### Doppio Bottom Temperature Forecast
+
+![Doppio Forecast](DOPPIO_forecast_F.gif){width=800px} 
 
 ### Announcements and Other News
+- For Massachusetts fishermen: South Fork Wind (owned by Ørsted) announced that their eligibility application for direct compensation has opened for commercial and recreational fishing vessels that have experienced economic impacts from construction and/or interruptions during operation from offshore wind vessels operating in the South Fork Wind Project Area. PKF O’Connor Davis (PKFOD), the third-party administrator for South Fork Wind, will be reviewing and processing eligibility and direct compensation claims. For more info, [click here](https://www.fisheriescompensationprogram.com/massachusetts-fisheries-direct-compensation-program)
 
+- On-demand lobster and Jonah crab gear testing is underway off Massachusetts and Rhode Island. Science Center scientists are working with commercial lobster vessels to test on-demand (ropeless) fishing gear in state and federal waters normally closed to lobster and Jonah crab fishing with static vertical lines. Testing in this area will occur through April 30, 2024. 
+
+![map of testing areas](on-demand-map.jpg)
+
+Because on-demand gear has no surface buoys, it won’t be visible at the surface. To visualize the gear positions and orientations, mariners can download and subscribe to the EdgeTech Trap Tracker app ($25) on the [Apple](https://apps.apple.com/us/app/trap-tracker/id1450280978) or [Google Play](https://play.google.com/store/apps/details?id=com.edgetech.TrapTracker&hl=en&gl=US) app stores. For more information on this work, click [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/marine-mammal-protection/2024-northeast-experimental-demand-gear-system).
+Mariners: There is a potential gear conflict area immediately west of the Great South Channel in former Groundfish Closed Area 1. On-demand gear in that area is set northwest to southeast in trawls approximately 1.5 nautical miles in length. If anyone accidentally tows up the on-demand gear, don’t discard it. Hold onto the gear and contact our Gear Research Team. Contact info can be found [here](https://www.fisheries.noaa.gov/new-england-mid-atlantic/marine-mammal-protection/2024-northeast-experimental-demand-gear-system#contacts).
 
 All the best,
 
