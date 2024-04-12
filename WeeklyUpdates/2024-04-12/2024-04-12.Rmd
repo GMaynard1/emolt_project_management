@@ -29,6 +29,9 @@ This week's update is a pretty short one. George was out of the office to spend 
 
 The minilog probes will likely go into the mail next week. If we're successful in our MassTech application, 2024 could be the last year for those probes. While we plan to continue mailing out sensors to long-term participants, we're hoping to switch you all over to the newer style probes that record depth and record profiles every time you haul your gear. The semi-annual newsletter that goes out with those mailings will have more information about the switch, or you can contact George with any questions by [email](george.maynard@noaa.gov) or phone (call or text 508-299-9693). 
 
+#### Unraveling Moana's Mysteries
+A big thanks to the team at Lowell Instruments and Linus over at CFRF for digging into a problem in which some Moana sensors fail to download correctly. This problem has only impacted a handful of vessels so far, but we'll be patching the software on all vessels over the next few weeks to make sure it doesn't pop up elsewhere. As you're probably all sick of hearing me say, science is a team sport, and we really appreciate everyone's contributions.
+
 
 ### Bottom Temperature Forecasts
 
