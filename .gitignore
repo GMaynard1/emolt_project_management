@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 emolt_project_management.Rproj
+*.nc
