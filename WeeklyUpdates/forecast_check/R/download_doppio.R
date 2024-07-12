@@ -24,7 +24,7 @@ download_doppio=function(tow,date,lat,lon,most_recent=NA){
            lubridate::day(date),
            "T",
            lubridate::hour(date),
-           "%3A00%3A00Z&vertCoord=-.9875&accept=netcdf"
+           "%3A00%3A00Z&vertCoord=-.9875&accept=netcdf3"
     )
   ## Attempt to download the file
   filename=paste0(

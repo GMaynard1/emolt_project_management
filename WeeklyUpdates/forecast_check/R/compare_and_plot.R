@@ -1,4 +1,8 @@
-data=one_week_download()
+source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/download_doppio_ncks.R")
+source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/compare_doppio.R")
+data=emolt_download(days=7)
+data=data[order(lubridate::ymd_hms(data$time..UTC.)),]
 ## Create a progress bar for forecast downloads
 pb=txtProgressBar(
   min=0,
@@ -9,16 +13,15 @@ pb=txtProgressBar(
   style=3
 )
 for(i in 1:nrow(data)){
-  most_recent=download_doppio(
+  download_doppio(
     tow=data$tow_id[i],
     date=lubridate::ymd_hms(data$time..UTC.[i]),
     lat=data$latitude..degrees_north.[i],
-    lon=data$longitude..degrees_east.[i],
-    most_recent=most_recent
+    lon=data$longitude..degrees_east.[i]
   )
   setTxtProgressBar(
     pb=pb,
-    i/nrow(data),
+    i/nrow(data)
   )
 }
 
@@ -33,12 +36,12 @@ pb=txtProgressBar(
 )
 ## Create a new dataframe to store comparisons
 output=data.frame(
-  distance = min(distances),
-  forecast_temp = sp.forecast[which(distances==min(distances)),]$temp,
-  obs_temp = sp.data$temperature..degree_C.[1],
-  lat = sp.forecast[which(distances==min(distances)),]$lat,
-  lon = sp.forecast[which(distances==min(distances)),]$lon,
-  date = data$time..UTC.[1]
+  distance = as.numeric(),
+  forecast_temp = as.numeric(),
+  obs_temp = as.numeric(),
+  lat = as.numeric(),
+  lon = as.numeric(),
+  date = as.character()
 )
 ## Create comparisons
 for(i in 1:nrow(data)){
@@ -58,21 +61,49 @@ for(i in 1:nrow(data)){
   )
 }
 
+output$latitude=output$lat
+output$longitude=output$lon
+output=RMyDataTrash::OnLandCheck(output)
+output=subset(output,output$OnLand==FALSE)
+output=subset(output,round(output$lat,5)!=44.01441)
+output=subset(output,output$obs_temp<25)
+output=subset(output,round(output$lat,5)!=41.48480)
+
 output$diff=output$forecast_temp-output$obs_temp
 output$color=ifelse(
   output$diff>0,
-  'red',
-  'blue'
+  'blue',
+  ifelse(
+    output$diff==0,
+    'white',
+    'red'
+    )
   )
+output$scale=ifelse(
+  abs(output$diff)>3,
+  -.75,
+  ifelse(
+    abs(output$diff)<3 & abs(output$diff)>2,
+    -0.5,
+    ifelse(
+      abs(output$diff)<2 & abs(output$diff)>1,
+      0,
+      0.5
+    )
+  )
+)
 output$scalecolor=colorspace::lighten(
   output$color,
-  amount=1.5-abs(output$diff)
+  amount=output$scale
 )
 
+## Develop a linear regression
+lm1=lm(output$forecast_temp~output$obs_temp)
+pred = lm1$coefficients[1]+lm1$coefficients[2]*seq(-1,45,1)
 plot(
   output$forecast_temp~output$obs_temp,
-  xlim=c(0,10),
-  ylim=c(0,10),
+  xlim=c(0,35),
+  ylim=c(0,35),
   xlab="Observed Temp (C)",
   ylab="Predicted Temp (C)",
   col=output$scalecolor,
@@ -90,16 +121,39 @@ points(
   col=output$scalecolor
 )
 lines(
-  (-1:15),(-1:15)
+  (-1:45),(-1:45)
 )
-
+lines(
+  (-1:45),pred,
+  lty=2
+)
+text(
+  x=5,
+  y=30,
+  label = expression(paste(R^2,"="))
+)
+text(
+  x=7,
+  y=30,
+  label = round(summary(lm1)$r.squared,3)
+)
+text(
+  x=5,
+  y=27,
+  label = paste0("RMSE = ",round(mean(lm1$residuals^2),3))
+)
+text(
+  x=5,
+  y=24,
+  label = paste0("Bias = ",round(Metrics::bias(output$forecast_temp,output$obs_temp),3))
+)
 ## Download bathymetric data
 bath=marmap::getNOAA.bathy(
   lon1=min(-80.83),
   lon2=max(-56.79),
   lat1=min(35.11),
   lat2=max(46.89),
-  resolution=10
+  resolution=1
 )
 ## Create color ramp
 blues=c(
@@ -108,6 +162,7 @@ blues=c(
   "lightsteelblue2", 
   "lightsteelblue1"
 )
+png("doppio_compare.png",height=700, width=800,units="px")
 ## Plotting the bathymetry with different colors for land and sea
 plot(
   bath,
@@ -122,13 +177,21 @@ plot(
     c(0, max(bath), "gray"),
     c(min(bath),0,blues)
   ),
-  main="eMOLT Obs - Doppio Predicted"
+  main="Doppio Predicted - eMOLT Obs (deg F)",
+  sub=paste0(
+    lubridate::floor_date(min(lubridate::ymd_hms(output$date)),"day"),
+    " to ",
+    lubridate::ceiling_date(max(lubridate::ymd_hms(output$date)),"day")
+  ),
+  xlim=c(-75,-66),
+  ylim=c(38,45)
 )
 ## Add output points
 points(
   output$lat~output$lon,
   pch=1,
-  col='darkgray'
+  col='darkgray',
+  cex=1.1
 )
 points(
   output$lat~output$lon,
@@ -138,15 +201,85 @@ points(
 ## Add legend
 legend(
   'bottomright',
-  legend=seq(2,-2,-1),
+  legend=seq(-3*1.8,3*1.8,1.8),
   fill=c(
     colorspace::lighten(
-      c('blue','blue','white','red','red'),
-    amount=1.5-abs(c(2,1,0,-1,-2))
+      c('red','red','red','white','blue','blue','blue'),
+    amount=c(-.5,0,.5,0,.5,0,-.5)
     )
   ),
-  title="Observed - Predicted"
+  title="Predicted - Observed"
 )
+dev.off()
 
 mean(output$diff)
 range(output$diff)
+
+write.csv(
+  output,
+  file=paste0(
+    "DoppioComparison_",
+    lubridate::year(Sys.time()),
+    lubridate::month(Sys.time()),
+    lubridate::day(Sys.time())
+    ),
+  row.names=FALSE
+)
+
+shelf=subset(
+  output,
+  output$lat>39.5&output$lat<40.5&output$lon>-72
+)
+non_shelf=subset(output,row.names(output)%in%row.names(shelf)==FALSE)
+## Develop a linear regression
+lm2=lm(non_shelf$forecast_temp~non_shelf$obs_temp)
+pred = lm2$coefficients[1]+lm2$coefficients[2]*seq(-1,45,1)
+plot(
+  non_shelf$forecast_temp~non_shelf$obs_temp,
+  xlim=c(0,35),
+  ylim=c(0,35),
+  xlab="Observed Temp (C)",
+  ylab="Predicted Temp (C)",
+  col=non_shelf$scalecolor,
+  pch=16,
+  main="Predicted vs. Observed Bottom Temperatures (Doppio)"
+)
+points(
+  non_shelf$forecast_temp~non_shelf$obs_temp,
+  pch=1,
+  col='darkgray'
+)
+points(
+  non_shelf$forecast_temp~non_shelf$obs_temp,
+  pch=16,
+  col=non_shelf$scalecolor
+)
+lines(
+  (-1:45),(-1:45)
+)
+lines(
+  (-1:45),pred,
+  lty=2
+)
+text(
+  x=5,
+  y=30,
+  label = expression(paste(R^2,"="))
+)
+text(
+  x=7,
+  y=30,
+  label = round(summary(lm2)$r.squared,3)
+)
+text(
+  x=5,
+  y=27,
+  label = paste0("RMSE = ",round(mean(lm2$residuals^2),3))
+)
+text(
+  x=5,
+  y=24,
+  label = paste0("Bias = ",round(Metrics::bias(non_shelf$forecast_temp,non_shelf$obs_temp),3))
+)
+
+x=subset(output,output$diff<=-3)
