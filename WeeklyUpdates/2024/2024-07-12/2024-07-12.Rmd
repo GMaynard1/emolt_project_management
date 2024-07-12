@@ -14,13 +14,18 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(marmap)
 library(rstudioapi)
-source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+if(Sys.info()["sysname"]=="Windows"){
+  source("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+} else {
+  source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+}
+
 data=emolt_download(days=7)
 start_date=Sys.Date()-lubridate::days(7)
 ## Use the dates from above to create a URL for grabbing the data
 full_data=read.csv(
     paste0(
-      "http://54.208.149.221:8080/erddap/tabledap/eMOLT_RT.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type&segment_type=%22Fishing%22&time%3E=",
+      "https://erddap.emolt.net/erddap/tabledap/eMOLT_RT.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type&segment_type=%22Fishing%22&time%3E=",
       lubridate::year(start_date),
       "-",
       lubridate::month(start_date),
@@ -52,29 +57,13 @@ for(tow in unique(full_data$tow_id)){
 
 This week, the eMOLT fleet recorded `r length(unique(data$tow_id))` tows of sensorized fishing gear totaling `r as.numeric(sensor_time)` sensor hours underwater.
 
-Most areas covered by the eMOLT fleet now show seasonal **thermoclines** around 10 fathoms. The only exceptions can be found Downeast (teal profile), where the surface waters remain below 50 degrees. 
+First off, a huge congratulations to the UMaine field team led by Dr. Andrew Goode. Yesterday, they installed eMOLT systems on three new vessels up in Maine, and all three visits went off without a hitch. It's exciting to see everyone's efforts to standardize and streamline these installations pay off in more efficient dockside visits. Thanks to the UMaine team's work this week, we can now welcome the fishing vessels Aldebaren, Patience, and Lil More Tail to the eMOLT program. 
 
-> *A [thermocline](https://oceanservice.noaa.gov/facts/thermocline.html) is the transition layer between warmer water at the ocean's surface and cooler water below.* 
+Thanks also to Captain Joe on the F/V Ryan Joseph, Captain Mike on the F/V Phyliss P, and Captain Phil on the F/V Charger for having us aboard this week. We're working hard to expand our dissolved oxygen monitoring efforts beyond Cape Cod Bay to meet requests from our industry partners and regional scientists. The Phyliss P and Ryan Joseph will provide coverage off the South Shore of Massachusetts, and we're hoping to add a few systems on the North Shore as funding allows. 
 
-![Regional profile plot](profiles.png)
+To allow easier access to these Dissolved Oxygen data, we are in the process of developing an online dashboard (similar to [Massachusetts DMF's Cape Cod Bay dashboard](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)). It's not fully functional yet, as you can see from the chicken scratch below but currently the plan is to display DO data in an interactive map with buttons to allow users to select a timeframe of interest and filter the data by location. All locations displayed through this portal are rounded off to avoid showing exact fishing spots. If you have suggestions for how we can make these data visualizations more useful to you, please reach out to [George](george.maynard@noaa.gov).
 
-A **[halocline](https://www.americanoceans.org/facts/what-is-halocline/)** around 2 fathoms thick is also visible in some of Rutgers glider data east of New Jersey from the last few weeks. In the plot below, you can see freshwater near the surface and saltier water down below.  
-
-> *A halocline is a vertical gradient of salinity within a body of water.* 
-
-![RUCOOL halocline plot](Screenshot from 2024-06-28 12-46-22.png)
-
-These differences in temperature and salinity indicate that the Mid-Atlantic is setting up to be strongly stratified again this summer. 
-
-### New data visualization from MARACOOS and the Doppio team
-
-The [Mid Atlantic Regional Association Coastal Ocean Observing System (MARACOOS)](https://maracoos.org/) and the Doppio forecast team at Rutgers have made a new data visualization product available [here](https://oceansmap.maracoos.org/?permalink=N4IgtghgDgwhYFMBOEQC5QGMEDsAuy6oANjgOboC0A7AIwB0tAbAJwAs1ArOy7WwEwBmNgBoQxCHnSCAHPS7VB3TioAM1DYIC+YgF4B7fWHScxAIwQQkAS3LpVYqNbyYAFvZ3hoAZTwBPYgQiEGsAE3QQK0wAcWsAZwAVfSh9MhQoV2tMEDEceCC0ECSUtOhM7LE8VwBXMDM862II1zw8KDi0AHpOuOQAN2R6KLJ4-RxiWwR6TCNO4fjOpAQ4vB7+rOXOgHV9JGJQgH1i-QOAWWhO86hvfuROvEaETtVn55yQFYCC0AGkOOsxugZGIyMQ-Bk4hFIFAzPoAB5dToAMzGeDinWhsLhnWAKPwKwgmAA1locShyAgtPQYUj3nF9NUkNhIRgQHhkql0uVgv4oAUQCgVoRKo8WQBtEAtNodbq9JC-IZMkb08aTaazebopYrNbyjbonZ7Q7HM4XK43eV3B6BHG6UnAPz2uFaEAAXRFgW81l0BX4nCYYkkeBsZmqD0BhQAonEbCIAATRKxgWzx6KRgBCMAA8vGAHJZgCCBbjueiABEYPGIDhQnH9FVkHGZvgQ2HdpCtJ4JH5kOLQGEIuySlysu9efzBQQkHSGUz+UPOWVR2JkzgDEZ7CuIHD18Y0Px+FpXZ2t1AAApIfQAKwQmHDOChyEwkl270wjKW+CuCWsiCFUAifhVH4NhKFUJhKH4GQEloQQ0FUVR4NUegENUAAtd5oR-P8CAAtBBCYVCENPbCEAMHB+QLRAbGfTpcwQAB3A4AE1diJTDoFI-8ACVqzIAoJSAkCwIg-gmASVQ2CQpCUIQjCxCE0DwMoQRVAkqSEJk1CMPdEBqhwZxvD8IU93ABBg2XLwoAAGQgHs-mCGYIBWCYKJZftwkKJyXMmSFKnBfl9F+btKFCgY71fMRelaWwyHcrs7MIVkwlwB4kWsJKQG8vBXOWMdnECCIYH0ZycsmN9JAQMhdgy8UspKnyKLdTxrWWABVPYCyQFA-HQCUpXaRF9Gwas4mheg4kEIZIHIiAGLidUwHuUVOmy3L0WAO0cWdHFHWpMxaV0-TrAAR2qBAAElQgAMQy-YIizdMAClIxgBILrLEBPAQUI4gOUJkicE4CDAPkUDwRlvhCTyQB+v6AagIGDhBsHJEhscAoiZ88AgYhUlCyhsuhOlzIech4u+37-sBgEDlhVojGRhBQeQNGlmCAdCjh6nEdp+n2TAJmWfB9H-L5LHJFx-HQqJ6ASZi8miE7Tx6SQAhQls+yPrq7mEaRlHWYh9mxF1mmTn5xmDZF436tK9a3TEUJJbgHG8bIW7iCnYIVhsOxCi+sQZlBqwEEjPIzECTzg3OwOjCgEOy0l4Jql6bxXBD0JSPQaOEDEFOEDTjPI0CPpJABB80BzvPU-TpZQl8L5s6QGOPgQQI7x+q4IjMZygjEGrUrLiMQF+B5nyaKLXH0BjvAmUIkqrj45+QM99BZZCmH4WhaBkWQEM31TOEEU8G8K5KYaiWJEg5UoMksvJEAiY5b+5SoajqBomkKAaZV1BVNTGLlRacwlQLG1KsOUfR9TbF2PsI4HJTRQEuD4W4SBlo2heJguk-gz4-F7OXIEIIwQQihNALEiI8RogxGQ+EOJKEEmJPack-EqQ0hnIyZkPIb4jmyKyccERJzCjZKKPqkpWiDVlKgxUmBlSALVEHEBMiwHLAgesZkMCjTwJSIg5B1xUHoKeJte0jptoul0q1L0Pp0B+gDJEVorZ7wRGjLGBMSYUwJgzNmPMhZiylgrFWGsdYGxICbKiBx7YvoJXsn2aGg5uFLgqGyTGhRBHTiirObAcThwJMwrYXcm4vA7kMHuA8R4TwgB7qnXY6tNbIG1qI02vNzb1gFkLVGRs+620anlXSQd45LG8NUn6tSkD1LQBKRp+tmbtNFl0sqbkHZWS4rhaQhEiKBw-Klb8v4VEIDwiARSIlILQVgtJBCsl0IcSgMsvZvEKSiMOcpMS6kznIW0u8R5EFVIvM0uc95x4xBnWQH4D2U53KRHiMjAKBw4i1EgEgXq4zdJxEyFAA4nMxS6QgJC8cMK4VWD8MjFAxI+rItReiw4wZCTsSRZ4TAxAU5ThGWMzFYhfj-AjLQLQQA). You can use the link to see the latest Doppio seawater temperature forecasts at the bottom and at the surface across the entire forecast region. A sliding arrow in the middle of the screen allows you to view bottom and surface side by side (see screenshot below). On the left hand side (bottom temps) you can see the Mid-Atlantic Cold Pool south of Long Island and on the right hand side (surface temps), you can see the Gulf Stream eddying south of Massachusetts.
-
-![MARACOOS Screenshot](Screenshot from 2024-06-28 12-59-08.png)
-
-### Teamwork is the lifeblood of eMOLT 
-
-This week, we spent some time at the Sandwich Marina upgrading eMOLT systems and distributing dissolved oxygen loggers. Thanks to Denny, Capt. Tim of the F/V Virginia Marie, Capt. Tony of the F/V Miss Julie, and Capt. James of the F/V Trap Queen for your patience as we got your systems up and running. Thanks also to Noelle and Linus from the Commercial Fisheries Research Foundation for taking the time to meet with us so that we can streamline data collection systems on board vessels participating in both the eMOLT program and the CFRF Lobster / Jonah Crab Research Fleet. Finally, a big thanks to Owen and Tommy at the Center for Coastal Studies and Joaquim from Lowell Instruments. We got some new hardware out to the F/V Donna Marie and upgraded the software aboard the F/V Lisa Marie thanks to their efforts. 
+![screenshot of dashboard](image (2).png)
 
 ### System Hardware Upgrade List
 
@@ -95,11 +84,18 @@ The following vessels remain on our list for hardware upgrades. If you aren't on
  - F/V Tom Slaughter
  - F/V Virginia Marise
 
+### [Dissolved Oxygen in Cape Cod Bay](https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/)
+#### Courtesy of the Massachusetts Division of Marine Fisheries and the Massachusetts Lobstermen's Association
+
+So far so good this season, with all sensors reporting oxygen values in the "normal" range over the last week.
+
+![CCB Screenshot](CCB_screenshot.JPG)
+
 ### Bottom Temperature Forecasts
 
 #### Doppio 
 
-The Doppio bottom temp forecast performed well off the coast of Maine and east of New Jersey this week. Bottom temperatures were quite a bit cooler than forecasted just south of Long Island and in Massachusetts Bay. Temperatures were warmer than expected along the shelf break south of New England. 
+The Doppio bottom temperature forecast skewed high across much of the region last week with observations from the fishing grounds south of Long Island and in Massachusetts Bay much colder than predicted. Colder than expected temperatures in the Mid-Atlantic seem to be a theme, with ocean observing systems at Rutgers reporting bottom temps 4 degrees C (~ 7 degrees F) colder than normal. In contrast, observations from Nantucket Sound and off Cape Ann were several degrees warmer than predicted. Observations from coastal Maine and down near Hudson Canyon were pretty close to predictions.
 
 ![Doppio performance plot](doppio_compare.png)
 
@@ -111,11 +107,15 @@ The Doppio bottom temp forecast performed well off the coast of Maine and east o
 
 ![Mass Bay plot](NECOFS_MABAY.gif)
 
-### Announcements
+### Cooperative Research Opportunities
 
 - The Atlantic States Marine Fisheries Commission is soliciting for five survey vessels for the pilot hook and line survey in Fall 2024 and Spring 2025. The deadline for proposals is midnight EST on August 5, 2024. The Request for Proposals can be found [here](https://asmfc.org/files/RFPs/FY2025_RFP_OffshoreWindPilotHL_Surveys.pdf). For questions about the RFP, please contact [Jason Morson](jason.morson@noaa.gov) at the Northeast Fisheries Science Center.
 
-- Study Fleet solicitation
+- There are two openings for new vessels in the Study Fleet. The full solicitation can be found [here](https://sam.gov/opp/25f452f4ea2e4a6696d1262bbc9829ed/view). These new vessels will collect high resolution catch, effort, and environmental data to address science and management needs for the longfin squid, shortfin squid,mackerel, butterfish, scup, black sea bass, summer flounder, whiting, and haddock fisheries. The deadline for quotes is July 31st, and the vessel owner must have an account in the System for Award Management (SAM.gov). Setting up a SAM account can be an onerous process, so don't leave this until the last minute. If you have questions, please contact [Katie Burchard](katie.burchard@noaa.gov) at the Northeast Fisheries Science Center. 
+
+### Announcements
+
+- Massachusetts Division of Marine Fisheries and Office of Coastal Zone Management are hosting an information session for BOEM to hear from the Outer Cape communities on the proposed offshore wind leasing activities in the Gulf of Maine, including the recently published Proposed Sale Notice and Draft Environmental Assessment. This meeting is scheduled for July 17, 2024 from 6-8PM at the Four Points Sheraton in Eastham ([3800 State Highway, Eastham, MA 02642](https://maps.app.goo.gl/bznqHfaJKbf7VU7X7)).
 
 - The [Saltonstall Kennedy Grant Competition](https://www.fisheries.noaa.gov/grant/saltonstall-kennedy-grant-competition) is open until July 23, 2024 with a maximum award amount of $500,000.  
 
