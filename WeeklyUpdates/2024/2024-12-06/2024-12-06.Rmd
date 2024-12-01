@@ -30,7 +30,8 @@ conn=dbConnector(db_config)
 ### Weekly Recap 
 
 ### JiM's Notes
-Mass DMF has been maintaining time series of bottom temperatures ... more to come.
+Massachusetts Division of Marine Fisheries have been deploying temperature probes with annual dives on several Buzzard and Mass Bay shipwreck sites for nearly 40 years.  Every few years over the past few decades, we have been working with the various data stewards at Mass DMF (beginning with Bruce Estrella, Bob Glenn, Derek Perry, Tracy Pugh, and, most recently, Jake Dorothy) to load their Excel spreadsheets into the web-accessible master database. They also now post the series [here](https://gis.data.mass.gov/maps/c9a6405efba44915810fa4e894102d35/about). The longest running bottom temperature time series off the New England coast (almost twice as long as the eMOLT series) provides a look at "climate" scale variability at these locations. In the example below, we see the ~20 degF seasonal cycle as well as the gradual rise in the annual average (orange line) recorded at the site of the tugboat Mars that went down off Manomet in 1942 in 120 feet of water.
+
 ![Mars bottom temps](Mars_110.png)
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
