@@ -31,8 +31,10 @@ conn=dbConnector(db_config)
 
 ### JiM's Notes
 Massachusetts Division of Marine Fisheries have been deploying temperature probes with annual dives on several Buzzard and Mass Bay shipwreck sites for nearly 40 years.  Every few years over the past few decades, we have been working with the various data stewards at Mass DMF (beginning with Bruce Estrella, Bob Glenn, Derek Perry, Tracy Pugh, and, most recently, Jake Dorothy) to load their Excel spreadsheets into the web-accessible master database. They also now post the series [here](https://gis.data.mass.gov/maps/c9a6405efba44915810fa4e894102d35/about). The longest running bottom temperature time series off the New England coast (almost twice as long as the eMOLT series) provides a look at "climate" scale variability at these locations. In the example below, we see the ~20 degF seasonal cycle as well as the gradual rise in the annual average (orange line) recorded at the site of the tugboat Mars that went down off Manomet in 1942 in 120 feet of water.
-
 ![Mars bottom temps](Mars_110.png)
+
+One of the longest year-round eMOLT time series is from the deep Gulf of Maine collected by several Little Bay Lobster captains. Pete Begley mailed in their probes this past week documenting 2024 being relatively cool. As seen in the figure below, 2024 recorded temperatures like those 20 years ago.  Is this the end of the drastic warming trend? Will it bounce back up to be warm again in 2025? We shall see.
+![Deep Gulf Temps][(JS02_annual.png)
 
 ### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
 
