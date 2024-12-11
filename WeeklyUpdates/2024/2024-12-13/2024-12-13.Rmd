@@ -1,1 +1,135 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(blastula)
+library(marmap)
+library(rstudioapi)
+source("../../emolt_serverside/API/API_header.R")
+today=Sys.Date()
+lastWeek=today-days(7)
+conn=dbConnector(db_config)
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+### Weekly Recap 
+
+### Non-Realtime eMOLT
+
+Several of the original eMOLT participants supplied lobster haul data in addition to temperature data. Therese Sauvageau out of Beverly Mass, for example, still submits here records each year so that we MIGHT someday be able to determine the correlation (if any) between catch and temperature.  As seen in the figure below, she also recorded the surface temperature as measured by her hull-mounted thermistor. While we do not expect these thermistors to be highly accurate, they do provide a means to an approximate stratification index (ie difference bewteen surface and bottom temperatures). You can see the raw bottom temperature data is filtered to remove those times when the trap was evidently hauled (red spikes).  As usual, it is difficult to detect any obvious catch vs temperature relationships, we can see that it may be a function of the stratification and/or variability rather than the absolute value of temperature. 
+![TS02 temp & catch](mts0213.png)
+
+### Realtime Summary (Vessels with Rockblock Satellite Transmitters)
+
+This week, we received `r nrow(dbGetQuery(conn=conn,statement=paste0("SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek, "' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` haul-averaged reports from `r nrow(dbGetQuery(conn=conn, statement=paste0("SELECT DISTINCT VESSEL_ID FROM VESSEL_STATUS WHERE TIMESTAMP >'", lastWeek,"' AND REPORT_TYPE = 'SUMMARY_DATA' AND VESSEL_ID != 23")))` vessels. 
+
+```{r statusPlot, dev='png',echo=FALSE, fig.width=8,fig.height=6,fig.show='hide',include=FALSE}
+dbDisconnectAll()
+conn=dbConnector(db_config)
+lastweek=Sys.Date()-days(7)
+data=dbGetQuery(
+  conn=conn,
+  statement=paste0(
+    "SELECT * FROM VESSEL_STATUS WHERE TIMESTAMP > '",
+    lastweek,
+    "' AND VESSEL_ID != 23"
+  )
+)
+data=select(data,REPORT_TYPE,LATITUDE,LONGITUDE,TIMESTAMP)
+bath=getNOAA.bathy(
+  lon1=min(data$LONGITUDE-0.5),
+  lon2=max(data$LONGITUDE+0.5),
+  lat1=min(data$LATITUDE-0.5),
+  lat2=max(data$LATITUDE+0.5),
+  resolution=1
+)
+## Create color ramp
+blues=c(
+  "lightsteelblue4", 
+  "lightsteelblue3",
+  "lightsteelblue2", 
+  "lightsteelblue1"
+)
+## Plotting the bathymetry with different colors for land and sea
+plot(
+  bath,
+  step=100,
+  deepest.isobath=-1000,
+  shallowest.isobath=0,
+  col="darkgray",
+  image = TRUE, 
+  land = TRUE, 
+  lwd = 0.1,
+  bpal = list(
+    c(0, max(bath), "gray"),
+    c(min(bath),0,blues)
+  ),
+  main=paste0("ALL eMOLT VESSELS with Satellite Transmitters \nREPORTS FROM: ",lastweek," to ",Sys.Date())
+)
+
+
+## Plot the status report locations
+x=subset(data,data$REPORT_TYPE=="SHORT_STATUS")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='red',
+  cex=2
+)
+## Plot data uploads
+x=subset(data,data$REPORT_TYPE=="SUMMARY_DATA")
+points(
+  x$LATITUDE~x$LONGITUDE,
+  pch=1,
+  col='blue',
+  cex=2
+)
+legend(
+  'topleft',
+  col=c('blue','red'),
+  legend=c('Summary Data Upload','Status Report'),
+  pch=c(1,1),
+  bty='n',
+  bg=NULL,
+  border='black'
+)
+```
+
+![Status plot.](`r knitr::fig_chunk('statusPlot', 'png')`)
+
+In the figure above, you can see the approximate locations where we received "Status Reports" (a ping from your system letting us know that it's still working) and "Data Uploads" (actual temperature / depth data collected by your probes). The "Status Reports" come in every 12 hours or so when a system is powered up. "Data Uploads" only come in when you haul the probes. If you were out fishing and don't see your approximate locations on here, please reach out because there may be a problem with your system.
+
+### Bottom Temperature Forecasts
+
+*We plan to add more animations to this section with other models in the future*
+
+#### Northeast Coastal Ocean Forecast System (NECOFS)
+
+![NECOFS Forecast](NECOFS.gif)
+
+Above, please find the bottom temperature forecasts at one hour intervals from 
+the Northeast Coastal Ocean Forecast System run by the 
+[Chen Lab](http://fvcom.smast.umassd.edu/) at the University of Massachusetts 
+School for Marine Science and Technology in New Bedford. 
+
+### Announcements and Other News
+
+
+All the best,
+
+-George and JiM
