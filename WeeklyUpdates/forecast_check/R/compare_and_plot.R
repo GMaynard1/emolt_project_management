@@ -96,7 +96,20 @@ output$scalecolor=colorspace::lighten(
   output$color,
   amount=output$scale
 )
-
+plotval=seq(-10,10,0.1)
+plotcol=cmocean::cmocean("balance",direction=-1)(length(plotval))
+for(i in 1:nrow(output)){
+  x=output$diff[i]
+  output$scalecolor[i]=ifelse(
+    x>max(plotval),
+    plotcol[length(plotval)],
+    ifelse(
+      x<min(plotval),
+      plotcol[1],
+      plotcol[which(abs(plotval-x)==min(abs(plotval-x)))]
+    )
+  )
+}
 ## Develop a linear regression
 lm1=lm(output$forecast_temp~output$obs_temp)
 pred = lm1$coefficients[1]+lm1$coefficients[2]*seq(-1,45,1)
@@ -190,24 +203,20 @@ plot(
 points(
   output$lat~output$lon,
   pch=1,
-  col='darkgray',
-  cex=1.1
+  col='black',
+  cex=1.6
 )
 points(
   output$lat~output$lon,
   pch=16,
-  col=output$scalecolor
+  col=output$scalecolor,
+  cex=1.5
 )
 ## Add legend
 legend(
   'bottomright',
-  legend=seq(-3*1.8,3*1.8,1.8),
-  fill=c(
-    colorspace::lighten(
-      c('red','red','red','white','blue','blue','blue'),
-    amount=c(-.5,0,.5,0,.5,0,-.5)
-    )
-  ),
+  legend=seq(-8,8,4),
+  fill=(plotcol[plotval%in%seq(-8,8,4)]),
   title="Predicted - Observed"
 )
 dev.off()
@@ -226,60 +235,60 @@ write.csv(
   row.names=FALSE
 )
 
-shelf=subset(
-  output,
-  output$lat>39.5&output$lat<40.5&output$lon>-72
-)
-non_shelf=subset(output,row.names(output)%in%row.names(shelf)==FALSE)
-## Develop a linear regression
-lm2=lm(non_shelf$forecast_temp~non_shelf$obs_temp)
-pred = lm2$coefficients[1]+lm2$coefficients[2]*seq(-1,45,1)
-plot(
-  non_shelf$forecast_temp~non_shelf$obs_temp,
-  xlim=c(0,35),
-  ylim=c(0,35),
-  xlab="Observed Temp (C)",
-  ylab="Predicted Temp (C)",
-  col=non_shelf$scalecolor,
-  pch=16,
-  main="Predicted vs. Observed Bottom Temperatures (Doppio)"
-)
-points(
-  non_shelf$forecast_temp~non_shelf$obs_temp,
-  pch=1,
-  col='darkgray'
-)
-points(
-  non_shelf$forecast_temp~non_shelf$obs_temp,
-  pch=16,
-  col=non_shelf$scalecolor
-)
-lines(
-  (-1:45),(-1:45)
-)
-lines(
-  (-1:45),pred,
-  lty=2
-)
-text(
-  x=5,
-  y=30,
-  label = expression(paste(R^2,"="))
-)
-text(
-  x=7,
-  y=30,
-  label = round(summary(lm2)$r.squared,3)
-)
-text(
-  x=5,
-  y=27,
-  label = paste0("RMSE = ",round(mean(lm2$residuals^2),3))
-)
-text(
-  x=5,
-  y=24,
-  label = paste0("Bias = ",round(Metrics::bias(non_shelf$forecast_temp,non_shelf$obs_temp),3))
-)
-
-x=subset(output,output$diff<=-3)
+# shelf=subset(
+#   output,
+#   output$lat>39.5&output$lat<40.5&output$lon>-72
+# )
+# non_shelf=subset(output,row.names(output)%in%row.names(shelf)==FALSE)
+# ## Develop a linear regression
+# lm2=lm(non_shelf$forecast_temp~non_shelf$obs_temp)
+# pred = lm2$coefficients[1]+lm2$coefficients[2]*seq(-1,45,1)
+# plot(
+#   non_shelf$forecast_temp~non_shelf$obs_temp,
+#   xlim=c(0,35),
+#   ylim=c(0,35),
+#   xlab="Observed Temp (C)",
+#   ylab="Predicted Temp (C)",
+#   col=non_shelf$scalecolor,
+#   pch=16,
+#   main="Predicted vs. Observed Bottom Temperatures (Doppio)"
+# )
+# points(
+#   non_shelf$forecast_temp~non_shelf$obs_temp,
+#   pch=1,
+#   col='darkgray'
+# )
+# points(
+#   non_shelf$forecast_temp~non_shelf$obs_temp,
+#   pch=16,
+#   col=non_shelf$scalecolor
+# )
+# lines(
+#   (-1:45),(-1:45)
+# )
+# lines(
+#   (-1:45),pred,
+#   lty=2
+# )
+# text(
+#   x=5,
+#   y=30,
+#   label = expression(paste(R^2,"="))
+# )
+# text(
+#   x=7,
+#   y=30,
+#   label = round(summary(lm2)$r.squared,3)
+# )
+# text(
+#   x=5,
+#   y=27,
+#   label = paste0("RMSE = ",round(mean(lm2$residuals^2),3))
+# )
+# text(
+#   x=5,
+#   y=24,
+#   label = paste0("Bias = ",round(Metrics::bias(non_shelf$forecast_temp,non_shelf$obs_temp),3))
+# )
+# 
+# x=subset(output,output$diff<=-3)
