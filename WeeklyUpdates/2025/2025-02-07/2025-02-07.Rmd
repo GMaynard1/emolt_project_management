@@ -56,16 +56,27 @@ for(tow in unique(full_data$tow_id)){
 
 ## Weekly Recap 
 
+This week, we continued bringing more systems online as the Rutgers crew rigged up the F/V Defiance down in Cape May and the ODN team worked with George, Huanxin, and Joaquim to iron out a few kinks on vessels up on the North Shore and in Southern Maine. Thanks to Captains Chad, Rusty, and Dominic for their patience this week. Thanks also to everyone who has followed up with us after the cooperative research summit, the Lobster Town Hall, and the Mass Lobstermen's Weekend. We received interest from over 30 new vessels and look forward to working with all of you. 
 
-> *Figure 1 -- Picture of the Lowell DDH screen aboard the F/V Ryan Joseph showing a noticeable increase in temperature (red) and dissolved oxygen (blue) late on October 29th.*
+![Defiance](IMG_20250207_092631 (2).jpg)
 
-> *Figure 2 -- FVCOM modeled surface temps and currents plotted with drifter (green) and miniboat (red) tracks*
+> *Figure 1 -- Captain Bill and Joey from the Rutgers install team walk through the displays on an eMOLT deckbox aboard the F/V Defiance earlier this week.*
+
+It's cold out there, at least on the surface. The plot below shows sea surface temperature from the last four years as well as the anomaly relative to the time period from 2000-2020. This year, with the exception of the large warm ring around 64W, 40N it's much colder than it's been off the edge of the shelf. Thanks to Dr. Kim Hyde over in the Ecosystem Dynamics and Assessment Branch for sharing these images. 
+
+![SST Images](SST_composite.PNG)
+
+> *Figure 2 -- (Top) Sea surface temperatures for late January / early February in (L-R) 2022-2025. Blue represents colder temps, red represents warmer temps. (Bottom) Sea surface temperature anomaly (difference from the 2000-2020 average) for late January / early February in (L-R) 2022-2025. Purple represents water that's colder than average, yellow and orange are warmer than average.*
+
+As always, it's helpful to have multiple pieces of data to be able to look at oceanographic conditions from different vantage points. Even with all that cold water at the surface, bottom conditions are actually much warmer in some places (see the magenta profile out on Eastern Georges where the temp around 100 fathoms is ~12 F warmer than the surface or the red profile near Hudson Canyon where temps are nearly 55 at the bottom, but only in the mid 40s at the surface). 
 
 This week, the eMOLT fleet recorded `r length(unique(full_data$tow_id))` tows of sensorized fishing gear totaling `r as.numeric(sensor_time)` sensor hours underwater. The warmest recorded bottom temperature was `r round(max(full_data$temperature..degree_C.)*9/5+32,1)` F inside Cape Cod Bay in approximately `r round(full_data[which(full_data$temperature..degree_C.==max(full_data$temperature..degree_C.)),"depth..m."]*0.546807,0)` fathoms (red profile) and the coldest recorded bottom temperature was `r round(min(full_data$temperature..degree_C.)*9/5+32,1)` F near Hudson Canyon in approximately `r round(full_data[which(full_data$temperature..degree_C.==min(full_data$temperature..degree_C.)),"depth..m."]*0.546807,0)[1]` fathoms (blue profile). Below, you can see these profiles plus a few other temperature profiles of interest across the region from the last week. 
 
 ![profiles from this week](profiles.png)
 
 > *Figure 3 -- Temperature profiles collected by eMOLT participants over the last week. The blue profile is where the coldest bottom temperature was measured and the red profile is where the warmest bottom temperature was measured. All other colors are assigned randomly. Colored points on the map indicate where profiles of the same color were collected. The small dark green dots represent other profiles collected this week, but not highlighted in the plot. Note that the warmest / coldest bottom temperatures measured could have occurred during gear soaks, which are not represented on this profile plot.*
+
+Finally, we just wanted to offer a quick thanks to Capt. Malcolm on the F/V Bulldog who provided some feedback on ways we could improve the graphics in these emails. We'll see what we can do over the next few weeks. Please don't hesitate to reach out to George directly or to other folks in the Cooperative Research Branch if you have a suggestion or request. 
 
 ### System Hardware Upgrade List
 
@@ -82,25 +93,25 @@ The following vessels remain on our list for hardware upgrades. If you aren't on
 
 #### Doppio 
 
-This week, only 56% of bottom temperature observations were within 2 degrees (F) of the Doppio forecasted value at those points. Across the board, observed bottom temperatures were warmer than expected, but especially down in the Mid-Atlantic east-southeast of Cape May.
+This week, 50% of bottom temperature observations were within 2 degrees (F) of the Doppio forecasted value at those points. Temps were warmer than expected along the northern edge of Georges, down by Hudson Canyon, and off the Maine coast. Temps were cooler than forecast on the shelf southeast of Great South Bay on Long Island. The forecast performed well southwest of Great South Bay, Cape Cod Bay, and along the backside of Cape Cod. 
 
 ![Doppio performance](doppio_compare.png)
 
-> *Figure 5 -- Performance of the Doppio forecast's bottom temperature layer over the last week relative to observations collected by eMOLT participants. Red dots indicate areas where bottom temperature observations were warmer that predicted. Blue dots indicate areas where bottom temperature observations were cooler than predicted. Bottom temperature observations are compared with the most recent forecast run available before the observation was made.* 
+> *Figure 4 -- Performance of the Doppio forecast's bottom temperature layer over the last week relative to observations collected by eMOLT participants. Red dots indicate areas where bottom temperature observations were warmer that predicted. Blue dots indicate areas where bottom temperature observations were cooler than predicted. Bottom temperature observations are compared with the most recent forecast run available before the observation was made.* 
 
 ![Doppio Forecast](DOPPIO_forecast_F.gif)
 
-> *Figure 6 -- The most recent Doppio bottom temperature forecast. The gray line is the 50 fathom line and the black line is the hundred fathom line. Purple shades indicate cooler water.*
+> *Figure 5 -- The most recent Doppio bottom temperature forecast. The gray line is the 50 fathom line and the black line is the hundred fathom line. Purple shades indicate cooler water.*
 
 #### Northeast Coastal Ocean Forecast System
 
 ![NECOFS plot](NECOFS_GOM.gif)
 
-> *Figure 7 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System GOM7 model. Purple shades indicate cooler water.*
+> *Figure 6 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System GOM7 model. Purple shades indicate cooler water.*
 
 ![Mass Bay plot](NECOFS_MABAY.gif)
 
-> *Figure 8 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System MassBay model. Purple shades indicate cooler water.*
+> *Figure 7 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System MassBay model. Purple shades indicate cooler water.*
 
 ## Announcements
 
@@ -111,8 +122,11 @@ The 2025 testing season for On Demand Gear is underway in Southern New England (
 
 ### Northeast Cooperative Research Summit Feedback Requested
 
-If you attended the Northeast Cooperative Research Summit, please fill out this five minute feedback form to let us know how we did. Your input will help determine the format and content of this event in the future. Thanks again for your participation and enthusiasm, and please don't hesitate to reach out for future conversations. 
+If you attended the Northeast Cooperative Research Summit, please fill out this [five minute feedback form](https://docs.google.com/forms/d/e/1FAIpQLSd-AUv-cPHotYr2ozjx2wYlzzNEDccTiy0BSfKWs_rfeslmEA/viewform) to let us know how we did. Your input will help determine the format and content of this event in the future. Thanks again for your participation and enthusiasm, and please don't hesitate to reach out for future conversations. 
 
+### Disclaimer
+
+The eMOLT Update is NOT an official NOAA document. Mention of products or manufacturers does not constitute an endorsement by NOAA or Department of Commerce. The content of this update reflects only the personal views of the authors and does not necessarily represent the views of NOAA Fisheries, the Department of Commerce, or the United States.
 
 All the best,
 
