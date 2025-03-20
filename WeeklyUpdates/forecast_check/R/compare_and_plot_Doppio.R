@@ -202,15 +202,15 @@ plot(
 ## Add output points
 points(
   output$lat~output$lon,
-  pch=1,
+  pch=16,
   col='black',
-  cex=1.6
+  cex=2
 )
 points(
   output$lat~output$lon,
   pch=16,
   col=output$scalecolor,
-  cex=1.5
+  cex=1.4
 )
 ## Add legend
 legend(
