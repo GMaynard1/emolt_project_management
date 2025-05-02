@@ -1,0 +1,1 @@
+ncks --overwrite -M -d time,2025-01-21,2025-01-28 -d s_rho,0 -v lat_rho,39,41 -v lon_rho,-67,-71 -v temp https://tds.marine.rutgers.edu/thredds/dodsC/roms/doppio/2017_da/his/History_Best Illusion_doppio.nc
