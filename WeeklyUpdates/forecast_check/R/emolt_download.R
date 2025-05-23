@@ -12,7 +12,7 @@ emolt_download=function(
   ## Use the dates from above to create a URL for grabbing the data
   full_data=read.csv(
     paste0(
-      "https://erddap.emolt.net/erddap/tabledap/eMOLT_RT.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type&segment_type=%22Fishing%22&time%3E=",
+      "https://erddap.emolt.net/erddap/tabledap/eMOLT_RT.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type&segment_type=3&time%3E=",
       lubridate::year(start_date),
       "-",
       lubridate::month(start_date),

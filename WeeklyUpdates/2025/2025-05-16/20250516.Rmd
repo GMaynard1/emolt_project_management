@@ -1,0 +1,148 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+  # word_document:
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(marmap)
+library(rstudioapi)
+if(Sys.info()["sysname"]=="Windows"){
+  source("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+} else {
+  source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+}
+
+data=emolt_download(days=7)
+start_date=Sys.Date()-lubridate::days(7)
+## Use the dates from above to create a URL for grabbing the data
+full_data=read.csv(
+  paste0(
+    "https://erddap.emolt.net/erddap/tabledap/eMOLT_RT.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type&segment_type=3&time%3E=",
+    lubridate::year(start_date),
+    "-",
+    lubridate::month(start_date),
+    "-",
+    lubridate::day(start_date),
+    "T00%3A00%3A00Z&time%3C=",
+    lubridate::year(Sys.Date()),
+    "-",
+    lubridate::month(Sys.Date()),
+    "-",
+    lubridate::day(Sys.Date()),
+    "T23%3A59%3A59Z"
+  )
+)
+sensor_time=0
+for(tow in unique(full_data$tow_id)){
+  x=subset(full_data,full_data$tow_id==tow)
+  sensor_time=sensor_time+difftime(max(x$time..UTC.),units='hours',min(x$time..UTC.))
+}
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+  
+</center>
+  
+## Weekly Recap 
+  
+It's been a busy couple of weeks as fishing ramps up around the region and we continue working through the MassTech installs. Congratulations to the team down at Rutgers University for completing all of the installs they signed up for through the MassTech expansion, and thanks to Captains Jamie and Andrew of the F/V TNT and F/V Searcher. Between the Gulf of Maine Lobster Foundation, Center for Coastal Studies, and Coonamessett Farm, the eMOLT team installed another 12 new systems and responded to a number of service calls for systems that needed software updates, new loggers, or other troubleshooting. 
+
+![different size boats](size.jpg)
+
+>*Figure 1 -- Fishing vessels come in a range of sizes, and the eMOLT program runs the gamut. This week, we installed systems aboard the New Bedford-based F/V Retriever (A) which fishes for squid, mackerel, and herring, and the Wellfleet-based F/V Annie and Joe, which fishes for green crabs.*
+
+![install pics](installs.jpg)
+
+>*Figure 2 -- (A) Captain Kyle with his new eMOLT system aboard the F/V Grace. (B) Doug and Joey from Rutgers work with Captain Andrew to set up a system aboard the F/V TNT. (C) Captain Mark and George from NEFSC in the wheelhouse of the F/V Prevail looking through the online eMOLT data portal built by Ocean Data Network*
+  
+We're also really excited to expand our network of scientific partners by installing a system aboard the dragger R/V Gemma, operated by Marine Biological Laboratory out of Woods Hole, MA. Thanks to Captain David for having us aboard!
+
+![R/V Gemma pics](gemma.jpg)
+
+>*Figure 3 -- (A) R/V Gemma steaming home past the drawbridge in Woods Hole, MA (Photo credit: Marine Biological Laboratory) and (B) Monomoy High School engineering intern Caleb works with Owen from the Center for Coastal Studies configure the Deck Data Hub for installation aboard the R/V Gemma.*
+
+This week, the eMOLT fleet recorded `r length(unique(full_data$tow_id))` tows of sensorized fishing gear totaling `r as.numeric(sensor_time)` sensor hours underwater. The warmest recorded bottom temperature was `r round(max(full_data$temperature..degree_C.)*9/5+32,1)` F in Nantucket Sound in approximately `r round(full_data[which(full_data$temperature..degree_C.==max(full_data$temperature..degree_C.)),"depth..m."]*0.546807,0)` fathoms (red profile) and the coldest recorded bottom temperature was `r round(min(full_data$temperature..degree_C.)*9/5+32,1)` F in Bigelow Bight in approximately `r round(full_data[which(full_data$temperature..degree_C.==min(full_data$temperature..degree_C.)),"depth..m."]*0.546807,0)[1]` fathoms (blue profile). 
+
+Seasonal stratification is visible in profiles from around the region, with a thermocline setting up between 10-20 fathoms with the exception of profiles east of Penobscot Bay (green and yellow profiles). The temperature gradient is particularly sharp south of Rhode Island and east of New Jersey. The purple profile out on the eastern end of Georges Bank is inside of a large complex of Gulf Stream water where a warm core ring is colliding with a large eddy. 
+
+![profiles from this week](profiles.png)
+
+> *Figure 4 -- Temperature profiles collected by eMOLT participants over the last week. The blue profile is where the coldest bottom temperature was measured and the red profile is where the warmest bottom temperature was measured. All other colors are assigned randomly. Colored points on the map indicate where profiles of the same color were collected. The small dark green dots represent other profiles collected this week, but not highlighted in the plot. Note that the warmest / coldest bottom temperatures measured could have occurred during gear soaks, which are not represented on this profile plot.*
+
+### Fishing Vessel Ocean Observing Network Begins Sensor Intercomparison Project
+
+Our colleagues at the  Consiglio Nazionale Delle Ricerche (National Research Council of Italy) have begun testing multiple sensors used in eMOLT and similar programs around the world side by side to document performance of these tools in real world conditions. Dr. Michaela Martinelli and her team installed sensors built by NKE (France) and ZebraTech (New Zealand) on a pelagic trawler in the Adriatic Sea. These sensors along with others models built by JFE in Japan and Lowell Instruments in the USA will be compared with reference sensors on fishing boats and research platforms around the world over the next year or so with Italy's CNR leading up the analytics. 
+
+![CNR sensors ready for fishing](WhatsApp Image 2025-05-15 at 4.03.12 PM.jpeg)
+
+>*Figure 5 -- ZebraTech (blue-green) and NKE (orange) sensors attached to a trawl door.*
+
+
+### NOAA Weather Forecast Model Performance Degrading Due to Reduced Observations
+
+A note on the importance of observations to forecast models: NOAA's Global Forecast System (GFS) has recently experienced a measurable degredation in performance (shown below). The timing of this degredation coincides with [reductions in weather balloon launches](https://www.newscentermaine.com/article/news/local/staffing-shortages-nws-gray-office-weather-balloon-launches-maine/97-916e12f1-35e8-4939-8c98-2438451eaf7f). Balloon launches, similar to the sensors deployed in the eMOLT program, take vertical snapshots of conditions when they are deployed (just going in the opposite direction). These data are assimilated into forecast models (along with data from aircraft and satellites) to improve the performance of those models. 
+
+![GFS graph](anomaly.jpg)
+
+>*Figure 6 -- Graph of anomaly correlation coefficient (y-axis -- vertical) over time (x-axis -- horizontal) for the Global Forecast System (GFS - red) and the European Centre for Medium-Range Weather Forecasts (ECMWF -blue) models. Higher values indicate better performance.*
+
+### System Hardware Upgrade List
+
+The following vessels remain on our list for hardware upgrades. If you aren't on the list and think you should be, please reach out. *Note that this list is different from our new install queue.*
+
+>
+ - F/V Kaitlyn Victoria
+ - F/V Kyler C
+ - F/V Noella C
+ - F/V Sea Watcher I
+
+### Bottom Temperature Forecasts
+
+#### Doppio 
+
+This week, 69.7% of bottom temperature observations were within 2 degrees (F) of the Doppio forecasted value at those points.Observations were warmer than expected off southern New England, Downeast Maine, and on Georges Bank. Observations were cooler than expected southeast of New Jersey. The model performed well south of Long Island and off Southern Maine and the New Hampshire Seacoast. 
+
+![Doppio performance](doppio_compare.png)
+
+> *Figure 7 -- Performance of the Doppio forecast's bottom temperature layer over the last week relative to observations collected by eMOLT participants. Red dots indicate areas where bottom temperature observations were warmer that predicted. Blue dots indicate areas where bottom temperature observations were cooler than predicted. Bottom temperature observations are compared with the most recent forecast run available before the observation was made.* 
+  
+![Doppio Forecast](DOPPIO_forecast_F.gif)
+
+> *Figure 8 -- The most recent Doppio bottom temperature forecast. The gray line is the 50 fathom line and the black line is the hundred fathom line. Purple shades indicate cooler water.*
+  
+#### Northeast Coastal Ocean Forecast System
+  
+![NECOFS plot](NECOFS_GOM.gif)
+
+> *Figure 9 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System GOM7 model. The gray line is the 50 fathom line and the black line is the hundred fathom line. Purple shades indicate cooler water.*
+  
+![Mass Bay plot](NECOFS_MABAY.gif)
+
+> *Figure 10 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System MassBay model. Purple shades indicate cooler water.*
+  
+### Announcements
+
+#### BOEM Announces Development of New Five Year Lease Schedule for the Outer Continental Shelf
+
+BOEM is asking stakeholders to raise concerns, identify existing uses and recommend leasing opportunities in all 27 lease areas on the Atlantic, Pacific, Gulf and Alaskan coasts, including the North Atlantic and Mid-Atlantic lease areas. For more information, see the full announcement from BOEM [here](https://www.govinfo.gov/content/pkg/FR-2025-04-30/pdf/2025-07479.pdf). Public comments are due by June 16, 2025 and can be submitted [here](https://www.federalregister.gov/documents/2025/04/30/2025-07479/request-for-information-and-comments-on-the-preparation-of-the-11th-national-outer-continental-shelf). 
+
+
+### Disclaimer
+  
+The eMOLT Update is NOT an official NOAA document. Mention of products or manufacturers does not constitute an endorsement by NOAA or Department of Commerce. The content of this update reflects only the personal views of the authors and does not necessarily represent the views of NOAA Fisheries, the Department of Commerce, or the United States.
+
+
+All the best,
+
+-George
