@@ -123,7 +123,8 @@ the Northeast Coastal Ocean Forecast System run by the
 School for Marine Science and Technology in New Bedford. 
 
 ### Announcements and Other News
-While browsing the Canadian IOOS pages, JiM came across some data collected by the Centre of Marine Applied Research (CMAR) and subsequently, after getting on a zoom call with them, downloaded their mooring "sensor string" data and generated a station plot.  
+While browsing the [Canadian IOOS pages](https://catalogue.cioosatlantic.ca/en/organization/cmar], JiM came across some data collected by the Centre of Marine Applied Research (CMAR) and subsequently, after getting on a zoom call with them, downloaded their mooring "sensor string" data and [generated the station plot](https://github.com/jamespmanning/cmar/) below. The cool thing about this mooring data is their  multiple sensors throughout the water column. This may be something we could do in the future on dedicated "science" moorings deployed by fishermen.
+![cmar station plot]('cmar_stations.png')
 
 All the best,
 
