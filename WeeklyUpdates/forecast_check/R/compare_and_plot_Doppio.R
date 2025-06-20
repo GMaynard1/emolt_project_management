@@ -160,69 +160,69 @@ text(
   y=24,
   label = paste0("Bias = ",round(Metrics::bias(output$forecast_temp,output$obs_temp),3))
 )
-## Download bathymetric data
-bath=marmap::getNOAA.bathy(
-  lon1=min(-80.83),
-  lon2=max(-56.79),
-  lat1=min(35.11),
-  lat2=max(46.89),
-  resolution=1
-)
-## Create color ramp
-blues=c(
-  "lightsteelblue4", 
-  "lightsteelblue3",
-  "lightsteelblue2", 
-  "lightsteelblue1"
-)
-png("doppio_compare.png",height=700, width=800,units="px")
-## Plotting the bathymetry with different colors for land and sea
-plot(
-  bath,
-  step=100,
-  deepest.isobath=-1000,
-  shallowest.isobath=0,
-  col="darkgray",
-  image = TRUE, 
-  land = TRUE, 
-  lwd = 0.1,
-  bpal = list(
-    c(0, max(bath), "gray"),
-    c(min(bath),0,blues)
-  ),
-  main="Doppio Predicted - eMOLT Obs (deg F)",
-  sub=paste0(
-    lubridate::floor_date(min(lubridate::ymd_hms(output$date)),"day"),
-    " to ",
-    lubridate::ceiling_date(max(lubridate::ymd_hms(output$date)),"day")
-  ),
-  xlim=c(-75,-66),
-  ylim=c(38,45)
-)
-## Add output points
-points(
-  output$lat~output$lon,
-  pch=16,
-  col='black',
-  cex=2
-)
-points(
-  output$lat~output$lon,
-  pch=16,
-  col=output$scalecolor,
-  cex=1.4
-)
-## Add legend
-legend(
-  'bottomright',
-  legend=seq(-8,8,4),
-  fill=(plotcol[plotval%in%seq(-8,8,4)]),
-  title="Predicted - Observed"
-)
-dev.off()
-
-mean(output$diff)
-range(output$diff)
+# ## Download bathymetric data
+# bath=marmap::getNOAA.bathy(
+#   lon1=min(-80.83),
+#   lon2=max(-56.79),
+#   lat1=min(35.11),
+#   lat2=max(46.89),
+#   resolution=1
+# )
+# ## Create color ramp
+# blues=c(
+#   "lightsteelblue4", 
+#   "lightsteelblue3",
+#   "lightsteelblue2", 
+#   "lightsteelblue1"
+# )
+# png("doppio_compare.png",height=700, width=800,units="px")
+# ## Plotting the bathymetry with different colors for land and sea
+# plot(
+#   bath,
+#   step=100,
+#   deepest.isobath=-1000,
+#   shallowest.isobath=0,
+#   col="darkgray",
+#   image = TRUE, 
+#   land = TRUE, 
+#   lwd = 0.1,
+#   bpal = list(
+#     c(0, max(bath), "gray"),
+#     c(min(bath),0,blues)
+#   ),
+#   main="Doppio Predicted - eMOLT Obs (deg F)",
+#   sub=paste0(
+#     lubridate::floor_date(min(lubridate::ymd_hms(output$date)),"day"),
+#     " to ",
+#     lubridate::ceiling_date(max(lubridate::ymd_hms(output$date)),"day")
+#   ),
+#   xlim=c(-75,-66),
+#   ylim=c(38,45)
+# )
+# ## Add output points
+# points(
+#   output$lat~output$lon,
+#   pch=16,
+#   col='black',
+#   cex=2
+# )
+# points(
+#   output$lat~output$lon,
+#   pch=16,
+#   col=output$scalecolor,
+#   cex=1.4
+# )
+# ## Add legend
+# legend(
+#   'bottomright',
+#   legend=seq(-8,8,4),
+#   fill=(plotcol[plotval%in%seq(-8,8,4)]),
+#   title="Predicted - Observed"
+# )
+# dev.off()
+# 
+# mean(output$diff)
+# range(output$diff)
 
 write.csv(
   output,
