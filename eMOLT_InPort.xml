@@ -1,0 +1,208 @@
+<inport-metadata xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.11" source="https://www.fisheries.noaa.gov">
+<item-identification>
+<catalog-item-id>9284</catalog-item-id>
+<title>Environmental Monitors on Lobster Traps and Large Trawlers Program</title>
+<short-name>eMOLT Program</short-name>
+<catalog-item-type>Program</catalog-item-type>
+<metadata-workflow-state ccs-id="10">Withdrawn</metadata-workflow-state>
+<parent-catalog-item-id>23136</parent-catalog-item-id>
+<parent-title>Northeast Cooperative Research Program (NCRP)</parent-title>
+<parent-catalog-item-type>Project</parent-catalog-item-type>
+<status>On Going</status>
+<abstract>The eMOLT project is a non-profit collaboration of industry, science, and academics devoted to monitoring of the physical environment of the Gulf of Maine, Georges Bank, the Southern New England shelf, and the Mid-Atlantic Bight. In a series of phases funded by the Northeast Consortium, Sea Grant, the Integrated Ocean Observing System, the National Science Foundation, the Maine Broadreach Fund, and the Massachusetts Technology Collaborative, low-cost strategies have been developed to monitor the environment. While the primary variable is bottom temperature, we have recently expanded our monitoring capabilities to include temperature profiles and bottom dissolved oxygen. Working with over 100 commercial fishing captains from Maine to North Carolina, we deploy low-cost environmental loggers on commercial fishing gear. We hope to extend our existing multi-year time series (as well as our monitoring capabilities), continue integration with the Northeast Regional Association for Coastal Ocean Observing Systems (NERACOOS), and contribute to whatever operational systems are developed for our region in the future.</abstract>
+<purpose>Data collected through the eMOLT program are used by a variety of stakeholder groups including: 1) The fishermen themselves -- fishermen use data collected from their loggers and model outputs informed by these data to make fishing decisions on the water 2) Oceanographic modelers -- realtime data are assimilated into a number of ocean forecast models on a daily basis including Doppio (Rutgers), the Northeast Coastal Ocean Forecast System (UMass Dartmouth), and several National Ocean Service products 3) Fisheries scientists -- eMOLT data have been used in the American Lobster stock assessment and are under consideration for use in other stock assessments such as Black Sea Bass and Longfin Squid. Fisheries managers with Maine Department of Marine Resources, Massachusetts Division of Marine Fisheries, and New Hampshire Department of Fish and Game also make use of the data. 4) Other researchers -- scientists at research and academic institutions including the University of Maine, University of Massachusetts Dartmouth, Massachusetts Maritime Academy, St. Francis University, Massachusetts Institute of Technology, and Woods Hole Oceanographic Institution have also made use of eMOLT data in different types of research ranging from fisheries science to AUV piloting algorithms. </purpose>
+</item-identification>
+<keywords>
+<keyword controlled="Yes">
+<keyword-type>Theme</keyword-type>
+<thesaurus version="17.0">Global Change Master Directory (GCMD) Data Center Keywords</thesaurus>
+<keyword identifier="606eeab8-cea7-40aa-8d0c-be40db6910f5">DOC/NOAA/NMFS/NEFSC > Northeast Fisheries Science Center, National Marine Fisheries Service, NOAA, U.S. Department of Commerce</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Theme</keyword-type>
+<thesaurus version="17.0">Global Change Master Directory (GCMD) Data Center Keywords</thesaurus>
+<keyword identifier="4e13905f-c97c-44f7-b5c9-b89282005b4c">IOOS > Integrated Ocean Observing System, NOAA, U.S. Department of Commerce</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Theme</keyword-type>
+<thesaurus version="17.0">Global Change Master Directory (GCMD) Science Keywords</thesaurus>
+<keyword identifier="90aa8838-79bd-4b28-b518-8217e863c385">EARTH SCIENCE > OCEANS > OCEAN CHEMISTRY > OXYGEN</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Theme</keyword-type>
+<thesaurus version="17.0">Global Change Master Directory (GCMD) Science Keywords</thesaurus>
+<keyword identifier="251c87cd-03b3-464f-8390-8ede2fec28fc">EARTH SCIENCE > OCEANS > OCEAN TEMPERATURE</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Theme</keyword-type>
+<thesaurus>ISO 19115 Topic Category</thesaurus>
+<keyword>oceans</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Temporal</keyword-type>
+<thesaurus version="10.3">Global Change Master Directory (GCMD) Temporal Data Resolution Keywords</thesaurus>
+<keyword identifier="bca20202-2b06-4657-a425-5b0e416bce0c">1 minute - < 1 hour</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Spatial</keyword-type>
+<thesaurus version="10.7">Global Change Master Directory (GCMD) Horizontal Data Resolution Keywords</thesaurus>
+<keyword identifier="6dd8224f-944e-4798-ac48-44c23a567eeb">1 km - < 10 km or approximately .01 degree - < .09 degree</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Spatial</keyword-type>
+<thesaurus version="10.7">Global Change Master Directory (GCMD) Horizontal Data Resolution Keywords</thesaurus>
+<keyword identifier="75c9d806-9e29-40f5-b479-4c63c90f77a9">Point Resolution</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Spatial</keyword-type>
+<thesaurus version="20.8">Global Change Master Directory (GCMD) Location Keywords</thesaurus>
+<keyword identifier="48f4e536-a426-4735-b0c4-f80a1d0afa19">OCEAN > ATLANTIC OCEAN > NORTH ATLANTIC OCEAN > CAPE COD</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Spatial</keyword-type>
+<thesaurus version="20.8">Global Change Master Directory (GCMD) Location Keywords</thesaurus>
+<keyword identifier="7a1f45ea-4804-4ae0-8949-e4f33223d39d">OCEAN > ATLANTIC OCEAN > NORTH ATLANTIC OCEAN > GEORGES BANK</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Spatial</keyword-type>
+<thesaurus version="20.8">Global Change Master Directory (GCMD) Location Keywords</thesaurus>
+<keyword identifier="9c31f745-a3d1-4007-99ae-fceca2019fab">OCEAN > ATLANTIC OCEAN > NORTH ATLANTIC OCEAN > GULF OF MAINE</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Spatial</keyword-type>
+<thesaurus version="20.8">Global Change Master Directory (GCMD) Location Keywords</thesaurus>
+<keyword identifier="f6ed7b70-c420-46e0-97db-2aecd9748788">OCEAN > ATLANTIC OCEAN > NORTH ATLANTIC OCEAN > LONG ISLAND SOUND</keyword>
+</keyword>
+<keyword controlled="Yes">
+<keyword-type>Stratum</keyword-type>
+<thesaurus version="10.3">Global Change Master Directory (GCMD) Vertical Data Resolution Keywords</thesaurus>
+<keyword identifier="0893353d-4e8c-4b31-bcc5-fce552ccfff3">Point Resolution</keyword>
+</keyword>
+</keywords>
+<physical-location>
+<organization>Northeast Fisheries Science Center</organization>
+<city>Woods Hole</city>
+<state-province>MA</state-province>
+<country>USA</country>
+</physical-location>
+<project-information>
+<project-type>Program</project-type>
+</project-information>
+<extents>
+<currentness-reference>Ground Condition</currentness-reference>
+<extent cc-id="1383001">
+<geographic-areas>
+<geographic-area cc-id="1383004">
+<west-bound>-78</west-bound>
+<east-bound>-66</east-bound>
+<north-bound>45</north-bound>
+<south-bound>34</south-bound>
+</geographic-area>
+</geographic-areas>
+</extent>
+</extents>
+<access-information>
+<security-class>Unclassified</security-class>
+<data-access-procedure>ERDDAP https://erddap.emolt.net/erddap/info/index.html?page=1&itemsPerPage=1000</data-access-procedure>
+<metadata-access-constraints>Metadata about vessels is only available to vessel captains, owners, or others with a data sharing agreement with the Gulf of Maine Lobster Foundation</metadata-access-constraints>
+</access-information>
+<acronyms>
+<acronym>
+<acronym>AOLA</acronym>
+<meaning>Atlantic Offshore Lobstermen's Association</meaning>
+</acronym>
+<acronym>
+<acronym>CCCFA</acronym>
+<meaning>Cape Cod Commercial Fishermen's Alliance</meaning>
+</acronym>
+<acronym>
+<acronym>CCS</acronym>
+<meaning>Center for Coastal Studies</meaning>
+</acronym>
+<acronym>
+<acronym>CFF</acronym>
+<meaning>Coonamessett Farm Foundation</meaning>
+</acronym>
+<acronym>
+<acronym>CFRF</acronym>
+<meaning>Commercial Fisheries Research Foundation</meaning>
+</acronym>
+<acronym>
+<acronym>GOMLF</acronym>
+<meaning>Gulf of Maine Lobster Foundation</meaning>
+</acronym>
+<acronym>
+<acronym>MALA</acronym>
+<meaning>Massachusetts Lobstermen's Association</meaning>
+</acronym>
+<acronym>
+<acronym>MELA</acronym>
+<meaning>Maine Lobstermen's Association</meaning>
+</acronym>
+<acronym>
+<acronym>ODN</acronym>
+<meaning>Ocean Data Network</meaning>
+</acronym>
+<acronym>
+<acronym>eMOLT</acronym>
+<meaning>Environmental Monitors on Lobster Traps and Large Trawlers</meaning>
+</acronym>
+</acronyms>
+<faqs>
+<faq cc-id="1383016">
+<date>2025-05-05</date>
+<author>Maynard, George </author>
+<question>Does eMOLT just work with lobstermen?</question>
+<answer>Although the eMOLT program initially worked exclusively with lobstermen, we now work with vessels in almost every fishery in the region using a variety of mobile and fixed fishing gear.</answer>
+</faq>
+<faq cc-id="1383017">
+<date>2025-05-05</date>
+<author>Maynard, George </author>
+<question>What data are made public?</question>
+<answer>We provide location and environmental data to scientists. On request, we will also provide information about the sensor used to collect the data. We do not make vessel information, gear type, or contact information public. Fishermen are always allowed access to all data collected aboard their own vessel and can share it with whomever they wish.</answer>
+</faq>
+<faq cc-id="1383018">
+<date>2025-05-05</date>
+<author>Maynard, George </author>
+<question>What does it cost?</question>
+<answer>We provide the instruments and data free of charge to our fishing industry partners. Data are made publicly available free of charge. The eMOLT program is supported by grants and Federal funding through the Northeast Fisheries Science Center.</answer>
+</faq>
+<faq cc-id="1383019">
+<date>2025-05-05</date>
+<author>Maynard, George </author>
+<question>Why participate?</question>
+<answer>Better understand subsurface conditions on your fishing grounds by seeing data in near real time Join an active community of fishermen and researchers working together to learn about the ecosystem in our region Know that youÃ¢ÂÂre contributing data to ocean forecast models that help improve maritime safety and Coast Guard Search and Rescue Operations The eMOLT Program has existed for nearly three decades. Our team is committed to improving oceanographic and fisheries science in our region and committed to keeping your data collection system running for as long as youÃ¢ÂÂre willing to participate. </answer>
+</faq>
+</faqs>
+<child-items>
+<child-item>
+<catalog-item-id>25149</catalog-item-id>
+<catalog-item-type>Data Set</catalog-item-type>
+<title>Environmental Monitors on Lobster Traps Database</title>
+</child-item>
+</child-items>
+<catalog-details>
+<guid>gov.noaa.nmfs.inport:9284</guid>
+<metadata-record-created-by pers-id="3782">Kathleen Mays</metadata-record-created-by>
+<metadata-record-created>2009-05-06T13:25:50</metadata-record-created>
+<metadata-record-last-modified-by pers-id="23175">George Maynard</metadata-record-last-modified-by>
+<metadata-record-last-modified>2025-05-05T14:34:00</metadata-record-last-modified>
+<record-published>2025-05-05</record-published>
+<owner-organization>Northeast Fisheries Science Center</owner-organization>
+<owner-organization-acronym>NEFSC</owner-organization-acronym>
+<owner-organization-address>166 Water Street</owner-organization-address>
+<owner-organization-address-city>Woods Hole</owner-organization-address-city>
+<owner-organization-address-state>MA</owner-organization-address-state>
+<owner-organization-address-zip>02543-1026</owner-organization-address-zip>
+<owner-organization-address-country>USA</owner-organization-address-country>
+<owner-organization-phone>(508)495-2000</owner-organization-phone>
+<owner-organization-url>http://www.nefsc.noaa.gov</owner-organization-url>
+<owner-organization-business-hours>8:00 a.m. to 4:30 p.m. Monday - Friday</owner-organization-business-hours>
+<owner-organization-group-id>1001</owner-organization-group-id>
+<publication-status>Withdrawn</publication-status>
+<is-do-not-publish>No</is-do-not-publish>
+<metadata-last-review-date>2025-05-05</metadata-last-review-date>
+<metadata-review-frequency>1 Year</metadata-review-frequency>
+<metadata-next-review-date>2026-05-05</metadata-next-review-date>
+</catalog-details>
+</inport-metadata>

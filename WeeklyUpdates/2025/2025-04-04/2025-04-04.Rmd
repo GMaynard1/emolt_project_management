@@ -1,0 +1,156 @@
+---
+title: "eMOLT Update"
+author: "George Maynard"
+date: "`r Sys.Date()`"  
+output: 
+  blastula::blastula_email:
+    toc: FALSE
+    toc_depth: 3
+    toc_float: TRUE
+    fig_caption: FALSE
+  # word_document:
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(marmap)
+library(rstudioapi)
+if(Sys.info()["sysname"]=="Windows"){
+  source("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+} else {
+  source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+}
+
+data=emolt_download(days=7)
+start_date=Sys.Date()-lubridate::days(7)
+## Use the dates from above to create a URL for grabbing the data
+full_data=read.csv(
+    paste0(
+      "https://erddap.emolt.net/erddap/tabledap/eMOLT_RT.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type&segment_type=%22Fishing%22&time%3E=",
+      lubridate::year(start_date),
+      "-",
+      lubridate::month(start_date),
+      "-",
+      lubridate::day(start_date),
+      "T00%3A00%3A00Z&time%3C=",
+      lubridate::year(Sys.Date()),
+      "-",
+      lubridate::month(Sys.Date()),
+      "-",
+      lubridate::day(Sys.Date()),
+      "T23%3A59%3A59Z"
+    )
+  )
+sensor_time=0
+for(tow in unique(full_data$tow_id)){
+  x=subset(full_data,full_data$tow_id==tow)
+  sensor_time=sensor_time+difftime(max(x$time..UTC.),units='hours',min(x$time..UTC.))
+}
+```
+
+<center> 
+
+<font size="5"> *eMOLT Update `r Sys.Date()` * </font>
+
+</center>
+
+## Weekly Recap 
+
+We continue to navigate the complexities of changing business rules, staffing changes, and [uncertainties around contracts with external partners](https://www.axios.com/2025/04/01/noaa-commerce-department-contracts-weather-climate). On the business rules front, we received welcome clarification that no cost travel is limited by the number of hours worked and traveled in one day (must be < 12) rather than the number of miles driven. That gives us more flexibility to get around and work in ports, at least in Southern New England. 
+
+Under our previous travel guidance earlier this week, Huanxin went up to Cohasset on his own to upgrade the hardware aboard the F/V Ryan Joseph. Thanks to Capt. Joe for taking the time. Thanks also to Richard and the maintenance crew aboard the F/V American Eagle for letting Huanxin and George aboard last week to run some wiring while the wheelhouse is being upgraded. We'll head back over to finish the deckbox installation once everything's put back together. 
+
+![Huanxin on American Eagle](AE_Huanxin.jpeg)
+
+>*Figure 1 -- Huanxin tightens up some of the 100 feet of wire we ran aboard the F/V American Eagle in preparation for installing their eMOLT system.*
+
+This week, the eMOLT fleet recorded `r length(unique(full_data$tow_id))` tows of sensorized fishing gear totaling `r as.numeric(sensor_time)` sensor hours underwater. The warmest recorded bottom temperature was `r round(max(full_data$temperature..degree_C.)*9/5+32,1)` F near Hudson Canyon in approximately `r round(full_data[which(full_data$temperature..degree_C.==max(full_data$temperature..degree_C.)),"depth..m."]*0.546807,0)` fathoms (red profile) and the coldest recorded bottom temperature was `r round(min(full_data$temperature..degree_C.)*9/5+32,1)` F off Gloucester in approximately `r round(full_data[which(full_data$temperature..degree_C.==min(full_data$temperature..degree_C.)),"depth..m."]*0.546807,0)[1]` fathoms (blue profile). Below, you can see these profiles plus a few other temperature profiles of interest across the region from the last week. 
+
+![profiles from this week](profiles.png)
+
+> *Figure 2 -- Temperature profiles collected by eMOLT participants over the last week. The blue profile is where the coldest bottom temperature was measured and the red profile is where the warmest bottom temperature was measured. All other colors are assigned randomly. Colored points on the map indicate where profiles of the same color were collected. The small dark green dots represent other profiles collected this week, but not highlighted in the plot. Note that the warmest / coldest bottom temperatures measured could have occurred during gear soaks, which are not represented on this profile plot.*
+
+### System Hardware Upgrade List
+
+The following vessels remain on our list for hardware upgrades. If you aren't on the list and think you should be, please reach out. *Note that this list is different from our new install queue.*
+
+>
+ - F/V Kaitlyn Victoria
+ - F/V Kyler C
+ - F/V Noella C
+ - F/V Sea Watcher I
+
+### Bottom Temperature Forecasts
+
+#### Doppio 
+
+This week, 49.1% of bottom temperature observations were within 2 degrees (F) of the Doppio forecasted value at those points. The forecast performed well in Massachusetts Bay, out on Eastern Georges Bank, and immediately south of Long Island, but struggled to resolve some of the dynamics around Hudson Caynon and east towards New Jersey. 
+
+![Doppio performance](doppio_compare.png)
+
+> *Figure 3 -- Performance of the Doppio forecast's bottom temperature layer over the last week relative to observations collected by eMOLT participants. Red dots indicate areas where bottom temperature observations were warmer that predicted. Blue dots indicate areas where bottom temperature observations were cooler than predicted. Bottom temperature observations are compared with the most recent forecast run available before the observation was made.* 
+
+![Doppio Forecast](DOPPIO_forecast_F.gif)
+
+> *Figure 4 -- The most recent Doppio bottom temperature forecast. The gray line is the 50 fathom line and the black line is the hundred fathom line. Purple shades indicate cooler water.*
+
+#### Northeast Coastal Ocean Forecast System
+
+![NECOFS plot](NECOFS_GOM.gif)
+
+> *Figure 5 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System GOM7 model. The gray line is the 50 fathom line and the black line is the hundred fathom line. Purple shades indicate cooler water.*
+
+![Mass Bay plot](NECOFS_MABAY.gif)
+
+> *Figure 6 -- The most recent bottom temperature forecast from the Northeast Coastal Ocean Forecast System MassBay model. Purple shades indicate cooler water.*
+
+## Announcements
+
+### CRB is Compiling a List of Vessels Interested in Cooperative Research
+
+In an effort to expand partnerships between fishermen and scientists, we are ramping up a new initiative to create a list of fishing vessels interested in participating in cooperative research. We have created forms for vessels to sign up to participate in cooperative research, from environmental monitoring to biological sampling to industry based surveys to conservation gear engineering ... the opportunities are endless! Many scientists want to work with fishermen, but it is difficult to know who to contact or where to start. The intent of this effort is to make connections between scientists and fishing industry members.
+
+- If you already participate in cooperative research and want to continue to do so, please fill out [this form](https://docs.google.com/forms/d/1Mi2Ya12T5eGRlqyhuHiB2452J37gYRr5dlzv4rl7G88/viewform?edit_requested=true)
+- If you do not currently participate in cooperative research, but want to, please fill out [this form](https://docs.google.com/forms/d/1Mi2Ya12T5eGRlqyhuHiB2452J37gYRr5dlzv4rl7G88/viewform?edit_requested=true) 
+- If you know other captains or owners who are interested in participating in cooperative research, please share this [form/link](https://docs.google.com/forms/d/1Mi2Ya12T5eGRlqyhuHiB2452J37gYRr5dlzv4rl7G88/viewform?edit_requested=true) with them
+- If you don't want to deal with an online form but want to sign up, call Anna Mercer (774-392-7603)
+ 
+None of the information provided through this form will be shared publicly. It will only be used to make connections between individual researchers and fishermen. We hope this effort will expand collaboration opportunities for the years to come!
+
+### Ocean Data Tools Workshop -- Stipend Available for Fishermen
+
+April 17, 2025 -- Ellsworth, ME
+
+The Gulf of Maine Lobster Foundation and the Northeastern Regional Association of Coastal Ocean Observing Systems (NERACOOS) are excited to walk through various ocean data tools and hear feedback on how they could better support your fishing decisions. Your expertise and ideas are crucial in making these tools more useful and effective! What's in it for you?
+
+- A $750 stipend, mileage reimbursement, and hotel reimbursement. We value your expertise and want the workshop to be worth your time. 
+- Information! Learn about ocean data tools available in our region to support your on the water decisions
+- Discussion Forum! Time to discuss environmental changes you are seeing on the water.
+
+To learn more about the workshop or register, please click [here](https://docs.google.com/forms/d/e/1FAIpQLSekgg45sbuuqgs1OXb2niZp7vyN7HzF-cwLXKcklZO_RftLxA/viewform?usp=preview)
+
+### Contribute to the 2026 Management Track Fishery Stock Assessments
+
+The Northeast Fisheries Science Center seeks input from our regional assessment partners, including the fishing industry (commercial and recreational), state agency scientists, academic researchers, and interested members of the public to help guide development of our next [Management Track Assessments](https://links-1.govdelivery.com/CL0/https:%2F%2Fwww.fisheries.noaa.gov%2Fnew-england-mid-atlantic%2Fpopulation-assessments%2Fmanagement-track-stock-assessments%3Futm_medium=email%26utm_source=govdelivery/1/01000194fef87a4b-77d6ccd3-5a1a-4eb1-b540-f77f545ba60e-000000/ZeMgO83aO-hzSXHaHdKeoVtkRJYCB7U8ddMVEkaJkm4=392). 
+
+Specifically, the NEFSC is looking for on-the-water observations or data sets on topics such as distribution, stock health, fishing dynamics and management, and the role these stocks play in the ecosystem. 
+
+- Submit your comments through the [community input form](https://links-1.govdelivery.com/CL0/https:%2F%2Fforms.gle%2FBrH28as6HhERVTnL6%3Futm_medium=email%26utm_source=govdelivery/1/01000194fef87a4b-77d6ccd3-5a1a-4eb1-b540-f77f545ba60e-000000/J3norb57-iYKlrXBQ74ItB9OMBBXv9ZUqcpxeZ10abg=392), which is open through April 30, 2025
+
+June 2026 Management Track Stocks include
+
+- Atlantic herring
+- Butterfish
+- Georges Bank Atlantic cod
+- Georges Bank haddock
+- Longfin inshore squid
+- Ocean quahog
+
+### Disclaimer
+
+The eMOLT Update is NOT an official NOAA document. Mention of products or manufacturers does not constitute an endorsement by NOAA or Department of Commerce. The content of this update reflects only the personal views of the authors and does not necessarily represent the views of NOAA Fisheries, the Department of Commerce, or the United States.
+
+
+All the best,
+
+-George and JiM

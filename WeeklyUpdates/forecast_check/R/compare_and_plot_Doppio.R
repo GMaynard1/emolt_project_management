@@ -1,6 +1,6 @@
-source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
-source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/download_doppio_ncks.R")
-source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/compare_doppio.R")
+source("C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
+source("C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/download_doppio_ncks.R")
+source("C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/compare_doppio.R")
 data=emolt_download(days=7)
 data=data[order(lubridate::ymd_hms(data$time..UTC.)),]
 ## Create a progress bar for forecast downloads
@@ -110,6 +110,21 @@ for(i in 1:nrow(output)){
     )
   )
 }
+output=read.csv(file.choose())
+plotval=seq(-10,10,0.1)
+plotcol=cmocean::cmocean("balance",direction=-1)(length(plotval))
+for(i in 1:nrow(output)){
+  x=output$diff[i]
+  output$scalecolor[i]=ifelse(
+    x>max(plotval),
+    plotcol[length(plotval)],
+    ifelse(
+      x<min(plotval),
+      plotcol[1],
+      plotcol[which(abs(plotval-x)==min(abs(plotval-x)))]
+    )
+  )
+}
 ## Develop a linear regression
 lm1=lm(output$forecast_temp~output$obs_temp)
 pred = lm1$coefficients[1]+lm1$coefficients[2]*seq(-1,45,1)
@@ -161,68 +176,68 @@ text(
   label = paste0("Bias = ",round(Metrics::bias(output$forecast_temp,output$obs_temp),3))
 )
 # ## Download bathymetric data
-# bath=marmap::getNOAA.bathy(
-#   lon1=min(-80.83),
-#   lon2=max(-56.79),
-#   lat1=min(35.11),
-#   lat2=max(46.89),
-#   resolution=1
-# )
-# ## Create color ramp
-# blues=c(
-#   "lightsteelblue4", 
-#   "lightsteelblue3",
-#   "lightsteelblue2", 
-#   "lightsteelblue1"
-# )
-# png("doppio_compare.png",height=700, width=800,units="px")
-# ## Plotting the bathymetry with different colors for land and sea
-# plot(
-#   bath,
-#   step=100,
-#   deepest.isobath=-1000,
-#   shallowest.isobath=0,
-#   col="darkgray",
-#   image = TRUE, 
-#   land = TRUE, 
-#   lwd = 0.1,
-#   bpal = list(
-#     c(0, max(bath), "gray"),
-#     c(min(bath),0,blues)
-#   ),
-#   main="Doppio Predicted - eMOLT Obs (deg F)",
-#   sub=paste0(
-#     lubridate::floor_date(min(lubridate::ymd_hms(output$date)),"day"),
-#     " to ",
-#     lubridate::ceiling_date(max(lubridate::ymd_hms(output$date)),"day")
-#   ),
-#   xlim=c(-75,-66),
-#   ylim=c(38,45)
-# )
-# ## Add output points
-# points(
-#   output$lat~output$lon,
-#   pch=16,
-#   col='black',
-#   cex=2
-# )
-# points(
-#   output$lat~output$lon,
-#   pch=16,
-#   col=output$scalecolor,
-#   cex=1.4
-# )
-# ## Add legend
-# legend(
-#   'bottomright',
-#   legend=seq(-8,8,4),
-#   fill=(plotcol[plotval%in%seq(-8,8,4)]),
-#   title="Predicted - Observed"
-# )
-# dev.off()
-# 
-# mean(output$diff)
-# range(output$diff)
+bath=marmap::getNOAA.bathy(
+  lon1=min(-80.83),
+  lon2=max(-56.79),
+  lat1=min(34),
+  lat2=max(46.89),
+  resolution=1
+)
+## Create color ramp
+blues=c(
+  "lightsteelblue4",
+  "lightsteelblue3",
+  "lightsteelblue2",
+  "lightsteelblue1"
+)
+png("doppio_compare.png",height=1000, width=800,units="px")
+## Plotting the bathymetry with different colors for land and sea
+plot(
+  bath,
+  step=100,
+  deepest.isobath=-1000,
+  shallowest.isobath=0,
+  col="darkgray",
+  image = TRUE,
+  land = TRUE,
+  lwd = 0.1,
+  bpal = list(
+    c(0, max(bath), "gray"),
+    c(min(bath),0,blues)
+  ),
+  main="Doppio Predicted - eMOLT Obs (deg F)",
+  sub=paste0(
+    lubridate::floor_date(min(lubridate::ymd_hms(output$date)),"day"),
+    " to ",
+    lubridate::ceiling_date(max(lubridate::ymd_hms(output$date)),"day")
+  ),
+  xlim=c(-75,-66),
+  ylim=c(34,45)
+)
+## Add output points
+points(
+  output$lat~output$lon,
+  pch=16,
+  col='black',
+  cex=2
+)
+points(
+  output$lat~output$lon,
+  pch=16,
+  col=output$scalecolor,
+  cex=1.4
+)
+## Add legend
+legend(
+  'bottomright',
+  legend=seq(-8,8,4),
+  fill=(plotcol[plotval%in%seq(-8,8,4)]),
+  title="Predicted - Observed"
+)
+dev.off()
+
+mean(output$diff)
+range(output$diff)
 
 write.csv(
   output,
@@ -292,3 +307,7 @@ write.csv(
 # )
 # 
 # x=subset(output,output$diff<=-3)
+output$FORE=output$forecast_temp*9/5+32
+output$OBS=output$obs_temp*9/5+32
+output$DIFF=abs(output$FORE-output$OBS)
+nrow(subset(output,output$DIFF<=2))/nrow(output)
