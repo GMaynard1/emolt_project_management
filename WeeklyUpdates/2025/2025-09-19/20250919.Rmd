@@ -21,7 +21,7 @@ if(Sys.info()["sysname"]=="Windows"){
 } else {
   source("/home/george/Documents/emolt_project_management/WeeklyUpdates/forecast_check/R/emolt_download.R")
 }
-
+reticulate::source_python("C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/Plotting/MA_DMF_screenshot.py")
 data=emolt_download(days=7)
 start_date=Sys.Date()-lubridate::days(7)
 ## Use the dates from above to create a URL for grabbing the data
@@ -81,7 +81,7 @@ Our partners at CFRF detected very low (2.7 mg/l) dissolved oxygen just south of
 
 This week, there were several low readings in the southwestern part of Cape Cod Bay and west of Wellfleet although none of those readings were below the 2 mg/l hypoxia threshold. North and west of the canal entrance lighted bell buoy oxygen levels still look good. You can click on the link above to access MassDMF's interactive data display online.
 
-![CCB Screenshot](CCB_screenshot.jpg)
+![CCB Screenshot](CCB_screenshot.png)
 
 > *Figure 3 -- Dissolved oxygen observations from Cape Cod Bay collected by participants in the eMOLT program and the Cape Cod Bay Study Fleet program operated by Massachusetts Division of Marine Fisheries and the Massachusetts Lobstermen's Association over the past week. Purple dots indicate dissolved oxygen values in the normal range (> 6 mg/L), yellow dots indicate low dissolved oxygen values (4-6 mg/L), orange dots indicate very low dissolved oxygen values (2-4 mg/L), and red dots indicate critically low values (< 2 mg/L).*
 
