@@ -12,9 +12,9 @@ from tqdm import tqdm
 import time
 
 start_line = time.time()
-
+pd.set_option('display.max_columns',None)
 ## Specify the url for the download
-url = 'http://www.smast.umassd.edu:8080/thredds/dodsC/models/fvcom/NECOFS/Forecasts/NECOFS_GOM7_FORECAST.nc?lon[0:1:207080],lat[0:1:207080],lonc[0:1:371289],latc[0:1:371289],siglev[0:1:45][0:1:207080],nv[0:1:2][0:1:371289],time[0:1:192],temp[0:1:192][44][0:1:207080]'
+url = 'https://tds.marine.rutgers.edu/thredds/dodsC/roms/doppio/2017_da/his/History_Best?lon_rho[0:1:105][0:1:241],lat_rho[0:1:105][0:1:241],time[0:1:69131],temp[0:1:69131][0][0:1:105][0:1:241]'
 ## Load the data via OPeNDAP
 nc = netCDF4.Dataset(url)
 ## Download the eMOLT data
@@ -48,38 +48,51 @@ for tow in tqdm(tows, desc="Segregating tows by date and location"):
     emolt_avg.append(avg_dict)
 
 emolt_avg = pd.DataFrame(emolt_avg)
-emolt_avg['NECOFS_spatial_index'] = None
-emolt_avg['NECOFS_temporal_index'] = None
+emolt_avg['Doppio_spatial_index'] = None
+emolt_avg['Doppio_temporal_index'] = None
 time_var = nc.variables['time']
 time_units = time_var.units
 dates = netCDF4.num2date(time_var[:],units=time_units)
 emolt_avg['date'] = pd.to_datetime(emolt_avg['date'])
 emolt_avg['forecast_temp'] = None
+lat=nc['lat_rho'][:]
+lon=nc['lon_rho'][:]
+lat=lat.compressed()
+lon=lon.compressed()
 
-coords=np.vstack((nc['lat'],nc['lon'])).T
+coords=np.vstack((lat,lon)).T
 tree=BallTree(np.radians(coords),metric='haversine')
-  
+
 for row in tqdm(emolt_avg.iterrows(), desc="Finding closest model nodes"):
   rlat=row[1]['latitude']
   rlon=row[1]['longitude']
   ref_point = np.array([rlat,rlon])
   distances,indices = tree.query(np.radians(ref_point.reshape(1,-1)),k=1)
   closest_index=indices[0][0]
-  emolt_avg.loc[[row[0]],'NECOFS_spatial_index'] = closest_index
+  emolt_avg.loc[[row[0]],'Doppio_spatial_index'] = closest_index
   x=abs(emolt_avg['date'][row[0]]-dates)
-  emolt_avg.loc[[row[0]],'NECOFS_temporal_index'] = x.argmin()
-  ftime = emolt_avg['NECOFS_temporal_index'][row[0]]
-  floc = emolt_avg['NECOFS_spatial_index'][row[0]]
-  emolt_avg.loc[row[0],'forecast_temp'] = nc.variables['temp'][ftime, -1, floc]
+  emolt_avg.loc[[row[0]],'Doppio_temporal_index'] = x.argmin()
+  ftime = emolt_avg['Doppio_temporal_index'][row[0]]
+  ftime = ftime.astype(int)
+  floc = emolt_avg['Doppio_spatial_index'][row[0]]
+  floc = floc.astype(int)
+  flat = coords[[floc]][0,0]
+  flat = np.ma.where(nc['lat_rho'][:]==flat)[0][0]
+  flon = coords[[floc]][0,1]
+  flon = np.ma.where(nc['lon_rho'][:]==flon)[1][0]
+  ftemperature=nc.variables['temp'][ftime,0,flat,flon]
+  emolt_avg.loc[row[0],'forecast_temp'] = ftemperature
   
 emolt_avg['diff_temp']=emolt_avg['avg_temp']-emolt_avg['forecast_temp']
 
 now=datetime.datetime.now()
 output_directory = ('C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/'+now.strftime('%Y')+'/'+now.strftime('%Y-%m-%d')+'/')
-filename= os.path.join(output_directory,('GOM7_comparison_'+now.strftime("%Y%m%d")+'.csv'))
+filename= os.path.join(output_directory,('Doppio_comparison_'+now.strftime("%Y%m%d")+'.csv'))
 
 emolt_avg.to_csv(filename,index=False)
 
 finish_line = time.time()
 execution_time = finish_line - start_line
-print(f"GOM7 comparison took: {execution_time} seconds")
+print(f"Doppio comparison took: {execution_time} seconds")
+
+

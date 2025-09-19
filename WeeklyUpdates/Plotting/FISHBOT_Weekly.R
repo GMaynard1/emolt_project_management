@@ -36,7 +36,7 @@ blues=c(
   "lightsteelblue1"
 )
 ## Set up plot
-png("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/FISHBOT.png",height=1000, width=800,units="px")
+# png("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/FISHBOT.png",height=1000, width=800,units="px")
 plot(
   bath,
   step=100,
@@ -56,8 +56,8 @@ plot(
     " to ",
     end
   ),
-  xlim=c(-75,-65),
-  ylim=c(36,45)
+  xlim=c(-76,-66),
+  ylim=c(34,45)
 )
 ## Load the shapefile
 grid=sf::read_sf("C:/Users/george.maynard/Documents/GIS/7km_trimmed_fixedgeometries/7km_grid_clipped_fixed_geometry.shp")
@@ -87,4 +87,4 @@ legend(
   legend=datacolors$TEMP,
   title="Bottom Temperature (F)"
 )
-dev.off()
+# dev.off()
