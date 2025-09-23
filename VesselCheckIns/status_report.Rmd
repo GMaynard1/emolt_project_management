@@ -104,6 +104,13 @@ for(v in active$VESSEL_NAME){
     cat("\n- This DDH is running the latest software version.\n")
   } else {
     cat("\n- The software on this DDH is an older version and should be updated.\n")
+    newai=data.frame(
+      action="Update DDH Software",
+      vessel=v,
+      logger=NA,
+      notes=paste0("currently running: ",max(v_reports$DDH_SW_VERSION)," newest: ", latest_DDH)
+    )
+    action_items=rbind(action_items,newai)
   }
   cat("\n- This deckbox has an ",info_list$BLE_antenna[[1]]," bluetooth antenna.\n")
   if(max(v_reports$DDH_BLUEZ_VERSION)==latest_bluez){
