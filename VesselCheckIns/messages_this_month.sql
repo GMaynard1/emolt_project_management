@@ -1,0 +1,21 @@
+SELECT 
+reports.VESSEL_NAME,
+reports.TIME_LOCAL_STR,
+reasons.REASON_NAME,
+reports.TIME_UPTIME_STR,
+reports.DDH_SW_VERSION,
+reports.DDH_GPS_POSITION,
+reports.DDH_BLE_ANTENNA,
+reports.DDH_BLUEZ_VERSION,
+reports.LOGGER_MAC,
+reports.LOGGER_SN,
+reports.LOGGER_TYPE,
+reports.LOGGER_BAT,
+reports.LOGGER_DL_FILES,
+reports.LOGGER_GFV
+FROM
+(SELECT * FROM DDH_NEW_STATUS_REPORTS) AS reports 
+INNER JOIN
+(SELECT * FROM DDH_REASON) AS reasons
+ON reports.REASON_PK = reasons.REASON_PK
+WHERE STR_TO_DATE(reports.TIME_LOCAL_STR, '%Y-%m-%d %H:%i:%s') BETWEEN date_sub(now(),INTERVAL 1 MONTH) AND now();

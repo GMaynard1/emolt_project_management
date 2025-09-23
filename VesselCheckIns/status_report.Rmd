@@ -1,0 +1,170 @@
+---
+title: "eMOLT Status Report"
+date: "`r Sys.Date()`"
+output: html_document
+params:
+  tech: "GOMLF"
+  timeframe: "month"
+---
+
+```{r vessels, echo=FALSE}
+vessel_filename=paste0(
+  "C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/",
+  params$tech,
+  "/vessels.csv"
+)
+vessels=read.csv(vessel_filename)
+```
+
+```{r reports, echo=FALSE,include=FALSE}
+report_filename=paste0(
+  "C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/",
+  params$tech,
+  "/last_",
+  params$timeframe,
+  "_ddh_reports.csv"
+)
+reports=read.csv(report_filename)
+reports$VESSEL_NAME = gsub("_"," ",reports$VESSEL_NAME)
+reports=subset(reports,reports$VESSEL_NAME%in%vessels$VESSEL_NAME)
+latest_DDH=max(reports$DDH_SW_VERSION)
+latest_bluez=max(reports$DDH_BLUEZ_VERSION)
+inventory=read.csv("C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/maintenance_inventory.csv")
+intervals=read.csv("C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/maintenance_intervals.csv")
+inventory$CALIBRATION_DATE=lubridate::ymd(inventory$CALIBRATION_DATE)
+inventory$BATTERY_CHANGE=lubridate::ymd(inventory$BATTERY_CHANGE)
+inventory$CALIBRATION_DUE=NA
+inventory$BATTERY_DUE=NA
+intervals$LOGGER=paste(intervals$EQUIPMENT_MAKE,intervals$EQUIPMENT_MODEL)
+## Calculate maintenance due dates
+for(i in 1:nrow(inventory)){
+ logger=paste(inventory$MAKE[i],inventory$MODEL[i])
+ logger_int=subset(intervals,intervals$LOGGER==logger)
+ if(nrow(logger_int)>0){
+   inventory$BATTERY_DUE[i]=ifelse(
+   is.na(inventory$BATTERY_CHANGE[i])==FALSE,
+   inventory$BATTERY_CHANGE[i]+lubridate::dmonths(logger_int[which(logger_int$EQUIPMENT_MAINTENANCE_EVENT=="Battery Replaced"),"EQUIPMENT_MAINTENANCE_INTERVAL_MONTHS"]),
+   NA
+ )
+ inventory$CALIBRATION_DUE[i]=ifelse(
+   is.na(inventory$CALIBRATION_DATE[i])==FALSE,
+   inventory$CALIBRATION_DATE[i]+lubridate::dmonths(logger_int[which(logger_int$EQUIPMENT_MAINTENANCE_EVENT%in%c("Calibration Check","Factory Calibration")),"EQUIPMENT_MAINTENANCE_INTERVAL_MONTHS"]),
+   NA
+ )
+ }
+}
+```
+
+This report covers time between `r min(lubridate::ymd_hms(reports$TIME_LOCAL_STR))` and `r max(lubridate::ymd_hms(reports$TIME_LOCAL_STR))` for vessels supported by `r params$tech` and includes the following vessels: 
+
+```{r vessel_names, include=TRUE, echo=FALSE}
+print(vessels$VESSEL_NAME)
+action_items=data.frame(
+  action=as.character(),
+  vessel=as.character(),
+  logger=as.character(),
+  notes=as.character()
+)
+```
+
+## Inactive Vessels
+
+Of the `r nrow(vessels)` vessels included in the report, `r sum(vessels$VESSEL_NAME%in%reports$VESSEL_NAME==FALSE)` were inactive during the reporting period (`r round(sum(vessels$VESSEL_NAME%in%reports$VESSEL_NAME==FALSE)/nrow(vessels)*100,0)`%). Those inactive vessels include the following:
+
+```{r inactive_vessels, include=TRUE, echo=FALSE, results='asis'}
+inactive=subset(vessels,vessels$VESSEL_NAME%in%reports$VESSEL_NAME==FALSE)
+cat(paste0("- [ ]  ",inactive$VESSEL_NAME), sep="\n")
+newai = data.frame(
+  action="Contact vessel to determine whether system is powered off or vessel is not fishing",
+  vessel=inactive$VESSEL_NAME,
+  logger=NA,
+  notes=paste0(inactive$FIRST_NAME," ",inactive$LAST_NAME," Phone: ",inactive$PHONE," email: ",inactive$EMAIL)
+)
+if(nrow(newai)>0){
+  action_items=rbind(action_items,newai)  
+}
+```
+
+## Active Vessels
+
+```{r vessel_status_reports, include=TRUE, echo=FALSE, results='asis'}
+active=subset(vessels,vessels$VESSEL_NAME%in%reports$VESSEL_NAME==TRUE)
+for(v in active$VESSEL_NAME){
+  v_reports=subset(reports,reports$VESSEL_NAME==v)
+    info_list=list(
+    name = v,
+    downloads = subset(v_reports,v_reports$REASON_NAME=="DDH_NOTIFICATION_OK_LOGGER_DL"),
+    DDH_SW = list(unique(v_reports$DDH_SW_VERSION)),
+    BLE_antenna = list(unique(v_reports$DDH_BLE_ANTENNA)),
+    bluez = list(unique(v_reports$DDH_BLUEZ_VERSION))
+  )
+  v_info=subset(active,active$VESSEL_NAME==v)
+  cat("\n### ",v,"\n")
+  if(max(v_reports$DDH_SW_VERSION)==latest_DDH){
+    cat("\n- This DDH is running the latest software version.\n")
+  } else {
+    cat("\n- The software on this DDH is an older version and should be updated.\n")
+  }
+  cat("\n- This deckbox has an ",info_list$BLE_antenna[[1]]," bluetooth antenna.\n")
+  if(max(v_reports$DDH_BLUEZ_VERSION)==latest_bluez){
+    cat("\n- This DDH is running the latest bluetooth driver.\n")
+  } else {
+    cat("\n- The software on this DDH has an older bluetooth driver and should be updated.\n")
+  }
+  cat("\n#### Loggers\n")
+  if(length(unique(info_list$downloads$LOGGER_SN))==0){
+    cat("\nNO LOGGERS DEPLOYED\n")
+    newai=data.frame(
+        action="Check DDH for logger assignments and check vessel to ensure logger is present",
+        vessel=v,
+        logger=NA,
+        notes=paste0(v_info$FIRST_NAME," ",v_info$LAST_NAME," Phone: ",v_info$PHONE," email: ",v_info$EMAIL)
+      )
+  }
+  for (l in unique(info_list$downloads$LOGGER_SN)){
+    x=subset(info_list$downloads, info_list$downloads$LOGGER_SN==l)
+    if(grepl("[-_]",l)){
+      sn=as.numeric(strsplit(l,"[-_]")[[1]][2])
+      y=subset(inventory,inventory$SERIAL_NUMBER==sn)
+    } else {
+      y=subset(inventory,inventory$SERIAL_NUMBER==as.numeric(l))
+    }
+    maintenance=list(
+      last_cal=y$CALIBRATION_DATE,
+      last_bat=y$BATTERY_CHANGE,
+      rec_cal=y$CALIBRATION_DUE,
+      rec_bat=y$BATTERY_DUE
+    )
+    cat("\n Logger: ",l,y$MAKE,y$MODEL,"\n")
+    cat("\n- Last Download: ", max(x$TIME_LOCAL_STR),"\n")
+    cat("\n- Last Recalibration: ",strftime(maintenance$last_cal,format="%Y-%m-%d"),"\n")
+    cat("\n- Calibration Check Due: ",strftime(maintenance$rec_cal,format="%Y-%m-%d"),"\n")
+    cat("\n- Last Battery Change: ",strftime(maintenance$last_bat),"\n")
+    cat("\n- Battery Change Due: ",strftime(maintenance$rec_bat,format="%Y-%m-%d"),"\n")
+    if(is.na(maintenance$rec_bat)){
+      newai=data.frame(
+        action="Add battery maintenance record to database",
+        vessel=v,
+        logger=l,
+        notes="Use last calcheck or first deployment if known"
+      )
+      action_items=rbind(action_items,newai)
+    } else {
+      if(as.POSIXct(maintenance$rec_bat)<Sys.Date()){
+        newai=data.frame(
+          action="Replace batteries",
+          vessel=v,
+          logger=l,
+          notes=paste0(v_info$FIRST_NAME," ",v_info$LAST_NAME," Phone: ",v_info$PHONE," email: ",v_info$EMAIL)
+        )
+        action_items=rbind(action_items,newai)
+      }
+    }
+  }
+}
+```
+
+## Action Items
+```{r action_items, echo=FALSE}
+knitr::kable(action_items)
+```

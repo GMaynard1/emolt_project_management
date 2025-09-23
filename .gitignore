@@ -205,3 +205,8 @@ WeeklyUpdates/Plotting/DOPPIO/historic/plots/F/2023-07-17 14:00.png
 WeeklyUpdates/Plotting/DOPPIO/historic/plots/F/2023-07-17 15:00.png
 WeeklyUpdates/Plotting/DOPPIO/historic/plots/F/2023-07-17 16:00.png
 WeeklyUpdates/Plotting/DOPPIO/historic/plots/F/2023-07-17 17:00.png
+VesselCheckIns/GOMLF/vessels.csv
+VesselCheckIns/maintenance_inventory.csv
+VesselCheckIns/maintenance_intervals.csv
+VesselCheckIns/status_report.html
+VesselCheckIns/GOMLF/last_month_ddh_reports.csv
