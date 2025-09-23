@@ -167,6 +167,25 @@ for(v in active$VESSEL_NAME){
         action_items=rbind(action_items,newai)
       }
     }
+    if(is.na(maintenance$rec_cal)){
+      newai=data.frame(
+        action="Add logger calibration record to database",
+        vessel=v,
+        logger=l,
+        notes="Use first deployment if known"
+      )
+      action_items=rbind(action_items,newai)
+    } else {
+      if(as.POSIXct(maintenance$rec_cal)<Sys.Date()){
+        newai=data.frame(
+          action="Check logger calibration",
+          vessel=v,
+          logger=l,
+          notes=paste0(v_info$FIRST_NAME," ",v_info$LAST_NAME," Phone: ",v_info$PHONE," email: ",v_info$EMAIL)
+        )
+        action_items=rbind(action_items,newai)
+      }
+    }
   }
 }
 ```
