@@ -215,3 +215,6 @@ VesselCheckIns/CFRF/vessels.csv
 VesselCheckIns/CFRF/last_month_ddh_reports.csv
 VesselCheckIns/equipment_inventory.csv
 VesselCheckIns/equipment_maintenance_intervals.csv
+VesselCheckIns/CFF/vessels.csv
+VesselCheckIns/RUTGERS/vessels.csv
+VesselCheckIns/UMAINE/vessels.csv
