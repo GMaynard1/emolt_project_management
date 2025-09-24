@@ -18,9 +18,7 @@ vessels=read.csv(vessel_filename)
 
 ```{r reports, echo=FALSE,include=FALSE}
 report_filename=paste0(
-  "C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/",
-  params$tech,
-  "/last_",
+  "C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/last_",
   params$timeframe,
   "_ddh_reports.csv"
 )
