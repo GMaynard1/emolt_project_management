@@ -5,11 +5,13 @@ output: html_document
 params:
   tech: "GOMLF"
   timeframe: "month"
+  filepath: "C:/Users/george.maynard/Documents/emolt_project_management"
 ---
 
 ```{r vessels, echo=FALSE}
 vessel_filename=paste0(
-  "C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/",
+  params$filepath,
+  "/VesselCheckIns/",
   params$tech,
   "/vessels.csv"
 )
@@ -18,7 +20,8 @@ vessels=read.csv(vessel_filename)
 
 ```{r reports, echo=FALSE,include=FALSE}
 report_filename=paste0(
-  "C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/last_",
+  params$filepath,
+  "/VesselCheckIns/last_",
   params$timeframe,
   "_ddh_reports.csv"
 )
@@ -27,8 +30,8 @@ reports$VESSEL_NAME = gsub("_"," ",reports$VESSEL_NAME)
 reports=subset(reports,reports$VESSEL_NAME%in%vessels$VESSEL_NAME)
 latest_DDH=max(reports$DDH_SW_VERSION)
 latest_bluez=max(reports$DDH_BLUEZ_VERSION)
-inventory=read.csv("C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/equipment_inventory.csv")
-intervals=read.csv("C:/Users/george.maynard/Documents/emolt_project_management/VesselCheckIns/equipment_maintenance_intervals.csv")
+inventory=read.csv(paste0(params$filepath,"/VesselCheckIns/equipment_inventory.csv"))
+intervals=read.csv(paste0(params$filepath,"/VesselCheckIns/equipment_maintenance_intervals.csv"))
 inventory$CALIBRATION_DATE=lubridate::ymd(inventory$CALIBRATION_DATE)
 inventory$BATTERY_CHANGE=lubridate::ymd(inventory$BATTERY_CHANGE)
 inventory$CALIBRATION_DUE=NA
