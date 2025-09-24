@@ -146,10 +146,10 @@ for(v in active$VESSEL_NAME){
       y=subset(inventory,inventory$SERIAL_NUMBER==as.numeric(l))
     }
     maintenance=list(
-      last_cal=y$CALIBRATION_DATE,
-      last_bat=y$BATTERY_CHANGE,
-      rec_cal=y$CALIBRATION_DUE,
-      rec_bat=y$BATTERY_DUE
+      last_cal=max(y$CALIBRATION_DATE),
+      last_bat=max(y$BATTERY_CHANGE),
+      rec_cal=max(y$CALIBRATION_DUE),
+      rec_bat=max(y$BATTERY_DUE)
     )
     cat("\n Logger: ",l,y$MAKE,y$MODEL,"\n")
     cat("\n- Last Download: ", max(x$TIME_LOCAL_STR),"\n")
