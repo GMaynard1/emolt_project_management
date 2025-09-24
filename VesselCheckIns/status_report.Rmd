@@ -3,7 +3,7 @@ title: "eMOLT Status Report"
 date: "`r Sys.Date()`"
 output: html_document
 params:
-  tech: "GOMLF"
+  tech: "CCS"
   timeframe: "month"
 ---
 
@@ -73,16 +73,21 @@ Of the `r nrow(vessels)` vessels included in the report, `r sum(vessels$VESSEL_N
 
 ```{r inactive_vessels, include=TRUE, echo=FALSE, results='asis'}
 inactive=subset(vessels,vessels$VESSEL_NAME%in%reports$VESSEL_NAME==FALSE)
-cat(paste0("- [ ]  ",inactive$VESSEL_NAME), sep="\n")
-newai = data.frame(
-  action="Contact vessel to determine whether system is powered off or vessel is not fishing",
-  vessel=inactive$VESSEL_NAME,
-  logger=NA,
-  notes=paste0(inactive$FIRST_NAME," ",inactive$LAST_NAME," Phone: ",inactive$PHONE," email: ",inactive$EMAIL)
-)
-if(nrow(newai)>0){
-  action_items=rbind(action_items,newai)  
+if(nrow(inactive)>0){
+    cat(paste0("- [ ]  ",inactive$VESSEL_NAME), sep="\n")
+  newai = data.frame(
+    action="Contact vessel to determine whether system is powered off or vessel is not fishing",
+    vessel=inactive$VESSEL_NAME,
+    logger=NA,
+    notes=paste0(inactive$FIRST_NAME," ",inactive$LAST_NAME," Phone: ",inactive$PHONE," email: ",inactive$EMAIL)
+  )
+  if(nrow(newai)>0){
+    action_items=rbind(action_items,newai)  
+  }
+} else {
+  cat("\nNo inactive vessels found\n")
 }
+
 ```
 
 ## Active Vessels

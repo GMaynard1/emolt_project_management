@@ -210,3 +210,6 @@ VesselCheckIns/maintenance_inventory.csv
 VesselCheckIns/maintenance_intervals.csv
 VesselCheckIns/status_report.html
 VesselCheckIns/GOMLF/last_month_ddh_reports.csv
+VesselCheckIns/CCS/vessels.csv
+VesselCheckIns/CFRF/vessels.csv
+VesselCheckIns/CFRF/last_month_ddh_reports.csv
