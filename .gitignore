@@ -219,3 +219,7 @@ VesselCheckIns/CFF/vessels.csv
 VesselCheckIns/RUTGERS/vessels.csv
 VesselCheckIns/UMAINE/vessels.csv
 VesselCheckIns/ODN/vessels.csv
+VesselCheckIns/list_not_match_boat_name.py
+VesselCheckIns/vessels.csv
+VesselCheckIns/only_in_database.csv
+VesselCheckIns/only_in_S3.csv
