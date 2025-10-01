@@ -227,3 +227,5 @@ VesselCheckIns/FULL_equipment_inventory.csv
 VesselCheckIns/utility_functions/list_not_match_boat_name.py
 VesselCheckIns/utility_functions/list_portal_boats.py
 VesselCheckIns/utility_functions/list_s3_and_db.py
+VesselCheckIns/status_report.tex
+VesselCheckIns/last_month_ddh_reports.csv
