@@ -1,13 +1,15 @@
 ## We aren't alone
 ## Plots of publicly available ocean observing in the Northeast USA
 ## Background Plotting
-bath=marmap::getNOAA.bathy(
-  lon1=min(-80.83),
-  lon2=max(-56.79),
-  lat1=min(35.11),
-  lat2=max(46.89),
-  resolution=1
-)
+data("nw.atlantic")
+bath=as.bathy(nw.atlantic)
+# bath=marmap::getNOAA.bathy(
+#   lon1=min(-80.83),
+#   lon2=max(-56.79),
+#   lat1=min(35.11),
+#   lat2=max(46.89),
+#   resolution=1
+# )
 ## Create color ramp
 blues=c(
   "lightsteelblue4", 
@@ -124,13 +126,10 @@ oleander_dat=read.csv(url)
 
 pb=txtProgressBar(char=" --|- ",style=3)
 rucool_gliders=c(
-  "ru29-20250715T1838",
-  "ru32-20250716T1541",
-  "ru38-20250722T1538",
-  "ru39-20250716T1542",
-  "ru43-20250716T1522",
-  "ru44-20250717T2326",
-  "sbu02-20250716T1543"
+  "ru33-20250903T1642",
+  "sbu02-20250922T1540",
+  "ud_orris-20250905T1810",
+  "maracoos_01-20250924T1607"
   )
 glider_dat=data.frame(
   time..UTC.=as.character(),

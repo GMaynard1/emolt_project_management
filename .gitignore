@@ -223,3 +223,7 @@ VesselCheckIns/list_not_match_boat_name.py
 VesselCheckIns/vessels.csv
 VesselCheckIns/only_in_database.csv
 VesselCheckIns/only_in_S3.csv
+VesselCheckIns/FULL_equipment_inventory.csv
+VesselCheckIns/utility_functions/list_not_match_boat_name.py
+VesselCheckIns/utility_functions/list_portal_boats.py
+VesselCheckIns/utility_functions/list_s3_and_db.py

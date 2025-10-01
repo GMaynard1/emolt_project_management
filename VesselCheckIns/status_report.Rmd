@@ -3,18 +3,27 @@ title: "eMOLT Status Report"
 date: "`r Sys.Date()`"
 output: html_document
 params:
-  tech: "GOMLF"
+  tech: "RUTGERS"
   timeframe: "month"
   filepath: "C:/Users/george.maynard/Documents/emolt_project_management"
 ---
 
-```{r vessels, echo=FALSE}
+```{r python_queries, echo=FALSE,warning=FALSE,message=FALSE,error=FALSE,include=FALSE}
 vessel_filename=paste0(
   params$filepath,
   "/VesselCheckIns/",
   params$tech,
   "/vessels.csv"
 )
+reticulate::source_python(paste0(params$filepath,"/VesselCheckIns/utility_functions/list_portal_boats.py"))
+portal_vessels=reticulate::py_run_string('list_portal_boats()')
+portal_vessels=portal_vessels$boat_names
+reticulate::source_python(paste0(params$filepath,"/VesselCheckIns/utility_functions/list_s3_and_db.py"))
+s3_only=list_s3_and_db(vessel_filename)[1][[1]]
+db_only=list_s3_and_db(vessel_filename)[2][[1]]
+```
+
+```{r vessels, echo=FALSE}
 vessels=read.csv(vessel_filename)
 ```
 
@@ -63,6 +72,9 @@ print(vessels$VESSEL_NAME)
 action_items=data.frame(
   action=as.character(),
   vessel=as.character(),
+  state=as.character(),
+  port=as.character(),
+  assignee=as.character(),
   logger=as.character(),
   notes=as.character()
 )
@@ -79,6 +91,9 @@ if(nrow(inactive)>0){
   newai = data.frame(
     action="Contact vessel to determine whether system is powered off or vessel is not fishing",
     vessel=inactive$VESSEL_NAME,
+    state=inactive$STATE_POSTAL,
+    port=inactive$PORT_NAME,
+    assignee=params$tech,
     logger=NA,
     notes=paste0(inactive$FIRST_NAME," ",inactive$LAST_NAME," Phone: ",inactive$PHONE," email: ",inactive$EMAIL)
   )
@@ -114,6 +129,9 @@ for(v in active$VESSEL_NAME){
     newai=data.frame(
       action="Update DDH Software",
       vessel=v,
+      state=subset(active,active$VESSEL_NAME==v)$STATE_POSTAL,
+      port=subset(active,active$VESSEL_NAME==v)$PORT_NAME,
+      assignee="Huanxin",
       logger=NA,
       notes=paste0("currently running: ",max(v_reports$DDH_SW_VERSION)," newest: ", latest_DDH)
     )
@@ -126,15 +144,47 @@ for(v in active$VESSEL_NAME){
   } else {
     cat("\n- The software on this DDH has an older bluetooth driver and should be updated.\n")
   }
+  errors=subset(v_reports,v_reports$REASON_NAME%in%c(
+    'DDH_NOTIFICATION_ERROR_HW_BLE',
+    'DDH_NOTIFICATION_ERROR_HW_LOGGER_OXYGEN',
+    'DDH_NOTIFICATION_ERROR_HW_LOGGER_BATTERY',
+    'DDH_NOTIFICATION_ERROR_HW_LOGGER_PRESSURE',
+    'DDH_NOTIFICATION_ERROR_HW_LOGGER_RETRIES',
+    'DDH_NOTIFICATION_ERROR_SW_AWS_S3',
+    'DDH_NOTIFICATION_ERROR_SW_CRASH'
+  ))
+  if(nrow(errors)>0){
+    errors=errors[,c('TIME_LOCAL_STR','REASON_NAME','LOGGER_SN','LOGGER_GFV')]
+    errors$LOGGER_SN=ifelse(errors$LOGGER_SN=="",NA,errors$LOGGER_SN)
+    cat("\n#### Errors Reported\n")
+    error_table=knitr::kable(errors,format="markdown")
+    cat(error_table,sep="\n")
+    newai=data.frame(
+      action="Evaluate error reports",
+      vessel=v,
+      state=subset(active,active$VESSEL_NAME==v)$STATE_POSTAL,
+      port=subset(active,active$VESSEL_NAME==v)$PORT_NAME,
+      assignee=params$tech,
+      logger=ifelse(is.na(errors$LOGGER_SN),NA,cli::ansi_collapse(unique(errors$LOGGER_SN))),
+      notes="Errors reported, please verify functionality and troubleshoot with George and Huanxin as necessary"
+      )
+    newai=unique(newai)
+    action_items=rbind(action_items,newai)
+    rm(newai)
+  }
   cat("\n#### Loggers\n")
   if(length(unique(info_list$downloads$LOGGER_SN))==0){
     cat("\nNO LOGGERS DEPLOYED\n")
     newai=data.frame(
         action="Check DDH for logger assignments and check vessel to ensure logger is present",
         vessel=v,
+        state=subset(active,active$VESSEL_NAME==v)$STATE_POSTAL,
+        port=subset(active,active$VESSEL_NAME==v)$PORT_NAME,
+        assignee=params$tech,
         logger=NA,
         notes=paste0(v_info$FIRST_NAME," ",v_info$LAST_NAME," Phone: ",v_info$PHONE," email: ",v_info$EMAIL)
       )
+    action_items=rbind(action_items,newai)
     rm(newai)
   }
   for (l in unique(info_list$downloads$LOGGER_SN)){
@@ -160,7 +210,10 @@ for(v in active$VESSEL_NAME){
     if(is.na(maintenance$rec_bat)){
       newai=data.frame(
         action="Add battery maintenance record to database",
-        vessel=v,
+        vessel=NA,
+        state=NA,
+        port=NA,
+        assignee="George",
         logger=l,
         notes="Use last calcheck or first deployment if known"
       )
@@ -171,6 +224,9 @@ for(v in active$VESSEL_NAME){
         newai=data.frame(
           action="Replace batteries",
           vessel=v,
+          state=subset(active,active$VESSEL_NAME==v)$STATE_POSTAL,
+          port=subset(active,active$VESSEL_NAME==v)$PORT_NAME,
+          assignee=params$tech,
           logger=l,
           notes=paste0(v_info$FIRST_NAME," ",v_info$LAST_NAME," Phone: ",v_info$PHONE," email: ",v_info$EMAIL)
         )
@@ -182,6 +238,9 @@ for(v in active$VESSEL_NAME){
       newai=data.frame(
         action="Add logger calibration record to database",
         vessel=v,
+        state=NA,
+        port=NA,
+        assignee="George",
         logger=l,
         notes="Use first deployment if known"
       )
@@ -192,6 +251,9 @@ for(v in active$VESSEL_NAME){
         newai=data.frame(
           action="Check logger calibration",
           vessel=v,
+          state=subset(active,active$VESSEL_NAME==v)$STATE_POSTAL,
+          port=subset(active,active$VESSEL_NAME==v)$PORT_NAME,
+          assignee=params$tech,
           logger=l,
           notes=paste0(v_info$FIRST_NAME," ",v_info$LAST_NAME," Phone: ",v_info$PHONE," email: ",v_info$EMAIL)
         )
@@ -200,10 +262,25 @@ for(v in active$VESSEL_NAME){
       }
     }
   }
+  
 }
 ```
 
 ## Action Items
-```{r action_items, echo=FALSE}
-knitr::kable(action_items)
+```{r action_items, echo=FALSE,results='asis'}
+hx=subset(action_items,action_items$assignee=="Huanxin")
+gm=subset(action_items,action_items$assignee=="George")
+tech=subset(action_items,action_items$assignee==params$tech)
+
+cat("\n### Tech to do\n\n")
+tech_to_do=knitr::kable(tech)
+cat(tech_to_do,sep="\n")
+
+cat("\n### Huanxin to do\n\n")
+hx_to_do=knitr::kable(hx)
+cat(hx_to_do,sep="\n")
+
+cat("\n### George to do\n\n")
+gm_to_do=knitr::kable(gm)
+cat(gm_to_do,sep="\n")
 ```
