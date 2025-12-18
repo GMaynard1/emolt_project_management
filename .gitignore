@@ -230,3 +230,6 @@ VesselCheckIns/utility_functions/list_s3_and_db.py
 VesselCheckIns/status_report.tex
 VesselCheckIns/last_month_ddh_reports.csv
 VesselCheckIns/last_month_ddh_reports.csv
+VesselCheckIns/last_month_ddh_reports.csv
+VesselCheckIns/all_time_vessel_list.csv
+VesselCheckIns/ALL_boats/vessels.csv

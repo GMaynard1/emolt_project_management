@@ -23,7 +23,7 @@ async def take_screenshot():
 
         try:
             print(f"Opening {url}...")
-            time.sleep(10)
+            time.sleep(120)
             await page.goto(url, wait_until="networkidle")
 
             # Playwright's "networkidle" wait_until option is generally good for

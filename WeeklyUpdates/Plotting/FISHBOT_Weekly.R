@@ -16,9 +16,9 @@ url=paste0(
   lubridate::day(Sys.Date()),
   "T00%3A00%3A00Z"
 )
-url=paste0(
-  'https://erddap.ondeckdata.com/erddap/tabledap/fishbot_realtime.csvp?time%2Ctemperature%2Ctemperature_count%2Cdata_provider%2Cgrid_id%2Clatitude%2Clongitude&time%3E=2025-08-21T00%3A00%3A00Z&time%3C=2025-08-28T00%3A00%3A00Z'
-)
+# url=paste0(
+#   'https://erddap.ondeckdata.com/erddap/tabledap/fishbot_realtime.csvp?time%2Ctemperature%2Ctemperature_count%2Cdata_provider%2Cgrid_id%2Clatitude%2Clongitude&time%3E=2025-08-21T00%3A00%3A00Z&time%3C=2025-08-28T00%3A00%3A00Z'
+# )
 data=read.csv(url)
 ## Download bathymetric data
 bath=marmap::getNOAA.bathy(
