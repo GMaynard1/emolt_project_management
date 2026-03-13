@@ -14,7 +14,7 @@ import time
 start_line = time.time()
 
 ## Specify the url for the download
-url = 'http://www.smast.umassd.edu:8080/thredds/dodsC/models/fvcom/NECOFS/Forecasts/NECOFS_GOM7_FORECAST.nc?lon[0:1:207080],lat[0:1:207080],lonc[0:1:371289],latc[0:1:371289],siglev[0:1:45][0:1:207080],nv[0:1:2][0:1:371289],time[0:1:192],temp[0:1:192][44][0:1:207080]'
+url = 'http://www.smast.umassd.edu:8080/thredds/dodsC/models/fvcom/NECOFS/Forecasts/NECOFS_GOM7_FORECAST.nc?lon[0:1:207080],lat[0:1:207080],lonc[0:1:371289],latc[0:1:371289],nv[0:1:2][0:1:371289],time[0:1:192],temp[0:1:192][44][0:1:207080]'
 ## Load the data via OPeNDAP
 nc = netCDF4.Dataset(url)
 ## Download the eMOLT data

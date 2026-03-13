@@ -36,7 +36,18 @@ blues=c(
   "lightsteelblue1"
 )
 ## Set up plot
-# png("C:/Users/george.maynard/Documents/GitHubRepos/emolt_project_management/WeeklyUpdates/FISHBOT.png",height=1000, width=800,units="px")
+filename=paste0("C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/",
+                lubridate::year(Sys.time()),
+                "/",lubridate::year(Sys.time()),
+                "-",ifelse(nchar(lubridate::month(Sys.time()))==2,lubridate::month(Sys.time()),paste0(0,lubridate::month(Sys.time()))),
+                "-",lubridate::day(Sys.time()),
+                "/FISHBOT.png")
+png(
+  filename,
+  height=1000, 
+  width=800,
+  units="px"
+  )
 plot(
   bath,
   step=100,
@@ -87,4 +98,4 @@ legend(
   legend=datacolors$TEMP,
   title="Bottom Temperature (F)"
 )
-# dev.off()
+dev.off()
