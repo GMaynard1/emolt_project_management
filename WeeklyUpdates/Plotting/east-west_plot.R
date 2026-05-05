@@ -1,0 +1,12 @@
+data=read.csv(file.choose())
+data$TEMPERATURE=data$temperature..degree_C.*9/5+32
+data$DEPTH=data$depth..m.*0.546807
+bins=seq(25,75,0.1)
+palette=viridis::turbo(n=length(bins))
+data$color=palette[findInterval(data$TEMPERATURE,bins,all.inside=TRUE)]  
+plot(
+  (data$DEPTH*-1)~data$longitude..degrees_east.,
+  pch=16,
+  col=data$color,
+  cex=2
+  )

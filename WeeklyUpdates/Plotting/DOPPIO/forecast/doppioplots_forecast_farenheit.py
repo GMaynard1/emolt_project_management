@@ -8,7 +8,7 @@ import os
 import glob
 import urllib.request
 
-os.chdir("/home/george/Documents/Plotting/DOPPIO/forecast/data/")
+os.chdir("C:/Users/george.maynard/Documents/emolt_project_management/Forecasts/Doppio")
 datasets = sorted(glob.glob("*.nc"))
 ## The download link broke, but the values shouldn't change much, so just use the most recent download until I fix it
 #urllib.request.urlretrieve("https://tds.marine.rutgers.edu/thredds/ncss/roms/doppio/2017_da/his/runs/History_RUN_2024-02-13T00:00:00Z?var=h&north=46.6113&west=-80.5186&east=-59.6902&south=32.2394&horizStride=1&time_start=2024-02-13T00%3A00%3A00Z&time_end=2024-02-19T12%3A00%3A00Z&timeStride=1&vertCoord=&addLatLon=true&accept=netcdf", "/home/george/Documents/Plotting/DOPPIO/bathy.nc")

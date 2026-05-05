@@ -40,7 +40,7 @@ filename=paste0("C:/Users/george.maynard/Documents/emolt_project_management/Week
                 lubridate::year(Sys.time()),
                 "/",lubridate::year(Sys.time()),
                 "-",ifelse(nchar(lubridate::month(Sys.time()))==2,lubridate::month(Sys.time()),paste0(0,lubridate::month(Sys.time()))),
-                "-",lubridate::day(Sys.time()),
+                "-",ifelse(nchar(lubridate::day(Sys.time()))==2,lubridate::day(Sys.time()),paste0(0,lubridate::day(Sys.time()))),
                 "/FISHBOT.png")
 png(
   filename,

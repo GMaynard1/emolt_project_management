@@ -10,6 +10,27 @@ import csv
 import os
 from tqdm import tqdm
 import time
+import requests
+
+def download_last_week_csv(target_url, output_path):
+    try:
+        print(f"Connecting to ERDDAP...")
+        # Send a GET request to the URL
+        response = requests.get(target_url, timeout=60)
+        
+        # Raise an exception if the request was unsuccessful (e.g., 404 or 500 errors)
+        response.raise_for_status()
+        
+        # Write the content to a file in binary mode
+        with open(output_path, 'wb') as f:
+            f.write(response.content)
+            
+        print(f"Success! File saved as: {output_path}")
+
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+    except Exception as err:
+        print(f"An error occurred: {err}")
 
 start_line = time.time()
 
@@ -23,7 +44,11 @@ weekday = today.weekday()
 end_date = today + datetime.timedelta(days=(6-weekday))
 start_date = today - datetime.timedelta(days=weekday)
 url = "https://erddap.emolt.net/erddap/tabledap/eMOLT_RT_QAQC.csvp?tow_id%2Csegment_type%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Ctemperature%2Csensor_type%2Cmodel%2Cdata_provider&segment_type=3&time%3E=" + start_date.strftime('%Y-%m-%d') + "T00%3A00%3A00Z&time%3C=" + end_date.strftime('%Y-%m-%d') +"T16%3A16%3A40Z"
-emolt = pd.read_csv(url)
+now=datetime.datetime.now()
+output_directory = ('C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/'+now.strftime('%Y')+'/'+now.strftime('%Y-%m-%d')+'/')
+filename= os.path.join(output_directory,('last_week_emolt_'+now.strftime("%Y%m%d")+'.csv'))
+download_last_week_csv(url,filename)
+emolt = pd.read_csv(filename)
 emolt = emolt.dropna()
 ## Grab unique tow ids
 tows = np.unique(emolt['tow_id'])

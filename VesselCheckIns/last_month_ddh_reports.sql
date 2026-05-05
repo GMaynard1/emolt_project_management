@@ -18,4 +18,4 @@ FROM
 INNER JOIN
 (SELECT * FROM DDH_REASON) AS reasons
 ON reports.REASON_PK = reasons.REASON_PK
-WHERE STR_TO_DATE(reports.TIME_LOCAL_STR, '%Y-%m-%d %H:%i:%s') BETWEEN date_sub(now(),INTERVAL 1 MONTH) AND now();
+WHERE (STR_TO_DATE(reports.TIME_LOCAL_STR, '%Y-%m-%d %H:%i:%s') BETWEEN date_sub(now(),INTERVAL 6 MONTH) AND now());

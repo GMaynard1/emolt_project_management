@@ -18,7 +18,7 @@ edaystri = end_date.strftime('%Y-%m-%dT%H:%M:%SZ')
 edaystri2 = end_date.strftime('%Y-%m-%d')
 edaystri3 = end_date.strftime('%Y%m%d')
 urls.append('https://tds.marine.rutgers.edu/thredds/ncss/roms/doppio/2017_da/his/History_Best?var=temp&disableLLSubset=on&disableProjSubset=on&horizStride=1&time_start=' + sdaystri2 + 'T%3A00%3A00%3A00Z&time_end=' + edaystri2 + 'T%3A00%3A00%3A00Z&timeStride=1&vertCoord=-0.9875&accept=netcdf')
-files.append(r'/home/george/Documents/Plotting/DOPPIO/forecast/data/DOPPIO_'+sdaystri3+'.nc')
+files.append(r'C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/Plotting/DOPPIO/forecast/data/DOPPIO_'+sdaystri3+'.nc')
 
 inputs = zip(urls, files)
 

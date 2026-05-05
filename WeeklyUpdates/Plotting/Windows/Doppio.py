@@ -11,7 +11,6 @@ import os
 from tqdm import tqdm
 import time
 
-start_line = time.time()
 pd.set_option('display.max_columns',None)
 ## Specify the url for the download
 url = 'https://tds.marine.rutgers.edu/thredds/dodsC/roms/doppio/2017_da/his/History_Best?lon_rho[0:1:105][0:1:241],lat_rho[0:1:105][0:1:241],time[0:1:69131],temp[0:1:69131][0][0:1:105][0:1:241]'

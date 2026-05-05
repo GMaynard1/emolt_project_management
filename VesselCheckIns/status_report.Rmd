@@ -3,7 +3,7 @@ title: "eMOLT Status Report"
 date: "`r Sys.Date()`"
 output: html_document
 params:
-  tech: "UMAINE"
+  tech: "GOMLF"
   timeframe: "month"
   filepath: "C:/Users/george.maynard/Documents/emolt_project_management"
 ## tech can be one of the following: "ALL_boats","ODN","UMAINE","RUTGERS","CFF","GOMLF","CFRF","CCS"
@@ -17,19 +17,19 @@ vessel_filename=paste0(
   "/vessels.csv"
 )
 reticulate::py_require("numpy<2")
-reticulate::source_python(paste0(params$filepath,"/VesselCheckIns/utility_functions/list_portal_boats.py"))
-portal_vessels=reticulate::py_run_string('list_portal_boats()')
-portal_vessels=portal_vessels$boat_names
-reticulate::source_python(paste0(params$filepath,"/VesselCheckIns/utility_functions/list_s3_and_db.py"))
-s3_only=list_s3_and_db(vessel_filename)[1][[1]]
-db_only=list_s3_and_db(vessel_filename)[2][[1]]
+# reticulate::source_python(paste0(params$filepath,"/VesselCheckIns/utility_functions/list_portal_boats.py"))
+# portal_vessels=reticulate::py_run_string('list_portal_boats()')
+# portal_vessels=portal_vessels$boat_names
+#reticulate::source_python(paste0(params$filepath,"/VesselCheckIns/utility_functions/list_s3_and_db.py"))
+#s3_only=list_s3_and_db(vessel_filename)[1][[1]]
+#db_only=list_s3_and_db(vessel_filename)[2][[1]]
 ```
 
 ```{r vessels, echo=FALSE}
 vessels=read.csv(vessel_filename)
 all_vessels=read.csv("all_time_vessel_list.csv")
 all_vessels=c(all_vessels$VESSEL_NAME,"ALTLANTIC PEARL","ANNIE ","ASHELY ANN II","CASSIE FARRELL","DANIEL ","DOCTOR DAVE","EVERY LAST","FREEMANTLE DR","FV SALTED","GEORGE TEST","HX 11","HX DEMO Y2G","KATHYRN LEIGH","MARIE B","MATTIE AYVA","MISS LINUS","MISSEMILY","RESILIENCE","RETREIVER","RUTGERS TEST","SHEILA ANN","SKLALLAM TRIBE","TIME BANDIT 2.0","YA YAS GIRLS")
-s3_only=s3_only[which(s3_only%in%all_vessels==FALSE)]
+#s3_only=s3_only[which(s3_only%in%all_vessels==FALSE)]
 ```
 
 ```{r reports, echo=FALSE,include=FALSE}
@@ -97,7 +97,7 @@ action_items=data.frame(
 The following vessel names have records on the fileserver, but no metadata in the database. If these vessel names belong to a boat you installed, please contact George to make sure the required metadata is included in the database.
 
 ```{r s3_vessel_names,include=TRUE,echo=FALSE}
-print(s3_only)
+#print(s3_only)
 ```
 
 ## Inactive Vessels
