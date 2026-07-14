@@ -71,7 +71,7 @@ plot(
   ylim=c(34,45)
 )
 ## Load the shapefile
-grid=sf::read_sf("C:/Users/george.maynard/Documents/GIS/7km_trimmed_fixedgeometries/7km_grid_clipped_fixed_geometry.shp")
+grid=sf::read_sf("C:/Users/george.maynard/Documents/GIS/7km_trimmed/7km_trimmed.shp")
 grid=subset(grid,grid$id%in%data$grid_id)
 grid$temp=NA
 grid$color=NA
