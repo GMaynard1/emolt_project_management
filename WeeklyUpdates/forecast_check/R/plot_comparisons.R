@@ -316,6 +316,15 @@ for(i in 1:nrow(data)){
 ## Develop a linear regression
 nec_lm=lm(data$forecast_temp~data$avg_temp)
 pred = nec_lm$coefficients[1]+nec_lm$coefficients[2]*seq(-1,45,1)
+png(
+  paste0(
+    "C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/",
+    lubridate::year(Sys.Date()),
+    "/",
+    Sys.Date(),
+    "/GOM7_compare_analytics.png"
+  ),
+  height=700, width=800,units="px")
 plot(
   data$forecast_temp~data$avg_temp,
   xlim=c(0,35),
@@ -363,6 +372,7 @@ text(
   y=24,
   label = paste0("Bias = ",round(Metrics::bias(data$forecast_temp,data$avg_temp),3))
 )
+dev.off()
 ## Download bathymetric data
 bath=marmap::getNOAA.bathy(
   lon1=min(-80.83),

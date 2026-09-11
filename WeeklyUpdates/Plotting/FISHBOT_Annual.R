@@ -89,9 +89,15 @@ plot(
   reset=FALSE,
   xlim=c(-74,-67),
   ylim=c(35,45),
+  # ylim=c(40,42),
+  # xlim=c(-74,-69),
   expandBB=c(0,0,0,0)
 )
-plot(sf::st_geometry(us.coast),add=TRUE,border='gray',color='lightgray')
+
+usa_coast <- rnaturalearth::ne_countries(continent = "North America", scale = "large", returnclass = "sf")
+
+
+plot(sf::st_geometry(usa_coast),add=TRUE,border='darkgray',col='lightgray')
 par(mar = c(5, 1, 5, 4))
 image(
   x = 1, 

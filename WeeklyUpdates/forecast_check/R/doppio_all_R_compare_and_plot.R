@@ -75,6 +75,15 @@ for(i in 1:nrow(emolt_avg)){
 ## Develop a linear regression
 lm1=lm(emolt_avg$f_temp~emolt_avg$avg_temp)
 pred = lm1$coefficients[1]+lm1$coefficients[2]*seq(-1,45,1)
+png(
+  paste0(
+    "C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/",
+    lubridate::year(Sys.Date()),
+    "/",
+    Sys.Date(),
+    "/Doppio_compare_analytics.png"
+  ),
+  height=700, width=800,units="px")
 plot(
   emolt_avg$f_temp~emolt_avg$avg_temp,
   xlim=c(0,35),
@@ -122,6 +131,7 @@ text(
   y=24,
   label = paste0("Bias = ",round(Metrics::bias(emolt_avg$f_temp,emolt_avg$avg_temp),3))
 )
+dev.off()
 ## Download bathymetric data
 bath=marmap::getNOAA.bathy(
   lon1=min(-80.83),

@@ -10,7 +10,7 @@ async def take_screenshot():
     takes a full-page screenshot using Playwright.
     """
     # URL of the webpage to screenshot
-    url = "https://experience.arcgis.com/experience/0d553dfc6c60487cb1f4d20b5366ee0b/page/Map-Page/"
+    url = "https://experience.arcgis.com/experience/0af88a18b7364b228004bb6d7dc71b5a/page/Map"
 
     # Path to save the screenshot
     output_directory = ('C:/Users/george.maynard/Documents/emolt_project_management/WeeklyUpdates/'+now.strftime('%Y')+'/'+now.strftime('%Y-%m-%d')+'/')
@@ -43,3 +43,4 @@ async def take_screenshot():
 # Run the main async function
 if __name__ == "__main__":
     asyncio.run(take_screenshot())
+
