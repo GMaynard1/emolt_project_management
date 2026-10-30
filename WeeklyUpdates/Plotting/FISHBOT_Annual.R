@@ -1,9 +1,9 @@
 ## Download FISHBOT data from ERDDAP
-year=2025
+year=2026
 end=lubridate::ymd(paste0(year,"-12-31"))
 start=lubridate::ymd(paste0(year,"-01-01"))
 url=paste0(
-  "https://erddap.ondeckdata.com/erddap/tabledap/fishbot_realtime.csvp?time%2Ctemperature%2Ctemperature_count%2Cdata_provider%2Cgrid_id%2Clatitude%2Clongitude&time%3E=",
+  "https://erddap.ondeckdata.com/erddap/tabledap/fishbot_realtime.csvp?time%2Ctemperature%2Ctemperature_count%2Cfishery_dependent%2Cdata_provider%2Cgrid_id%2Clatitude%2Clongitude&time%3E=",
   lubridate::year(start),
   "-",
   lubridate::month(start),
@@ -65,11 +65,20 @@ grid=sf::read_sf("C:/Users/george.maynard/Documents/GIS/7km_trimmed_fixedgeometr
 grid=subset(grid,grid$id%in%data$grid_id)
 grid$nobs=NA
 grid$color=NA
+grid$fishery_dependent=NA
 data$date=lubridate::floor_date(lubridate::ymd_hms(data$time..UTC.),unit="day")
 for(i in 1:nrow(grid)){
   x=subset(data,data$grid_id==grid$id[i])
-  
   grid$nobs[i]=length(unique(x$date))
+  grid$fishery_dependent[i]=ifelse(
+    prod(x$fishery_dependent)==1,
+    1,
+    ifelse(
+      sum(x$fishery_dependent)==0,
+      0,
+      NA
+    )
+  )
 }
 grid=subset(grid,grid$nobs>0)
 tempcol=viridis::rocket(n=length(seq(1,365,1)),direction = -1)
@@ -84,7 +93,7 @@ layout(matrix(1:2, nrow = 1), widths = c(8, 2))
 plot(
   sf::st_geometry(colorgrid),
   col=colorgrid$color,
-  border=colorgrid$color,
+  border=ifelse(grid$fishery_dependent==0,'lightblue',ifelse(grid$fishery_dependent==1,'pink','purple')),
   lwd=0.1,
   reset=FALSE,
   xlim=c(-74,-67),
